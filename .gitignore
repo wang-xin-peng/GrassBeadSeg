@@ -218,3 +218,19 @@ __marimo__/
 
 # Streamlit
 .streamlit/secrets.toml
+
+# Model weight files
+models/*.pth
+models/trained/
+!models/.gitkeep
+
+# Auto-generated data
+dataset/auto_labeled/
+
+# IDE
+.vscode/
+.idea/
+
+# OS
+Thumbs.db
+.DS_Store
