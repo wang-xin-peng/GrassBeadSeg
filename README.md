@@ -24,8 +24,8 @@ GrassBeadSeg/
 │       ├── labels/
 │       └── data.yaml
 ├── models/
-│   ├── download_pretrained.py     # 预训练权重下载脚本
-│   ├── rfdetr_seg_large_pretrained.pth  # 下载的预训练权重
+│   ├── download_pretrained.py    # 预训练权重下载
+│   ├── rfdetr_seg_large_pretrained.pth
 │   └── trained/                  # 训练输出检查点
 │       ├── checkpoint_best_total.pth
 │       └── ...
@@ -33,10 +33,11 @@ GrassBeadSeg/
 │   ├── data_augmentation/
 │   │   └── augment_dataset.py    # 数据增强
 │   ├── train/
-│   │   └── train_rfdetr.py       # RF-DETR 训练脚本
+│   │   └── train_rfdetr.py       # 模型训练
 │   └── inference/
-│       └── inference_rfdetr.py   # RF-DETR 自动标注脚本
-├── NOTICE                        # Apache 2.0 组件声明
+│       └── inference_rfdetr.py   # 自动标注
+├── requirements.txt              # Python 依赖
+├── NOTICE                        # Apache 2.0 声明
 ├── LICENSE                       # MIT 许可证
 └── README.md
 ```
@@ -45,52 +46,52 @@ GrassBeadSeg/
 
 本项目本身使用 **MIT 许可证**（详见 LICENSE 文件）。
 
-本项目使用了 [RF-DETR](https://github.com/roboflow/rf-detr)（Apache 2.0 许可证）进行模型训练和推理。
-详见 NOTICE 文件中的 Attribution 声明。
+本项目使用了 [RF-DETR](https://github.com/roboflow/rf-detr)（Apache 2.0 许可证）进行模型训练和推理，详见 NOTICE 文件中的 Attribution 声明。
 
-## 环境准备
+## 环境要求
+
+- Python >= 3.10
+- CUDA 环境（训练需要 GPU，推理可选 CPU）
+
+## 安装
 
 ```bash
-# 激活 conda 环境
+conda create -n gbseg python=3.10 -y
 conda activate gbseg
+pip install -r requirements.txt
+```
 
-# 安装 RF-DETR（含训练依赖）
-pip install rfdetr
-
-# 如需 TensorBoard 日志
+如需 TensorBoard 日志，额外安装：
+```bash
 pip install "rfdetr[metrics]"
 ```
 
 ## 使用流程
 
-### 1. 下载预训练权重（需联网）
+### 1. 下载预训练权重
 
 ```bash
-E:\conda_envs\gbseg\python.exe models\download_pretrained.py
+python models/download_pretrained.py
 ```
 
-### 2. 训练模型（在服务器上运行）
+### 2. 数据增强
 
 ```bash
-E:\conda_envs\gbseg\python.exe scripts\train\train_rfdetr.py
+python scripts/data_augmentation/augment_dataset.py
 ```
 
-训练参数可通过脚本顶部的常量调整。
-训练默认启用 early stopping，mAP 连续 30 轮无提升将自动停止。
-
-### 3. 自动标注（在服务器上运行）
+### 3. 训练模型
 
 ```bash
-E:\conda_envs\gbseg\python.exe scripts\inference\inference_rfdetr.py
+python scripts/train/train_rfdetr.py
 ```
 
-读取 `dataset/raw/` 中的 40 张原始图片，输出自动标注到 `dataset/auto_labeled/`。
+训练参数（batch_size、epochs 等）可通过脚本顶部的常量调整，默认配置 batch_size=16。训练启用 early stopping，mAP 连续 30 轮无提升将自动停止。
 
-## 工作流说明
+### 4. 自动标注
 
-1. **本地机器（有网络）**：运行 `download_pretrained.py` 下载预训练权重
-2. **传输到服务器**：将整个项目（含 `models/rfdetr_seg_large_pretrained.pth`）复制到服务器
-3. **服务器（可 pip 安装，无法访问外网）**：
-   - 安装依赖：`pip install rfdetr`
-   - 运行训练：`python scripts/train/train_rfdetr.py`
-   - 运行推理：`python scripts/inference/inference_rfdetr.py`
+```bash
+python scripts/inference/inference_rfdetr.py
+```
+
+推理脚本会自动跳过 `data_v1/` 中已标注的图片，只标注 `raw/` 中未被标注的图片，检测结果输出到 `dataset/auto_labeled/`。

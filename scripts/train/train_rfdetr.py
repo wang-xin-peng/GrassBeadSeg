@@ -3,7 +3,8 @@
 
 使用方式：
   1. 确保 models/rfdetr_seg_large_pretrained.pth 已存在
-  2. E:\conda_envs\gbseg\python.exe scripts\train\train_rfdetr.py
+  2. conda activate gbseg
+  3. python scripts/train/train_rfdetr.py
 
 训练完成后，最佳检查点将保存在 output_dir/ 下。
 """
@@ -17,8 +18,8 @@ DATASET_DIR = PROJECT_ROOT / "dataset" / "data_v1_augmented"
 OUTPUT_DIR = PROJECT_ROOT / "models" / "trained"
 
 EPOCHS = 200
-BATCH_SIZE = 4
-GRAD_ACCUM_STEPS = 4
+BATCH_SIZE = 16
+GRAD_ACCUM_STEPS = 1
 LEARNING_RATE = 1e-4
 RESOLUTION = 624
 
