@@ -1,2 +1,2 @@
-rfdetr
+rfdetr[train,loggers]
 albumentations

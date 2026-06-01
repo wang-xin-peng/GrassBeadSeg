@@ -1,16 +1,9 @@
-"""
-训练 RF-DETR 分割模型。
-
-使用方式：
-  1. 确保 models/rfdetr_seg_large_pretrained.pth 已存在
-  2. conda activate gbseg
-  3. python scripts/train/train_rfdetr.py
-
-训练完成后，最佳检查点将保存在 output_dir/ 下。
-"""
-
+import os
 import sys
+import torch
 from pathlib import Path
+
+os.environ.setdefault("PYTORCH_CUDA_ALLOC_CONF", "expandable_segments:True")
 
 PROJECT_ROOT = Path(__file__).resolve().parents[2]
 PRETRAINED_PATH = PROJECT_ROOT / "models" / "rfdetr_seg_large_pretrained.pth"
@@ -18,10 +11,45 @@ DATASET_DIR = PROJECT_ROOT / "dataset" / "data_v1_augmented"
 OUTPUT_DIR = PROJECT_ROOT / "models" / "trained"
 
 EPOCHS = 200
-BATCH_SIZE = 16
-GRAD_ACCUM_STEPS = 1
+BATCH_SIZE = 1
+GRAD_ACCUM_STEPS = 16
 LEARNING_RATE = 1e-4
 RESOLUTION = 624
+NUM_QUERIES = 600
+
+
+def expand_pretrained_weights(src_path, dst_path, target_num_queries=600, group_detr=13):
+    checkpoint = torch.load(str(src_path), map_location="cpu")
+    ckpt_model = checkpoint["model"]
+
+    # 从 checkpoint 中推断原始 num_queries
+    first_key = next(k for k in ckpt_model if "refpoint_embed.weight" in k)
+    src_rows = ckpt_model[first_key].shape[0]
+    src_num_queries = src_rows // group_detr
+
+    if src_num_queries == target_num_queries:
+        torch.save(checkpoint, str(dst_path))
+        return
+
+    print(f"扩展 query 参数: {src_num_queries} → {target_num_queries} (每组 {src_num_queries} → {target_num_queries})")
+
+    for key in ["refpoint_embed.weight", "query_feat.weight"]:
+        tensor = ckpt_model[key]
+        groups = tensor.chunk(group_detr, dim=0)
+        factor = target_num_queries / src_num_queries
+        if factor == int(factor):
+            expanded = torch.cat(
+                [g.repeat_interleave(int(factor), dim=0) for g in groups], dim=0
+            )
+        else:
+            expanded = torch.cat(
+                [g.repeat((target_num_queries + src_num_queries - 1) // src_num_queries, 1)[:target_num_queries] for g in groups],
+                dim=0,
+            )
+        ckpt_model[key] = expanded
+
+    torch.save(checkpoint, str(dst_path))
+    print(f"扩展后的预训练权重已保存: {dst_path}")
 
 
 def main():
@@ -42,10 +70,13 @@ def main():
         print("错误: 请先安装 rfdetr: pip install rfdetr")
         sys.exit(1)
 
+    EXPANDED_PATH = PROJECT_ROOT / "models" / f"rfdetr_seg_large_pretrained_{NUM_QUERIES}.pth"
+    expand_pretrained_weights(PRETRAINED_PATH, EXPANDED_PATH, target_num_queries=NUM_QUERIES)
+
     print("=" * 60)
     print("RF-DETR 分割模型训练")
     print("=" * 60)
-    print(f"预训练权重: {PRETRAINED_PATH}")
+    print(f"预训练权重: {EXPANDED_PATH}")
     print(f"数据集: {DATASET_DIR}")
     print(f"输出目录: {OUTPUT_DIR}")
     print(f"训练轮数: {EPOCHS}")
@@ -53,9 +84,11 @@ def main():
     print(f"梯度累积步数: {GRAD_ACCUM_STEPS}")
     print(f"学习率: {LEARNING_RATE}")
     print(f"分辨率: {RESOLUTION}")
+    print(f"查询数量: {NUM_QUERIES}")
+    print(f"最大检测数: {NUM_QUERIES}")
     print("=" * 60)
 
-    model = RFDETRSegLarge(pretrain_weights=str(PRETRAINED_PATH))
+    model = RFDETRSegLarge(pretrain_weights=str(EXPANDED_PATH), num_queries=NUM_QUERIES, num_select=NUM_QUERIES)
 
     model.train(
         dataset_dir=str(DATASET_DIR),
