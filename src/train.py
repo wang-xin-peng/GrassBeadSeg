@@ -5,9 +5,9 @@ YOLOv11-seg 训练脚本（our_method Phase 1 baseline）。
 使用 data_v3_augmented 数据集，COCO 预训练权重 fine-tune。
 
 使用方式：
-    python src/train.py
-    python src/train.py --model n      # 只训练 nano
-    python src/train.py --model s      # 只训练 small
+    python src/train.py                          # 默认本地配置（batch=8, workers=4）
+    python src/train.py --model n                # 只训练 nano
+    python src/train.py --batch 32 --workers 16  # 服务器 A800 配置
 """
 
 import os
@@ -20,14 +20,8 @@ PROJECT_ROOT = Path(__file__).resolve().parents[1]
 DATASET_DIR = PROJECT_ROOT / "dataset" / "data_v3_augmented"
 OUTPUT_DIR = PROJECT_ROOT / "models" / "our_method"
 
-# ── 训练参数 ──────────────────────────────────────────
-EPOCHS = 200
+# ── 固定参数（无需命令行调整） ──────────────────────
 IMGSZ = 640
-BATCH = 8
-LR0 = 1e-3              # AdamW 初始学习率
-PATIENCE = 30
-DEVICE = 0              # 0 = GPU, 'cpu' 或 None = CPU
-WORKERS = 4
 
 
 def fix_data_yaml(data_yaml_path):
@@ -45,7 +39,6 @@ def fix_data_yaml(data_yaml_path):
         if key not in config or not config[key]:
             continue
         val = config[key]
-        # 尝试逐级回退：先试原路径，再试去掉 ../
         candidates = [val]
         if val.startswith("../"):
             candidates.append(val.replace("../", "", 1))
@@ -57,7 +50,6 @@ def fix_data_yaml(data_yaml_path):
                 found = candidate_path
                 break
         if found is None:
-            # 如果都不存在，用去掉 ../ 的路径（让训练时再报错）
             found = (base / candidates[-1]).resolve()
         config[key] = str(found)
 
@@ -68,7 +60,7 @@ def fix_data_yaml(data_yaml_path):
     return str(fixed_path)
 
 
-def train_model(model_name, data_yaml_path):
+def train_model(model_name, data_yaml_path, args):
     """训练单个模型。"""
     from ultralytics import YOLO
 
@@ -79,27 +71,25 @@ def train_model(model_name, data_yaml_path):
     print(f"训练 YOLOv11{model_name}-seg")
     print(f"{'=' * 60}")
 
-    if DEVICE is not None:
+    # Device 处理
+    device = args.device
+    if device is not None:
         import torch
-        if DEVICE == 0 and not torch.cuda.is_available():
+        if device == 0 and not torch.cuda.is_available():
             print("警告: CUDA 不可用，回退到 CPU 训练")
             device = "cpu"
-        else:
-            device = DEVICE
-    else:
-        device = "cpu"
 
     model = YOLO(model_file)
 
     model.train(
         data=data_yaml_path,
-        epochs=EPOCHS,
+        epochs=args.epochs,
         imgsz=IMGSZ,
-        batch=BATCH,
-        lr0=LR0,
-        patience=PATIENCE,
+        batch=args.batch,
+        lr0=args.lr,
+        patience=args.patience,
         device=device,
-        workers=WORKERS,
+        workers=args.workers,
         project=str(OUTPUT_DIR),
         name=run_name,
         exist_ok=True,
@@ -122,6 +112,18 @@ def main():
     parser = argparse.ArgumentParser(description="YOLOv11-seg baseline 训练")
     parser.add_argument("--model", choices=["n", "s", "both"], default="both",
                         help="训练哪个模型 (default: both)")
+    parser.add_argument("--epochs", type=int, default=200,
+                        help="训练轮数 (default: 200)")
+    parser.add_argument("--batch", type=int, default=8,
+                        help="Batch size (default: 8 for RTX 3060, 建议服务器用 32)")
+    parser.add_argument("--lr", type=float, default=1e-3,
+                        help="初始学习率 (default: 1e-3)")
+    parser.add_argument("--patience", type=int, default=30,
+                        help="早停 patience (default: 30)")
+    parser.add_argument("--device", default=0,
+                        help="设备: 0=cuda:0, cpu=cpu (default: 0)")
+    parser.add_argument("--workers", type=int, default=4,
+                        help="DataLoader workers (default: 4, 建议服务器用 16)")
     args = parser.parse_args()
 
     data_yaml = DATASET_DIR / "data.yaml"
@@ -134,11 +136,14 @@ def main():
 
     OUTPUT_DIR.mkdir(parents=True, exist_ok=True)
 
+    print(f"训练配置: epochs={args.epochs} batch={args.batch} lr={args.lr} "
+          f"device={args.device} workers={args.workers}")
+
     if args.model in ("n", "both"):
-        train_model("n", fixed_yaml)
+        train_model("n", fixed_yaml, args)
 
     if args.model in ("s", "both"):
-        train_model("s", fixed_yaml)
+        train_model("s", fixed_yaml, args)
 
 
 if __name__ == "__main__":
