@@ -118,7 +118,7 @@ def main():
         print("错误: 请先安装 rfdetr: pip install rfdetr")
         sys.exit(1)
 
-    model = RFDETRSegLarge(pretrain_weights=str(checkpoint_path), num_queries=800, num_select=800)
+    model = RFDETRSegLarge(pretrain_weights=str(checkpoint_path), num_queries=800, num_select=800, device='cuda')
     print("模型加载完成")
     print(f"检测阈值: {DETECTION_THRESHOLD}")
     print("=" * 60)
