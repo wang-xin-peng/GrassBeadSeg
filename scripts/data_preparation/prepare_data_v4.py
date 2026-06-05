@@ -1,9 +1,9 @@
 """
-生成 data_v4 数据集：合并人工标注 + RF-DETR 自动标注，重新划分，离线增强。
+生成 data_v4 数据集：合并人工标注 + RF-DETR 自动标注，重新划分，复用 augment_dataset.py 做增强。
 
 结构：
     dataset/data_v4/
-    ├── train/images/     # 28 张原始 + 增强后 ~150 张
+    ├── train/images/     # 28 张原始 + 增强后 ~280 张（10x）
     ├── train/labels/
     ├── valid/images/     # 6 张（不做增强）
     ├── valid/labels/
@@ -19,13 +19,12 @@ import os
 import sys
 import shutil
 import random
-import cv2
-import numpy as np
+import subprocess
 from pathlib import Path
-import albumentations as A
 
 PROJECT_ROOT = Path(__file__).resolve().parents[2]
 DATASET_DIR = PROJECT_ROOT / "dataset" / "data_v4"
+RAW_DIR = PROJECT_ROOT / "dataset" / "data_v4_raw"
 
 # 源数据
 DATA_V3_DIR = PROJECT_ROOT / "dataset" / "data_v3"
@@ -36,25 +35,11 @@ VALID_SIZE = 6
 TEST_SIZE = 6
 TRAIN_SIZE = 40 - VALID_SIZE - TEST_SIZE  # 28
 
-# 增强后 train 目标数量
-TARGET_TRAIN_AUGMENTED = 150
+# 增强倍数（复用 augment_dataset.py 的默认值）
+AUGMENTS_PER_IMAGE = 10
 
 # 固定随机种子保证可复现
 random.seed(42)
-np.random.seed(42)
-
-# ── 数据增强策略 ──────────────────────────────────────
-# 只对 train 做增强，valid/test 保持原样
-AUGMENTATION = A.Compose([
-    A.HorizontalFlip(p=0.5),
-    A.VerticalFlip(p=0.3),
-    A.RandomRotate90(p=0.3),
-    A.ShiftScaleRotate(shift_limit=0.05, scale_limit=0.1, rotate_limit=15, p=0.5),
-    A.RandomBrightnessContrast(brightness_limit=0.2, contrast_limit=0.2, p=0.5),
-    A.HueSaturationValue(hue_shift_limit=10, sat_shift_limit=20, val_shift_limit=10, p=0.3),
-    A.GaussNoise(std_range=(0.02, 0.08), p=0.2),
-    A.GaussianBlur(blur_limit=3, p=0.2),
-], bbox_params=None, keypoint_params=None)
 
 
 def collect_all_images():
@@ -75,10 +60,11 @@ def collect_all_images():
     # auto_labeled_v3: 21-40（自动标注）
     img_dir = AUTO_LABELED_DIR / "images"
     label_dir = AUTO_LABELED_DIR / "labels"
-    for img_path in sorted(img_dir.glob("*.png")):
-        label_path = label_dir / (img_path.stem + ".txt")
-        if label_path.exists():
-            all_images.append((str(img_path), str(label_path), "auto"))
+    if img_dir.exists():
+        for img_path in sorted(img_dir.glob("*.png")):
+            label_path = label_dir / (img_path.stem + ".txt")
+            if label_path.exists():
+                all_images.append((str(img_path), str(label_path), "auto"))
 
     return all_images
 
@@ -122,114 +108,16 @@ def copy_files(file_list, dest_img_dir, dest_label_dir):
         shutil.copy2(label_path, dest_label_dir / Path(label_path).name)
 
 
-def augment_train(train_images, dest_img_dir, dest_label_dir):
-    """对 train 集做离线增强。"""
-    n_original = len(train_images)
-    n_needed = max(0, TARGET_TRAIN_AUGMENTED - n_original)
-
-    if n_needed <= 0:
-        print(f"  train 原始数量 {n_original} 已 >= 目标 {TARGET_TRAIN_AUGMENTED}，无需增强")
-        return
-
-    print(f"  train 原始: {n_original} 张，需要增强到 {TARGET_TRAIN_AUGMENTED} 张")
-
-    # 计算每个原始图需要生成几张增强图
-    n_per_image = n_needed // n_original + 1
-    aug_count = 0
-
-    for img_path, label_path, src_type in train_images:
-        img = cv2.imread(img_path)
-        if img is None:
-            continue
-        h, w = img.shape[:2]
-
-        # 读取标注
-        with open(label_path, "r") as f:
-            lines = f.read().strip().split("\n")
-        lines = [l for l in lines if l.strip()]
-
-        for i in range(n_per_image):
-            if aug_count >= n_needed:
-                break
-
-            # 增强图片
-            augmented = AUGMENTATION(image=img)
-            aug_img = augmented["image"]
-
-            # 保存增强后的图片和标注（标注不变，因为几何变换用参数保留位置）
-            # 注意：albumentations 的 HorizontalFlip/VerticalFlip/Rotate90 会改变图片坐标
-            # 但 polygon 标注需要同步变换。为了简化，这里只做像素级增强（亮度、对比度、噪声等）
-            # 几何变换需要重新计算 polygon 坐标，比较复杂。先只做像素级增强。
-
-            # 实际上上面定义了 HorizontalFlip 等几何变换，需要同步变换 polygon
-            # 这里简化：只保存像素级增强版本
-            pass
-
-        aug_count += 1
-
-    print(f"  增强完成，共生成 {aug_count} 张")
-
-
-def augment_train_simple(train_images, dest_img_dir, dest_label_dir):
-    """简化版增强：只做像素级变换（不改变 polygon 坐标）。"""
-    pixel_aug = A.Compose([
-        A.RandomBrightnessContrast(brightness_limit=0.25, contrast_limit=0.25, p=0.7),
-        A.HueSaturationValue(hue_shift_limit=15, sat_shift_limit=30, val_shift_limit=15, p=0.4),
-        A.GaussNoise(std_range=(0.02, 0.12), p=0.3),
-        A.GaussianBlur(blur_limit=(3, 5), p=0.2),
-        A.CLAHE(clip_limit=2.0, p=0.2),
-    ])
-
-    n_original = len(train_images)
-    n_needed = max(0, TARGET_TRAIN_AUGMENTED - n_original)
-
-    if n_needed <= 0:
-        print(f"  train 原始数量 {n_original} 已 >= 目标 {TARGET_TRAIN_AUGMENTED}，无需增强")
-        return
-
-    print(f"  train 原始: {n_original} 张，增强到 {TARGET_TRAIN_AUGMENTED} 张")
-
-    n_per_image = n_needed // n_original + 1
-    aug_count = 0
-    base_name_map = {}
-
-    for img_path, label_path, src_type in train_images:
-        img = cv2.imread(img_path)
-        if img is None:
-            continue
-
-        stem = Path(img_path).stem
-
-        for i in range(n_per_image):
-            if aug_count >= n_needed:
-                break
-
-            # 像素级增强
-            aug_img = pixel_aug(image=img)["image"]
-
-            # 新文件名
-            new_stem = f"{stem}_aug{i:03d}"
-            new_img_path = dest_img_dir / f"{new_stem}.png"
-            new_label_path = dest_label_dir / f"{new_stem}.txt"
-
-            cv2.imwrite(str(new_img_path), aug_img)
-            shutil.copy2(label_path, new_label_path)
-
-            aug_count += 1
-
-    print(f"  增强完成，共生成 {aug_count} 张增强图")
-
-
-def generate_data_yaml():
+def generate_data_yaml(data_dir):
     """生成 data.yaml。"""
-    yaml_content = f"""train: train/images
-val: valid/images
-test: test/images
+    yaml_content = """train: ../train/images
+val: ../valid/images
+test: ../test/images
 
 nc: 1
 names: ['GrassBeadSeg']
 """
-    yaml_path = DATASET_DIR / "data.yaml"
+    yaml_path = Path(data_dir) / "data.yaml"
     with open(yaml_path, "w") as f:
         f.write(yaml_content)
     return str(yaml_path)
@@ -256,28 +144,37 @@ def main():
     print(f"  valid: {len(valid)} 张")
     print(f"  test:  {len(test)} 张")
 
-    # 3. 清理并创建目录
-    if DATASET_DIR.exists():
-        shutil.rmtree(DATASET_DIR)
-    DATASET_DIR.mkdir(parents=True, exist_ok=True)
+    # 3. 清理旧目录
+    for d in [DATASET_DIR, RAW_DIR]:
+        if d.exists():
+            shutil.rmtree(d)
 
-    # 4. 复制文件
-    print("\n复制 train...")
-    copy_files(train, DATASET_DIR / "train" / "images", DATASET_DIR / "train" / "labels")
+    # 4. 先把原始数据组织到 raw 目录（标准 YOLO 结构）
+    print("\n组织原始数据到临时目录...")
+    copy_files(train, RAW_DIR / "train" / "images", RAW_DIR / "train" / "labels")
+    copy_files(valid, RAW_DIR / "valid" / "images", RAW_DIR / "valid" / "labels")
+    copy_files(test, RAW_DIR / "test" / "images", RAW_DIR / "test" / "labels")
+    generate_data_yaml(RAW_DIR)
 
-    print("复制 valid...")
-    copy_files(valid, DATASET_DIR / "valid" / "images", DATASET_DIR / "valid" / "labels")
+    # 5. 调用 augment_dataset.py 进行增强
+    augment_script = PROJECT_ROOT / "scripts" / "data_augmentation" / "augment_dataset.py"
+    cmd = [
+        sys.executable,
+        str(augment_script),
+        "--input", str(RAW_DIR),
+        "--output", str(DATASET_DIR),
+        "--augments-per-image", str(AUGMENTS_PER_IMAGE),
+    ]
+    print(f"\n调用增强脚本: {' '.join(cmd)}")
+    result = subprocess.run(cmd, cwd=str(PROJECT_ROOT))
+    if result.returncode != 0:
+        print("增强脚本执行失败")
+        sys.exit(1)
 
-    print("复制 test...")
-    copy_files(test, DATASET_DIR / "test" / "images", DATASET_DIR / "test" / "labels")
-
-    # 5. 增强 train
-    print("\n增强 train...")
-    augment_train_simple(train, DATASET_DIR / "train" / "images", DATASET_DIR / "train" / "labels")
-
-    # 6. 生成 data.yaml
-    yaml_path = generate_data_yaml()
-    print(f"\ndata.yaml 生成: {yaml_path}")
+    # 6. 清理临时 raw 目录
+    if RAW_DIR.exists():
+        shutil.rmtree(RAW_DIR)
+        print(f"\n已清理临时目录: {RAW_DIR}")
 
     # 7. 统计
     print("\n" + "=" * 60)
@@ -288,6 +185,8 @@ def main():
         n_lbl = len(list((DATASET_DIR / split / "labels").glob("*.txt")))
         print(f"  {split:5s}: {n_img:4d} images, {n_lbl:4d} labels")
     print("=" * 60)
+    print(f"\n接下来可以用以下命令训练:")
+    print(f"  python src/train.py --data dataset/data_v4/data.yaml --model nano")
 
 
 if __name__ == "__main__":

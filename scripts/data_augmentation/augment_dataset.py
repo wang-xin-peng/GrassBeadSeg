@@ -15,11 +15,16 @@ Augmentations:
 - Brightness: Between -25% and +25%
 - Blur: Up to 0.5px
 - Noise: Up to 0.34% of pixels
+
+用法:
+    python augment_dataset.py --input dataset/data_v3 --output dataset/data_v3_augmented
+    python augment_dataset.py --input dataset/data_v4 --output dataset/data_v4_augmented --augments-per-image 10
 """
 
 import os
 import random
 import shutil
+import argparse
 import yaml
 import cv2
 import numpy as np
@@ -27,10 +32,9 @@ import albumentations as A
 from pathlib import Path
 
 PROJECT_ROOT = Path(__file__).resolve().parents[2]
-DATASET_ROOT = PROJECT_ROOT / "dataset" / "data_v3"
-AUGMENTED_DIR = PROJECT_ROOT / "dataset" / "data_v3_augmented"
-AUGMENTS_PER_IMAGE = 10
-MAX_SIZE = 624
+
+DEFAULT_AUGMENTS_PER_IMAGE = 10
+DEFAULT_MAX_SIZE = 624
 RANDOM_SEED = 42
 
 random.seed(RANDOM_SEED)
@@ -132,16 +136,19 @@ def create_augmentation_pipeline():
     ))
 
 
-def augment_dataset():
-    train_images_dir = DATASET_ROOT / 'train' / 'images'
-    train_labels_dir = DATASET_ROOT / 'train' / 'labels'
+def augment_dataset(dataset_root, augmented_dir, augments_per_image=10, max_size=624):
+    dataset_root = Path(dataset_root)
+    augmented_dir = Path(augmented_dir)
     
-    aug_train_images_dir = AUGMENTED_DIR / 'train' / 'images'
-    aug_train_labels_dir = AUGMENTED_DIR / 'train' / 'labels'
-    aug_valid_images_dir = AUGMENTED_DIR / 'valid' / 'images'
-    aug_valid_labels_dir = AUGMENTED_DIR / 'valid' / 'labels'
-    aug_test_images_dir = AUGMENTED_DIR / 'test' / 'images'
-    aug_test_labels_dir = AUGMENTED_DIR / 'test' / 'labels'
+    train_images_dir = dataset_root / 'train' / 'images'
+    train_labels_dir = dataset_root / 'train' / 'labels'
+    
+    aug_train_images_dir = augmented_dir / 'train' / 'images'
+    aug_train_labels_dir = augmented_dir / 'train' / 'labels'
+    aug_valid_images_dir = augmented_dir / 'valid' / 'images'
+    aug_valid_labels_dir = augmented_dir / 'valid' / 'labels'
+    aug_test_images_dir = augmented_dir / 'test' / 'images'
+    aug_test_labels_dir = augmented_dir / 'test' / 'labels'
     
     for d in [aug_train_images_dir, aug_train_labels_dir,
               aug_valid_images_dir, aug_valid_labels_dir,
@@ -149,10 +156,10 @@ def augment_dataset():
         os.makedirs(d, exist_ok=True)
     
     for src_dir, dst_dir in [
-        (DATASET_ROOT / 'valid' / 'images', aug_valid_images_dir),
-        (DATASET_ROOT / 'valid' / 'labels', aug_valid_labels_dir),
-        (DATASET_ROOT / 'test' / 'images', aug_test_images_dir),
-        (DATASET_ROOT / 'test' / 'labels', aug_test_labels_dir),
+        (dataset_root / 'valid' / 'images', aug_valid_images_dir),
+        (dataset_root / 'valid' / 'labels', aug_valid_labels_dir),
+        (dataset_root / 'test' / 'images', aug_test_images_dir),
+        (dataset_root / 'test' / 'labels', aug_test_labels_dir),
     ]:
         if os.path.exists(src_dir):
             for f in os.listdir(src_dir):
@@ -162,9 +169,9 @@ def augment_dataset():
                    if f.lower().endswith(('.png', '.jpg', '.jpeg'))]
     
     print(f"找到 {len(image_files)} 张训练图片")
-    print(f"每张图片生成 {AUGMENTS_PER_IMAGE} 个增强版本")
-    print(f"Resize: Fit within {MAX_SIZE}x{MAX_SIZE}")
-    print(f"总共将生成 {len(image_files) * AUGMENTS_PER_IMAGE} 张增强图片")
+    print(f"每张图片生成 {augments_per_image} 个增强版本")
+    print(f"Resize: Fit within {max_size}x{max_size}")
+    print(f"总共将生成 {len(image_files) * augments_per_image} 张增强图片")
     
     aug_pipeline = create_augmentation_pipeline()
     total_augmented = 0
@@ -175,6 +182,9 @@ def augment_dataset():
         base_name = Path(img_filename).stem
         
         image = cv2.imread(str(img_path))
+        if image is None:
+            print(f"  警告: 无法读取 {img_path}")
+            continue
         image = cv2.cvtColor(image, cv2.COLOR_BGR2RGB)
         orig_h, orig_w = image.shape[:2]
         
@@ -190,7 +200,7 @@ def augment_dataset():
                 all_kps.append((float(pt[0]), float(pt[1])))
             kps_per_poly.append((start_idx, len(poly['points'])))
         
-        resized_img, resized_kps, new_w, new_h = resize_fit_within(image, MAX_SIZE, all_kps)
+        resized_img, resized_kps, new_w, new_h = resize_fit_within(image, max_size, all_kps)
         
         resized_polygons = []
         for idx, (start_idx, num_pts) in enumerate(kps_per_poly):
@@ -207,13 +217,13 @@ def augment_dataset():
         cv2.imwrite(str(orig_img_path), resized_img_bgr)
         
         resized_label_filename = Path(img_filename).with_suffix('.txt').name
-        save_yolo_polygons(str(aug_train_labels_dir / resized_label_filename), resized_polygons, MAX_SIZE, MAX_SIZE)
+        save_yolo_polygons(str(aug_train_labels_dir / resized_label_filename), resized_polygons, max_size, max_size)
         total_augmented += 1
         total_polygons += len(resized_polygons)
         
-        print(f"  {img_filename}: {len(polygons)} 个标注多边形 (原图 {orig_w}x{orig_h} -> 填充到 {MAX_SIZE}x{MAX_SIZE})")
+        print(f"  {img_filename}: {len(polygons)} 个标注多边形 (原图 {orig_w}x{orig_h} -> 填充到 {max_size}x{max_size})")
         
-        for i in range(AUGMENTS_PER_IMAGE):
+        for i in range(augments_per_image):
             try:
                 kps_for_aug = []
                 for poly in resized_polygons:
@@ -272,11 +282,12 @@ def augment_dataset():
     print(f"增强后训练图片: {total_augmented} 张 (包含原始图片)")
     print(f"总标注多边形数: {total_polygons}")
     
-    update_data_yaml()
+    update_data_yaml(augmented_dir)
 
 
-def update_data_yaml():
-    yaml_path = AUGMENTED_DIR / 'data.yaml'
+def update_data_yaml(augmented_dir):
+    augmented_dir = Path(augmented_dir)
+    yaml_path = augmented_dir / 'data.yaml'
     
     data = {
         'train': '../train/images',
@@ -292,8 +303,28 @@ def update_data_yaml():
     print(f"\n已更新 {yaml_path}")
 
 
-if __name__ == '__main__':
+def main():
+    parser = argparse.ArgumentParser(description="YOLO分割数据集增强脚本")
+    parser.add_argument("--input", "-i", required=True, help="输入数据集目录 (包含 train/valid/test 和 data.yaml)")
+    parser.add_argument("--output", "-o", required=True, help="输出增强后数据集目录")
+    parser.add_argument("--augments-per-image", "-n", type=int, default=DEFAULT_AUGMENTS_PER_IMAGE,
+                        help=f"每张图片生成的增强版本数 (默认: {DEFAULT_AUGMENTS_PER_IMAGE})")
+    parser.add_argument("--max-size", "-s", type=int, default=DEFAULT_MAX_SIZE,
+                        help=f"Resize 目标尺寸 (默认: {DEFAULT_MAX_SIZE})")
+    
+    args = parser.parse_args()
+    
     print("="*50)
     print("YOLO分割数据集增强脚本")
     print("="*50)
-    augment_dataset()
+    print(f"输入目录: {args.input}")
+    print(f"输出目录: {args.output}")
+    print(f"增强倍数: {args.augments_per_image}")
+    print(f"最大尺寸: {args.max_size}")
+    print("="*50)
+    
+    augment_dataset(args.input, args.output, args.augments_per_image, args.max_size)
+
+
+if __name__ == '__main__':
+    main()

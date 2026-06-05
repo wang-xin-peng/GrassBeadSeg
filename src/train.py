@@ -2,10 +2,11 @@
 YOLOv11-seg 训练脚本（our_method Phase 1 baseline）。
 
 训练 YOLOv11n-seg (2.6M) 和 YOLOv11s-seg (9.4M) 两个版本，
-使用 data_v3_augmented 数据集，COCO 预训练权重 fine-tune。
+使用 COCO 预训练权重 fine-tune。
 
 使用方式：
-    python src/train.py                          # 默认本地配置（batch=8, workers=4）
+    python src/train.py                          # 默认 data_v3_augmented
+    python src/train.py --data dataset/data_v4   # 使用 data_v4
     python src/train.py --model n                # 只训练 nano
     python src/train.py --batch 32 --workers 16  # 服务器 A800 配置
 """
@@ -17,7 +18,7 @@ import argparse
 from pathlib import Path
 
 PROJECT_ROOT = Path(__file__).resolve().parents[1]
-DATASET_DIR = PROJECT_ROOT / "dataset" / "data_v3_augmented"
+DEFAULT_DATASET = PROJECT_ROOT / "dataset" / "data_v3_augmented"
 OUTPUT_DIR = PROJECT_ROOT / "models" / "our_method"
 
 # 服务器环境可能无 mlflow 数据库后端，允许文件存储
@@ -131,9 +132,14 @@ def main():
                         help="DataLoader workers (default: 4, 建议服务器用 16)")
     parser.add_argument("--no-amp", action="store_false", dest="amp", default=True,
                         help="禁用 AMP 混合精度（离线服务器需要，避免下载验证模型）")
+    parser.add_argument("--data", type=str, default=str(DEFAULT_DATASET),
+                        help="数据集目录路径 (default: dataset/data_v3_augmented)")
     args = parser.parse_args()
 
-    data_yaml = DATASET_DIR / "data.yaml"
+    data_dir = Path(args.data)
+    if not data_dir.is_absolute():
+        data_dir = PROJECT_ROOT / data_dir
+    data_yaml = data_dir / "data.yaml"
     if not data_yaml.exists():
         print(f"错误: data.yaml 不存在: {data_yaml}")
         sys.exit(1)
