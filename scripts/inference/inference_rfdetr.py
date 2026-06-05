@@ -114,11 +114,15 @@ def main():
 
     try:
         from rfdetr import RFDETRSegLarge
+        import torch
     except ImportError:
         print("错误: 请先安装 rfdetr: pip install rfdetr")
         sys.exit(1)
 
-    model = RFDETRSegLarge(pretrain_weights=str(checkpoint_path), num_queries=800, num_select=800, device='cuda')
+    device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
+    print(f"使用设备: {device}")
+    model = RFDETRSegLarge(pretrain_weights=str(checkpoint_path), num_queries=800, num_select=800)
+    model.model.to(device)
     print("模型加载完成")
     print(f"检测阈值: {DETECTION_THRESHOLD}")
     print("=" * 60)
