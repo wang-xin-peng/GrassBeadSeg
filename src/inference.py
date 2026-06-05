@@ -39,6 +39,7 @@ IOU_THRESHOLD = 0.5
 SAHI_TILE_SIZE = 640
 SAHI_OVERLAP = 0.2
 CLASS_ID = 0
+IMGSZ = 640
 
 
 # ═══════════════════════════════════════════════════════
