@@ -40,6 +40,7 @@ SAHI_TILE_SIZE = 640
 SAHI_OVERLAP = 0.2
 CLASS_ID = 0
 IMGSZ = 640
+MAX_DET = 800
 
 
 # ═══════════════════════════════════════════════════════
@@ -159,7 +160,7 @@ def infer_sahi(model, image):
                 pad_tile[:th, :tw] = tile
                 tile = pad_tile
 
-            results = model(tile, conf=CONF_THRESHOLD, iou=IOU_THRESHOLD, imgsz=tile_size, verbose=False)
+            results = model(tile, conf=CONF_THRESHOLD, iou=IOU_THRESHOLD, imgsz=tile_size, max_det=MAX_DET, verbose=False)
 
             if results[0].masks is not None:
                 for mask_tensor, conf in zip(results[0].masks.data, results[0].boxes.conf):
@@ -184,7 +185,7 @@ def infer_sahi(model, image):
 # ═══════════════════════════════════════════════════════
 
 def main():
-    global CONF_THRESHOLD, SAHI_TILE_SIZE, SAHI_OVERLAP
+    global CONF_THRESHOLD, SAHI_TILE_SIZE, SAHI_OVERLAP, MAX_DET
 
     parser = argparse.ArgumentParser(description="YOLOv11-seg 推理")
     parser.add_argument("--model", required=True, help="模型权重路径 (.pt)")
@@ -201,6 +202,7 @@ def main():
     CONF_THRESHOLD = args.conf
     SAHI_TILE_SIZE = args.tile_size
     SAHI_OVERLAP = args.overlap
+    MAX_DET = args.max_det
 
     from ultralytics import YOLO
 
@@ -296,4 +298,5 @@ def main():
 
 
 if __name__ == "__main__":
+    main()
     main()

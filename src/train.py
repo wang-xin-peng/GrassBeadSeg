@@ -105,6 +105,7 @@ def train_model(model_name, data_yaml_path, args):
         save=True,
         save_period=10,
         val=True,
+        max_det=800,
         amp=args.amp,
     )
 
