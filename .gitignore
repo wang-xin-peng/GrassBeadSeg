@@ -220,12 +220,19 @@ __marimo__/
 .streamlit/secrets.toml
 
 # Model weight files
-models/*.pth
-models/trained/
-!models/.gitkeep
+models/rfdetr_seg_large/*.pth
+models/rfdetr_seg_large/trained/
+models/our_method/*/
+!models/rfdetr_seg_large/.gitkeep
+!models/our_method/.gitkeep
+yolo11n-seg.pt
+yolo11s-seg.pt
 
 # Auto-generated data
 dataset/auto_labeled/
+dataset/auto_labeled_v1/
+dataset/auto_labeled_v2/
+dataset/*/data_fixed.yaml
 
 # IDE
 .vscode/
