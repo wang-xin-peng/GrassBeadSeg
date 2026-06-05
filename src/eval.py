@@ -50,8 +50,8 @@ def polygon_to_mask(polygon, h, w):
 
 def compute_mask_iou(mask_a, mask_b):
     """计算两个 binary mask 的 IoU。"""
-    intersection = np.logical_and(mask_a, mask_b).sum()
-    union = np.logical_or(mask_a, mask_b).sum()
+    intersection = np.bitwise_and(mask_a, mask_b).sum()
+    union = np.bitwise_or(mask_a, mask_b).sum()
     return intersection / union if union > 0 else 0.0
 
 
@@ -88,9 +88,15 @@ def evaluate_image(gt_polygons, pred_polygons, h, w, iou_threshold=0.5):
             "count_error": 1.0,
         }
 
-    # 预计算所有 mask
-    gt_masks = [polygon_to_mask(p, h, w) for p in gt_polygons]
-    pred_masks = [polygon_to_mask(p, h, w) for p in pred_polygons]
+    # 预计算所有 mask（降采样加速 IoU）
+    scale = min(480 / max(h, w), 1.0)
+    small_h = max(1, int(h * scale))
+    small_w = max(1, int(w * scale))
+
+    gt_masks = [cv2.resize(polygon_to_mask(p, h, w), (small_w, small_h), interpolation=cv2.INTER_NEAREST)
+                for p in gt_polygons]
+    pred_masks = [cv2.resize(polygon_to_mask(p, h, w), (small_w, small_h), interpolation=cv2.INTER_NEAREST)
+                  for p in pred_polygons]
 
     # 计算所有 GT-Pred IoU 对
     ious = []
