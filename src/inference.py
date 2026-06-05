@@ -125,7 +125,7 @@ def nms_masks(masks, confidences, iou_threshold=0.5):
 
 def infer_baseline(model, image):
     """标准 YOLO 推理（整图 resize）。"""
-    results = model(image, conf=CONF_THRESHOLD, iou=IOU_THRESHOLD, imgsz=IMGSZ, verbose=False)
+    results = model(image, conf=CONF_THRESHOLD, iou=IOU_THRESHOLD, imgsz=IMGSZ, max_det=MAX_DET, verbose=False)
     h, w = image.shape[:2]
 
     masks = []
