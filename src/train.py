@@ -20,6 +20,9 @@ PROJECT_ROOT = Path(__file__).resolve().parents[1]
 DATASET_DIR = PROJECT_ROOT / "dataset" / "data_v3_augmented"
 OUTPUT_DIR = PROJECT_ROOT / "models" / "our_method"
 
+# 服务器环境可能无 mlflow 数据库后端，允许文件存储
+os.environ.setdefault("MLFLOW_ALLOW_FILE_STORE", "true")
+
 # ── 固定参数（无需命令行调整） ──────────────────────
 IMGSZ = 640
 
