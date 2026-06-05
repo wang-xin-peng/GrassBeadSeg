@@ -96,9 +96,16 @@ def mask_to_ellipse(mask):
 
 
 def nms_masks(masks, confidences, iou_threshold=0.5):
-    """基于 mask IoU 的 NMS。"""
+    """基于 mask IoU 的 NMS（降采样加速版）。"""
     if len(masks) <= 1:
         return masks, confidences
+
+    # 降采样用于 IoU 计算（保留原分辨率 mask 用于输出）
+    h, w = masks[0].shape[:2]
+    scale = min(480 / max(h, w), 1.0)
+    small_h = max(1, int(h * scale))
+    small_w = max(1, int(w * scale))
+    small_masks = [cv2.resize(m, (small_w, small_h), interpolation=cv2.INTER_NEAREST) for m in masks]
 
     order = np.argsort(confidences)[::-1]
     keep = []
@@ -107,8 +114,8 @@ def nms_masks(masks, confidences, iou_threshold=0.5):
         idx = order[i]
         suppressed = False
         for k in keep:
-            intersection = np.logical_and(masks[idx], masks[k]).sum()
-            union = np.logical_or(masks[idx], masks[k]).sum()
+            intersection = np.bitwise_and(small_masks[idx], small_masks[k]).sum()
+            union = np.bitwise_or(small_masks[idx], small_masks[k]).sum()
             iou = intersection / union if union > 0 else 0
             if iou > iou_threshold:
                 suppressed = True
@@ -146,11 +153,17 @@ def infer_sahi(model, image):
     tile_size = SAHI_TILE_SIZE
     stride = int(tile_size * (1 - SAHI_OVERLAP))
 
+    y_steps = list(range(0, h, stride))
+    x_steps = list(range(0, w, stride))
+    total_tiles = len(y_steps) * len(x_steps)
+
     all_masks = []
     all_confs = []
+    tile_idx = 0
 
-    for y in range(0, h, stride):
-        for x in range(0, w, stride):
+    for y in y_steps:
+        for x in x_steps:
+            tile_idx += 1
             tile = image[y:y + tile_size, x:x + tile_size]
             th, tw = tile.shape[:2]
 
@@ -161,6 +174,9 @@ def infer_sahi(model, image):
                 tile = pad_tile
 
             results = model(tile, conf=CONF_THRESHOLD, iou=IOU_THRESHOLD, imgsz=tile_size, max_det=MAX_DET, verbose=False)
+
+            n_det = len(results[0].masks.data) if results[0].masks is not None else 0
+            print(f"    tile {tile_idx}/{total_tiles}: {n_det} detections", flush=True)
 
             if results[0].masks is not None:
                 for mask_tensor, conf in zip(results[0].masks.data, results[0].boxes.conf):
@@ -175,7 +191,9 @@ def infer_sahi(model, image):
 
     # NMS 去重
     if len(all_masks) > 1:
+        print(f"    NMS: {len(all_masks)} masks...", flush=True)
         all_masks, all_confs = nms_masks(all_masks, all_confs, iou_threshold=IOU_THRESHOLD)
+        print(f"    NMS done: {len(all_masks)} masks kept", flush=True)
 
     return all_masks, all_confs
 
