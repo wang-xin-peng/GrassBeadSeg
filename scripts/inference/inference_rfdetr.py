@@ -2,8 +2,8 @@
 运行 RF-DETR 推理，对原始图片进行自动标注。
 
 使用方式：
-  1. 确保 models/trained/checkpoint_best_total.pth 存在（训练完成后生成）
-  2. E:\conda_envs\gbseg\python.exe scripts\inference\inference_rfdetr.py
+  1. 训练完成后 models/rfdetr_seg_large/trained/checkpoint_best_total.pth 将存在
+  2. conda activate gbseg && python scripts/inference/inference_rfdetr.py
 
 输出：在 dataset/auto_labeled/ 下生成 YOLO 分割格式的标注文件。
 """
@@ -16,12 +16,12 @@ import supervision as sv
 from pathlib import Path
 
 PROJECT_ROOT = Path(__file__).resolve().parents[2]
-CHECKPOINT_PATH = PROJECT_ROOT / "models" / "trained" / "checkpoint_best_total.pth"
+CHECKPOINT_PATH = PROJECT_ROOT / "models" / "rfdetr_seg_large" / "trained" / "checkpoint_best_total.pth"
 RAW_IMAGES_DIR = PROJECT_ROOT / "dataset" / "raw"
 OUTPUT_LABELS_DIR = PROJECT_ROOT / "dataset" / "auto_labeled" / "labels"
 OUTPUT_IMAGES_DIR = PROJECT_ROOT / "dataset" / "auto_labeled" / "images"
 OUTPUT_DIR = PROJECT_ROOT / "dataset" / "auto_labeled"
-DATA_V1_DIR = PROJECT_ROOT / "dataset" / "data_v1"
+DATA_V2_DIR = PROJECT_ROOT / "dataset" / "data_v3"
 
 DETECTION_THRESHOLD = 0.5
 IOU_THRESHOLD = 0.5
@@ -31,7 +31,7 @@ CLASS_ID = 0
 def get_already_labeled_set():
     labeled = set()
     for split in ["train", "valid", "test"]:
-        label_dir = DATA_V1_DIR / split / "labels"
+        label_dir = DATA_V2_DIR / split / "labels"
         if not label_dir.exists():
             continue
         for f in os.listdir(label_dir):
@@ -72,8 +72,8 @@ def mask_to_yolo_polygon(mask, img_width, img_height, epsilon_factor=0.001):
 def main():
     if not CHECKPOINT_PATH.exists():
         alt_paths = [
-            PROJECT_ROOT / "models" / "trained" / "checkpoint_best_ema.pth",
-            PROJECT_ROOT / "models" / "trained" / "checkpoint_best_regular.pth",
+            PROJECT_ROOT / "models" / "rfdetr_seg_large" / "trained" / "checkpoint_best_ema.pth",
+            PROJECT_ROOT / "models" / "rfdetr_seg_large" / "trained" / "checkpoint_best_regular.pth",
         ]
         checkpoint_path = None
         for ap in alt_paths:
@@ -106,7 +106,7 @@ def main():
     for f in all_image_files:
         stem = Path(f).stem
         if stem in labeled_set:
-            print(f"  跳过(已在 data_v1 中标注): {f}")
+            print(f"  跳过(已在 data_v2 中标注): {f}")
         else:
             image_files.append(f)
 
@@ -118,7 +118,7 @@ def main():
         print("错误: 请先安装 rfdetr: pip install rfdetr")
         sys.exit(1)
 
-    model = RFDETRSegLarge(pretrain_weights=str(checkpoint_path), num_queries=600, num_select=600)
+    model = RFDETRSegLarge(pretrain_weights=str(checkpoint_path), num_queries=800, num_select=800)
     print("模型加载完成")
     print(f"检测阈值: {DETECTION_THRESHOLD}")
     print("=" * 60)

@@ -6,23 +6,22 @@ from pathlib import Path
 os.environ.setdefault("PYTORCH_CUDA_ALLOC_CONF", "expandable_segments:True")
 
 PROJECT_ROOT = Path(__file__).resolve().parents[2]
-PRETRAINED_PATH = PROJECT_ROOT / "models" / "rfdetr_seg_large_pretrained.pth"
-DATASET_DIR = PROJECT_ROOT / "dataset" / "data_v1_augmented"
-OUTPUT_DIR = PROJECT_ROOT / "models" / "trained"
+PRETRAINED_PATH = PROJECT_ROOT / "models" / "rfdetr_seg_large" / "pretrained_300.pth"
+DATASET_DIR = PROJECT_ROOT / "dataset" / "data_v3_augmented"
+OUTPUT_DIR = PROJECT_ROOT / "models" / "rfdetr_seg_large" / "trained"
 
 EPOCHS = 200
 BATCH_SIZE = 1
 GRAD_ACCUM_STEPS = 16
 LEARNING_RATE = 1e-4
 RESOLUTION = 624
-NUM_QUERIES = 600
+NUM_QUERIES = 800
 
 
 def expand_pretrained_weights(src_path, dst_path, target_num_queries=600, group_detr=13):
     checkpoint = torch.load(str(src_path), map_location="cpu")
     ckpt_model = checkpoint["model"]
 
-    # 从 checkpoint 中推断原始 num_queries
     first_key = next(k for k in ckpt_model if "refpoint_embed.weight" in k)
     src_rows = ckpt_model[first_key].shape[0]
     src_num_queries = src_rows // group_detr
@@ -31,7 +30,7 @@ def expand_pretrained_weights(src_path, dst_path, target_num_queries=600, group_
         torch.save(checkpoint, str(dst_path))
         return
 
-    print(f"扩展 query 参数: {src_num_queries} → {target_num_queries} (每组 {src_num_queries} → {target_num_queries})")
+    print(f"扩展 query 参数: {src_num_queries} -> {target_num_queries} (每组 {src_num_queries} -> {target_num_queries})")
 
     for key in ["refpoint_embed.weight", "query_feat.weight"]:
         tensor = ckpt_model[key]
@@ -70,7 +69,7 @@ def main():
         print("错误: 请先安装 rfdetr: pip install rfdetr")
         sys.exit(1)
 
-    EXPANDED_PATH = PROJECT_ROOT / "models" / f"rfdetr_seg_large_pretrained_{NUM_QUERIES}.pth"
+    EXPANDED_PATH = PROJECT_ROOT / "models" / "rfdetr_seg_large" / f"pretrained_{NUM_QUERIES}.pth"
     expand_pretrained_weights(PRETRAINED_PATH, EXPANDED_PATH, target_num_queries=NUM_QUERIES)
 
     print("=" * 60)

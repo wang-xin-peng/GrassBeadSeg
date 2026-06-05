@@ -27,8 +27,8 @@ import albumentations as A
 from pathlib import Path
 
 PROJECT_ROOT = Path(__file__).resolve().parents[2]
-DATASET_ROOT = PROJECT_ROOT / "dataset" / "data_v1"
-AUGMENTED_DIR = PROJECT_ROOT / "dataset" / "data_v1_augmented"
+DATASET_ROOT = PROJECT_ROOT / "dataset" / "data_v3"
+AUGMENTED_DIR = PROJECT_ROOT / "dataset" / "data_v3_augmented"
 AUGMENTS_PER_IMAGE = 10
 MAX_SIZE = 624
 RANDOM_SEED = 42

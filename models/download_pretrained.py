@@ -1,7 +1,7 @@
 """
 在本地网络环境下载 RF-DETR 预训练权重。
-运行此脚本需要网络连接，会将权重保存到 models/ 目录下。
-之后将 models/rfdetr_seg_large_pretrained.pth 一同传输到服务器。
+运行此脚本需要网络连接，会将权重保存到 models/rfdetr_seg_large/ 目录下。
+之后将整个项目目录传输到服务器即可。
 """
 
 import os
@@ -10,8 +10,8 @@ import shutil
 from pathlib import Path
 
 PROJECT_ROOT = Path(__file__).resolve().parents[1]
-MODELS_DIR = PROJECT_ROOT / "models"
-OUTPUT_PATH = MODELS_DIR / "rfdetr_seg_large_pretrained.pth"
+MODELS_DIR = PROJECT_ROOT / "models" / "rfdetr_seg_large"
+OUTPUT_PATH = MODELS_DIR / "pretrained_300.pth"
 CACHE_PATH = Path.home() / ".roboflow" / "models" / "rf-detr-seg-large.pt"
 
 
