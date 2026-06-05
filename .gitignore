@@ -234,6 +234,8 @@ models/yolo11s-seg.pt
 dataset/auto_labeled/
 dataset/auto_labeled_v1/
 dataset/auto_labeled_v2/
+dataset/auto_labeled_v3/
+dataset/data_v4/
 dataset/*/data_fixed.yaml
 
 # IDE
