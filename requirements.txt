@@ -1,8 +1,7 @@
 rfdetr[train,loggers]
 albumentations
 
-# our_method (YOLOv11-seg)
 ultralytics
-opencv-python
+opencv-python-headless
 pyyaml
 numpy
