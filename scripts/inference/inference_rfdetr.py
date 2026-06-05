@@ -119,11 +119,25 @@ def main():
         print("错误: 请先安装 rfdetr: pip install rfdetr")
         sys.exit(1)
 
+    device = 'cuda' if torch.cuda.is_available() else 'cpu'
     print(f"CUDA 可用: {torch.cuda.is_available()}")
     if torch.cuda.is_available():
         print(f"GPU: {torch.cuda.get_device_name(0)}")
+    print(f"使用设备: {device}")
 
-    model = RFDETRSegLarge(pretrain_weights=str(checkpoint_path), num_queries=800, num_select=800)
+    model = RFDETRSegLarge(pretrain_weights=str(checkpoint_path), num_queries=800, num_select=800, device=device)
+
+    # 尝试优化推理（某些版本可能返回 None）
+    try:
+        optimized_model = model.optimize_for_inference()
+        if optimized_model is not None:
+            model = optimized_model
+            print("推理优化已启用")
+        else:
+            print("警告: optimize_for_inference() 返回 None，继续使用原始模型")
+    except Exception as e:
+        print(f"警告: 推理优化失败 ({e})，继续使用原始模型")
+
     print("模型加载完成")
     print(f"检测阈值: {DETECTION_THRESHOLD}")
     print("=" * 60)
