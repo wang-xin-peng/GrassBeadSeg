@@ -183,6 +183,8 @@ def infer_sahi(model, image):
 # ═══════════════════════════════════════════════════════
 
 def main():
+    global CONF_THRESHOLD, SAHI_TILE_SIZE, SAHI_OVERLAP
+
     parser = argparse.ArgumentParser(description="YOLOv11-seg 推理")
     parser.add_argument("--model", required=True, help="模型权重路径 (.pt)")
     parser.add_argument("--source", required=True, help="输入图片目录或单张图片路径")
@@ -195,7 +197,6 @@ def main():
     parser.add_argument("--overlap", type=float, default=SAHI_OVERLAP, help="SAHI overlap")
     args = parser.parse_args()
 
-    global CONF_THRESHOLD, SAHI_TILE_SIZE, SAHI_OVERLAP
     CONF_THRESHOLD = args.conf
     SAHI_TILE_SIZE = args.tile_size
     SAHI_OVERLAP = args.overlap
