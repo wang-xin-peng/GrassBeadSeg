@@ -227,6 +227,8 @@ models/our_method/*/
 !models/our_method/.gitkeep
 yolo11n-seg.pt
 yolo11s-seg.pt
+models/yolo11n-seg.pt
+models/yolo11s-seg.pt
 
 # Auto-generated data
 dataset/auto_labeled/

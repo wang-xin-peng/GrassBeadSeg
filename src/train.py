@@ -72,7 +72,7 @@ def train_model(model_name, data_yaml_path):
     """训练单个模型。"""
     from ultralytics import YOLO
 
-    model_file = f"yolo11{model_name}-seg.pt"
+    model_file = str(PROJECT_ROOT / "models" / f"yolo11{model_name}-seg.pt")
     run_name = f"yolo11{model_name}-seg-baseline"
 
     print(f"\n{'=' * 60}")
