@@ -142,6 +142,20 @@ def main():
     print(f"检测阈值: {DETECTION_THRESHOLD}")
     print("=" * 60)
 
+    # 检查模型内部结构和设备
+    try:
+        print(f"model 类型: {type(model)}")
+        print(f"model 属性: {[a for a in dir(model) if not a.startswith('_')]}")
+        for attr in ['model', 'net', 'module', 'backbone']:
+            if hasattr(model, attr):
+                sub = getattr(model, attr)
+                params = list(sub.parameters()) if hasattr(sub, 'parameters') else []
+                if params:
+                    print(f"model.{attr} 设备: {params[0].device}")
+                    break
+    except Exception as e:
+        print(f"设备检测失败: {e}")
+
     total_detections = 0
     for img_filename in image_files:
         img_path = RAW_IMAGES_DIR / img_filename
