@@ -2,7 +2,7 @@
 评估脚本：对比预测标注与 ground truth，计算召回率/计数误差。
 
 使用方式：
-    python src/our_method/eval.py \
+    python src/eval.py \
         --gt dataset/data_v3_augmented/test/labels \
         --pred outputs/test_baseline/labels \
         --images dataset/data_v3_augmented/test/images
@@ -15,7 +15,7 @@ import numpy as np
 import argparse
 from pathlib import Path
 
-PROJECT_ROOT = Path(__file__).resolve().parents[2]
+PROJECT_ROOT = Path(__file__).resolve().parents[1]
 
 
 def parse_yolo_label(filepath):

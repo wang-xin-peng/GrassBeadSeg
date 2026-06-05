@@ -10,14 +10,14 @@ YOLOv11-seg 推理脚本（our_method）。
 
 使用方式：
     # Phase 1: 纯 YOLO 分割（无 crop，无拟合）
-    python src/our_method/inference.py \
+    python src/inference.py \
         --model models/our_method/yolo11s-seg-baseline/weights/best.pt \
         --source dataset/data_v3_augmented/test/images \
         --output outputs/test_baseline \
         --mode baseline
 
     # Phase 2: SAHI + 椭圆拟合
-    python src/our_method/inference.py \
+    python src/inference.py \
         --model models/our_method/yolo11s-seg-baseline/weights/best.pt \
         --source dataset/data_v3_augmented/test/images \
         --output outputs/test_ellipse \
@@ -31,7 +31,7 @@ import numpy as np
 import argparse
 from pathlib import Path
 
-PROJECT_ROOT = Path(__file__).resolve().parents[2]
+PROJECT_ROOT = Path(__file__).resolve().parents[1]
 
 # ── 推理参数 ──────────────────────────────────────────
 CONF_THRESHOLD = 0.3

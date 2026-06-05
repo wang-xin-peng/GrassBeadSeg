@@ -5,9 +5,9 @@ YOLOv11-seg 训练脚本（our_method Phase 1 baseline）。
 使用 data_v3_augmented 数据集，COCO 预训练权重 fine-tune。
 
 使用方式：
-    python src/our_method/train.py
-    python src/our_method/train.py --model n      # 只训练 nano
-    python src/our_method/train.py --model s      # 只训练 small
+    python src/train.py
+    python src/train.py --model n      # 只训练 nano
+    python src/train.py --model s      # 只训练 small
 """
 
 import os
@@ -16,7 +16,7 @@ import yaml
 import argparse
 from pathlib import Path
 
-PROJECT_ROOT = Path(__file__).resolve().parents[2]
+PROJECT_ROOT = Path(__file__).resolve().parents[1]
 DATASET_DIR = PROJECT_ROOT / "dataset" / "data_v3_augmented"
 OUTPUT_DIR = PROJECT_ROOT / "models" / "our_method"
 
