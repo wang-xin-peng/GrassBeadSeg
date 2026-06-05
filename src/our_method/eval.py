@@ -2,7 +2,7 @@
 评估脚本：对比预测标注与 ground truth，计算召回率/计数误差。
 
 使用方式：
-    python scripts/eval/evaluate_our_method.py \
+    python src/our_method/eval.py \
         --gt dataset/data_v3_augmented/test/labels \
         --pred outputs/test_baseline/labels \
         --images dataset/data_v3_augmented/test/images
@@ -14,7 +14,6 @@ import cv2
 import numpy as np
 import argparse
 from pathlib import Path
-from collections import defaultdict
 
 PROJECT_ROOT = Path(__file__).resolve().parents[2]
 
