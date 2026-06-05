@@ -102,6 +102,7 @@ def train_model(model_name, data_yaml_path, args):
         save=True,
         save_period=10,
         val=True,
+        amp=args.amp,
     )
 
     print(f"\n训练完成！最佳权重: {OUTPUT_DIR / run_name / 'weights' / 'best.pt'}")
@@ -124,6 +125,8 @@ def main():
                         help="设备: 0=cuda:0, cpu=cpu (default: 0)")
     parser.add_argument("--workers", type=int, default=4,
                         help="DataLoader workers (default: 4, 建议服务器用 16)")
+    parser.add_argument("--no-amp", action="store_false", dest="amp", default=True,
+                        help="禁用 AMP 混合精度（离线服务器需要，避免下载验证模型）")
     args = parser.parse_args()
 
     data_yaml = DATASET_DIR / "data.yaml"
@@ -137,7 +140,7 @@ def main():
     OUTPUT_DIR.mkdir(parents=True, exist_ok=True)
 
     print(f"训练配置: epochs={args.epochs} batch={args.batch} lr={args.lr} "
-          f"device={args.device} workers={args.workers}")
+          f"device={args.device} workers={args.workers} amp={args.amp}")
 
     if args.model in ("n", "both"):
         train_model("n", fixed_yaml, args)
