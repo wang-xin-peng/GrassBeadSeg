@@ -197,6 +197,7 @@ def main():
     parser.add_argument("--conf", type=float, default=CONF_THRESHOLD, help="置信度阈值")
     parser.add_argument("--tile-size", type=int, default=SAHI_TILE_SIZE, help="SAHI tile size")
     parser.add_argument("--overlap", type=float, default=SAHI_OVERLAP, help="SAHI overlap")
+    parser.add_argument("--max-det", type=int, default=MAX_DET, help="最大检测数 (default: 800)")
     args = parser.parse_args()
 
     CONF_THRESHOLD = args.conf
