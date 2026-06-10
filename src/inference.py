@@ -35,7 +35,8 @@ PROJECT_ROOT = Path(__file__).resolve().parents[1]
 
 # ── 推理参数 ──────────────────────────────────────────
 CONF_THRESHOLD = 0.3
-IOU_THRESHOLD = 0.5
+IOU_THRESHOLD = 0.5          # SAHI merge NMS 阈值
+YOLO_IOU_THRESHOLD = 0.7     # YOLO 内部 NMS 阈值 (ultralytics 默认)
 SAHI_TILE_SIZE = 640
 SAHI_OVERLAP = 0.2
 CLASS_ID = 0
@@ -95,8 +96,12 @@ def mask_to_ellipse(mask):
     return result
 
 
-def nms_masks(masks, confidences, iou_threshold=0.5):
-    """基于 mask IoU 的 NMS（降采样加速版）。"""
+def nms_masks(masks, confidences, iou_threshold=0.5, method="hard"):
+    """基于 mask IoU 的 NMS（降采样加速版）。
+
+    Args:
+        method: "hard" (删除低分框) 或 "soft" (线性降分)
+    """
     if len(masks) <= 1:
         return masks, confidences
 
@@ -107,6 +112,10 @@ def nms_masks(masks, confidences, iou_threshold=0.5):
     small_w = max(1, int(w * scale))
     small_masks = [cv2.resize(m, (small_w, small_h), interpolation=cv2.INTER_NEAREST) for m in masks]
 
+    if method == "soft":
+        return _soft_nms(masks, confidences, small_masks, iou_threshold)
+
+    # Hard NMS
     order = np.argsort(confidences)[::-1]
     keep = []
 
@@ -126,13 +135,43 @@ def nms_masks(masks, confidences, iou_threshold=0.5):
     return [masks[i] for i in keep], [confidences[i] for i in keep]
 
 
+def _soft_nms(masks, confidences, small_masks, iou_threshold):
+    """Soft-NMS：线性降分而非直接删除。"""
+    n = len(masks)
+    scores = np.array(confidences, dtype=np.float64)
+    order = np.argsort(scores)[::-1]
+    suppressed = np.zeros(n, dtype=bool)
+
+    for i_idx in range(n):
+        i = order[i_idx]
+        if suppressed[i]:
+            continue
+        for j_idx in range(i_idx + 1, n):
+            j = order[j_idx]
+            if suppressed[j]:
+                continue
+            intersection = np.bitwise_and(small_masks[i], small_masks[j]).sum()
+            union = np.bitwise_or(small_masks[i], small_masks[j]).sum()
+            iou = intersection / union if union > 0 else 0
+            if iou > iou_threshold:
+                scores[j] *= (1.0 - iou)
+                if scores[j] < CONF_THRESHOLD * 0.5:
+                    suppressed[j] = True
+
+    keep = [i for i in range(n) if not suppressed[i] and scores[i] >= CONF_THRESHOLD * 0.5]
+    if not keep:
+        keep = [int(np.argmax(confidences))]
+
+    return [masks[i] for i in keep], [confidences[i] for i in keep]
+
+
 # ═══════════════════════════════════════════════════════
 # 推理模式
 # ═══════════════════════════════════════════════════════
 
 def infer_baseline(model, image):
     """标准 YOLO 推理（整图 resize）。"""
-    results = model(image, conf=CONF_THRESHOLD, iou=IOU_THRESHOLD, imgsz=IMGSZ, max_det=MAX_DET, verbose=False)
+    results = model(image, conf=CONF_THRESHOLD, iou=YOLO_IOU_THRESHOLD, imgsz=IMGSZ, max_det=MAX_DET, verbose=False)
     h, w = image.shape[:2]
 
     masks = []
@@ -147,8 +186,8 @@ def infer_baseline(model, image):
     return masks, confs
 
 
-def infer_sahi(model, image):
-    """SAHI 分块推理。"""
+def _sahi_extract_masks(model, image):
+    """SAHI tile + 投影（不做 NMS），返回 (all_masks, all_confs)。"""
     h, w = image.shape[:2]
     tile_size = SAHI_TILE_SIZE
     stride = int(tile_size * (1 - SAHI_OVERLAP))
@@ -173,7 +212,7 @@ def infer_sahi(model, image):
                 pad_tile[:th, :tw] = tile
                 tile = pad_tile
 
-            results = model(tile, conf=CONF_THRESHOLD, iou=IOU_THRESHOLD, imgsz=tile_size, max_det=MAX_DET, verbose=False)
+            results = model(tile, conf=CONF_THRESHOLD, iou=YOLO_IOU_THRESHOLD, imgsz=tile_size, max_det=MAX_DET, verbose=False)
 
             n_det = len(results[0].masks.data) if results[0].masks is not None else 0
             print(f"    tile {tile_idx}/{total_tiles}: {n_det} detections", flush=True)
@@ -189,13 +228,78 @@ def infer_sahi(model, image):
                     all_masks.append(full_mask)
                     all_confs.append(float(conf))
 
-    # NMS 去重
-    if len(all_masks) > 1:
-        print(f"    NMS: {len(all_masks)} masks...", flush=True)
-        all_masks, all_confs = nms_masks(all_masks, all_confs, iou_threshold=IOU_THRESHOLD)
-        print(f"    NMS done: {len(all_masks)} masks kept", flush=True)
-
     return all_masks, all_confs
+
+
+def _tta_consensus(orig_masks, orig_confs, flip_masks, flip_confs, iou_threshold=0.3):
+    """共识 TTA：只保留原图和翻转图都检测到的预测（IoU > threshold）。
+    
+    降采样加速，保留置信度更高的版本。
+    """
+    if not orig_masks or not flip_masks:
+        return orig_masks[:], orig_confs[:]
+
+    h, w = orig_masks[0].shape[:2]
+    scale = min(480 / max(h, w), 1.0)
+    small_h = max(1, int(h * scale))
+    small_w = max(1, int(w * scale))
+
+    s_orig = [cv2.resize(m, (small_w, small_h), interpolation=cv2.INTER_NEAREST) for m in orig_masks]
+    s_flip = [cv2.resize(m, (small_w, small_h), interpolation=cv2.INTER_NEAREST) for m in flip_masks]
+
+    used_flip = set()
+    result_masks = []
+    result_confs = []
+
+    for i, so in enumerate(s_orig):
+        best_iou, best_j = 0, -1
+        for j, sf in enumerate(s_flip):
+            if j in used_flip:
+                continue
+            intersection = np.bitwise_and(so, sf).sum()
+            union = np.bitwise_or(so, sf).sum()
+            iou = intersection / union if union > 0 else 0
+            if iou > best_iou and iou > iou_threshold:
+                best_iou, best_j = iou, j
+
+        if best_j >= 0:
+            used_flip.add(best_j)
+            # 取置信度更高的版本
+            if orig_confs[i] >= flip_confs[best_j]:
+                result_masks.append(orig_masks[i])
+                result_confs.append(orig_confs[i])
+            else:
+                result_masks.append(flip_masks[best_j])
+                result_confs.append(flip_confs[best_j])
+
+    return result_masks, result_confs
+
+
+def infer_sahi(model, image, tta=False, nms_method="hard"):
+    """SAHI 分块推理，可选 TTA（水平翻转 + 合并 NMS）。
+
+    Args:
+        tta: 启用水平翻转 TTA
+        nms_method: "hard" 或 "soft"
+    """
+    masks, confs = _sahi_extract_masks(model, image)
+
+    if tta:
+        flipped = cv2.flip(image, 1)
+        f_masks, f_confs = _sahi_extract_masks(model, flipped)
+        # 翻转回原坐标
+        f_masks = [cv2.flip(m, 1) for m in f_masks]
+        # 共识过滤：只保留原图和翻转图都检测到的
+        masks, confs = _tta_consensus(masks, confs, f_masks, f_confs, iou_threshold=0.3)
+        print(f"    TTA consensus: {len(masks)} masks kept", flush=True)
+
+    # NMS 去重
+    if len(masks) > 1:
+        print(f"    NMS ({nms_method}): {len(masks)} masks...", flush=True)
+        masks, confs = nms_masks(masks, confs, iou_threshold=IOU_THRESHOLD, method=nms_method)
+        print(f"    NMS done: {len(masks)} masks kept", flush=True)
+
+    return masks, confs
 
 
 # ═══════════════════════════════════════════════════════
@@ -203,7 +307,7 @@ def infer_sahi(model, image):
 # ═══════════════════════════════════════════════════════
 
 def main():
-    global CONF_THRESHOLD, SAHI_TILE_SIZE, SAHI_OVERLAP, MAX_DET
+    global CONF_THRESHOLD, SAHI_TILE_SIZE, SAHI_OVERLAP, MAX_DET, YOLO_IOU_THRESHOLD
 
     parser = argparse.ArgumentParser(description="YOLOv11-seg 推理")
     parser.add_argument("--model", required=True, help="模型权重路径 (.pt)")
@@ -216,12 +320,18 @@ def main():
     parser.add_argument("--tile-size", type=int, default=SAHI_TILE_SIZE, help="SAHI tile size")
     parser.add_argument("--overlap", type=float, default=SAHI_OVERLAP, help="SAHI overlap")
     parser.add_argument("--max-det", type=int, default=MAX_DET, help="最大检测数 (default: 800)")
+    parser.add_argument("--tta", action="store_true", help="启用 TTA（水平翻转 + 合并 NMS）")
+    parser.add_argument("--soft-nms", action="store_true", help="使用 Soft-NMS 替代硬 NMS")
+    parser.add_argument("--yolo-iou", type=float, default=YOLO_IOU_THRESHOLD,
+                        help=f"YOLO 内部 NMS IoU 阈值 (default: {YOLO_IOU_THRESHOLD})")
     args = parser.parse_args()
 
     CONF_THRESHOLD = args.conf
     SAHI_TILE_SIZE = args.tile_size
     SAHI_OVERLAP = args.overlap
     MAX_DET = args.max_det
+    YOLO_IOU_THRESHOLD = args.yolo_iou
+    nms_method = "soft" if args.soft_nms else "hard"
 
     from ultralytics import YOLO
 
@@ -262,6 +372,9 @@ def main():
     print(f"模型: {model_path.name}")
     print(f"模式: {args.mode}")
     print(f"置信度: {CONF_THRESHOLD}")
+    print(f"YOLO IoU: {YOLO_IOU_THRESHOLD}")
+    print(f"TTA: {'启用' if args.tta else '关闭'}")
+    print(f"NMS:  {'Soft' if nms_method == 'soft' else 'Hard'}")
     print(f"设备: {device}")
     print(f"图片数: {len(image_files)}")
     print("=" * 60)
@@ -280,7 +393,7 @@ def main():
         if args.mode == "baseline":
             masks, confs = infer_baseline(model, image)
         else:  # sahi / ellipse
-            masks, confs = infer_sahi(model, image)
+            masks, confs = infer_sahi(model, image, tta=args.tta, nms_method=nms_method)
 
         # 椭圆拟合（仅在 ellipse 模式下）
         if args.mode == "ellipse":
@@ -318,4 +431,4 @@ def main():
 
 if __name__ == "__main__":
     main()
-    main()
+
