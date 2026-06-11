@@ -1,24 +1,27 @@
 """
-数据增强脚本 - 对YOLO分割格式数据集进行增强
+数据增强脚本 - 对YOLO分割格式数据集进行增强（增强版 v2）
 支持YOLO polygon/segmentation格式（每行: class_id x1 y1 x2 y2 x3 y3 ...）
-增强配置（与Roboflow一致）：
 
 Preprocessing:
 - Auto-Orient: Applied
 - Resize: Fit within 624x624 (保持宽高比，填充黑色)
 
-Augmentations:
-- Outputs per training example: 10
-- Flip: Horizontal
-- Rotation: Between -15 and +15
-- Saturation: Between -25% and +25%
-- Brightness: Between -25% and +25%
-- Blur: Up to 0.5px
-- Noise: Up to 0.34% of pixels
+Augmentations (增强版):
+- Outputs per training example: 30 (vs 10 原版)
+- Flip: Horizontal (p=0.5), Vertical (p=0.2)
+- Affine: scale=0.85-1.15, translate=10%, rotate=±25°, shear=±5° (p=0.7)
+- ElasticTransform: p=0.3
+- OpticalDistortion: p=0.3
+- ColorJitter: brightness=0.3, saturation=0.3, contrast=0.2, hue=0.05 (p=0.7)
+- RandomBrightnessContrast: p=0.5
+- CLAHE: p=0.3
+- GaussianBlur / MotionBlur: p=0.5 / p=0.2
+- PixelDropout / GaussNoise / ISONoise
+- Sharpen / Posterize
 
 用法:
-    python augment_dataset.py --input dataset/data_v3 --output dataset/data_v3_augmented
-    python augment_dataset.py --input dataset/data_v4 --output dataset/data_v4_augmented --augments-per-image 10
+    python augment_dataset.py --input dataset/data_v3 --output dataset/data_v3_aug_v2
+    python augment_dataset.py --input dataset/data_v4 --output dataset/data_v4_aug_v2 --augments-per-image 30
 """
 
 import os
@@ -33,7 +36,7 @@ from pathlib import Path
 
 PROJECT_ROOT = Path(__file__).resolve().parents[2]
 
-DEFAULT_AUGMENTS_PER_IMAGE = 10
+DEFAULT_AUGMENTS_PER_IMAGE = 30
 DEFAULT_MAX_SIZE = 624
 RANDOM_SEED = 42
 
@@ -118,18 +121,62 @@ def save_yolo_polygons(label_path, polygons, img_width, img_height):
 
 
 def create_augmentation_pipeline():
+    """创建增强流水线 - 增强版，包含更多变换类型以提高模型泛化能力。"""
     return A.Compose([
+        # 翻转
         A.HorizontalFlip(p=0.5),
-        A.Rotate(limit=15, p=0.5, border_mode=cv2.BORDER_CONSTANT),
-        A.ColorJitter(
-            brightness=0.25,
-            saturation=0.25,
-            contrast=0.0,
-            hue=0.0,
-            p=0.5
+        A.VerticalFlip(p=0.2),
+
+        # 几何变换 - 仿射、旋转、缩放、剪切
+        A.Affine(
+            scale=(0.85, 1.15),
+            translate_percent=(-0.1, 0.1),
+            rotate=(-25, 25),
+            shear=(-5, 5),
+            p=0.7,
+            border_mode=cv2.BORDER_CONSTANT,
         ),
-        A.GaussianBlur(blur_limit=(3, 3), sigma_limit=(0.1, 0.5), p=1.0),
-        A.PixelDropout(dropout_prob=0.0034, per_channel=False, p=1.0),
+
+        # 弹性形变（模拟轻微透视/镜头畸变）
+        A.ElasticTransform(alpha=1, sigma=50, p=0.3,
+                           border_mode=cv2.BORDER_CONSTANT),
+
+        # 镜头畸变模拟
+        A.OpticalDistortion(distort_limit=(-0.15, 0.15), p=0.3,
+                            border_mode=cv2.BORDER_CONSTANT),
+
+        # 颜色增强
+        A.ColorJitter(
+            brightness=0.3,
+            saturation=0.3,
+            contrast=0.2,
+            hue=0.05,
+            p=0.7,
+        ),
+
+        # 随机亮度对比度（更宽范围）
+        A.RandomBrightnessContrast(
+            brightness_limit=0.2,
+            contrast_limit=0.3,
+            p=0.5,
+        ),
+
+        # CLAHE 局部对比度增强
+        A.CLAHE(clip_limit=2.0, tile_grid_size=(8, 8), p=0.3),
+
+        # 模糊
+        A.GaussianBlur(blur_limit=(3, 5), sigma_limit=(0.1, 1.0), p=0.5),
+        A.MotionBlur(blur_limit=(3, 5), p=0.2),
+
+        # 噪声
+        A.PixelDropout(dropout_prob=0.005, per_channel=False, p=0.5),
+        A.GaussNoise(std_range=(0.05, 0.1), per_channel=True, p=0.3),
+        A.ISONoise(color_shift=(0.01, 0.05), intensity=(0.1, 0.3), p=0.2),
+
+        # 值域增强
+        A.Sharpen(alpha=(0.2, 0.5), lightness=(0.5, 1.0), p=0.3),
+        A.Posterize(num_bits=(5, 7), p=0.2),
+
     ], keypoint_params=A.KeypointParams(
         format='xy',
         remove_invisible=False
