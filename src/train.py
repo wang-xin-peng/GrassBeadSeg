@@ -1,14 +1,21 @@
 """
-YOLOv11-seg 训练脚本（our_method Phase 1 baseline）。
+YOLOv11-seg 训练脚本（our_method Phase 1 baseline + v2 增强版）。
 
-训练 YOLOv11n-seg (2.6M) 和 YOLOv11s-seg (9.4M) 两个版本，
+训练 YOLOv11n-seg (2.6M) 和 YOLOv11s-seg (9.4M)，
 使用 COCO 预训练权重 fine-tune。
+
+v2 改进：
+- 离线增强: 20x per image (vs 10x), 更强的 albumentations pipeline
+- 在线增强: scale=0.9, degrees=15, shear=5, perspective, mixup, copy_paste
 
 使用方式：
     python src/train.py                          # 默认 data_v3_augmented
+    python src/train.py --data dataset/data_v3_aug_v2  # v2 增强数据
     python src/train.py --data dataset/data_v4   # 使用 data_v4
     python src/train.py --model n                # 只训练 nano
     python src/train.py --batch 32 --workers 16  # 服务器 A800 配置
+    python src/train.py --resume                 # 从 last.pt 续训
+    python src/train.py --resume --batch 32 --workers 16  # 服务器续训
 """
 
 import os
@@ -68,11 +75,10 @@ def train_model(model_name, data_yaml_path, args):
     """训练单个模型。"""
     from ultralytics import YOLO
 
-    model_file = str(PROJECT_ROOT / "models" / f"yolo11{model_name}-seg.pt")
-    run_name = f"yolo11{model_name}-seg-baseline"
+    run_name = f"yolo11{model_name}-seg-v2"
 
     print(f"\n{'=' * 60}")
-    print(f"训练 YOLOv11{model_name}-seg")
+    print(f"训练 YOLOv11{model_name}-seg (v2 - 增强训练)")
     print(f"{'=' * 60}")
 
     # Device 处理
@@ -83,32 +89,69 @@ def train_model(model_name, data_yaml_path, args):
             print("警告: CUDA 不可用，回退到 CPU 训练")
             device = "cpu"
 
-    model = YOLO(model_file)
-
-    model.train(
-        data=data_yaml_path,
-        epochs=args.epochs,
-        imgsz=IMGSZ,
-        batch=args.batch,
-        lr0=args.lr,
-        patience=args.patience,
-        device=device,
-        workers=args.workers,
-        project=str(OUTPUT_DIR),
-        name=run_name,
-        exist_ok=True,
-        pretrained=True,
-        optimizer="AdamW",
-        cos_lr=True,
-        warmup_epochs=3,
-        mosaic=1.0,
-        close_mosaic=150,
-        save=True,
-        save_period=10,
-        val=True,
-        max_det=800,
-        amp=args.amp,
-    )
+    if args.resume:
+        # 从 last.pt 续训
+        last_pt = OUTPUT_DIR / run_name / "weights" / "last.pt"
+        if not last_pt.exists():
+            print(f"错误: resume 模式需要 {last_pt}，但文件不存在")
+            sys.exit(1)
+        model = YOLO(str(last_pt))
+        print(f"续训模式: 从 {last_pt} 恢复训练")
+        model.train(
+            data=data_yaml_path,
+            epochs=args.epochs,
+            resume=True,
+            # 显式指定 project/name 覆盖 checkpoint 中泄露的 Windows 路径
+            project=str(OUTPUT_DIR),
+            name=run_name,
+            exist_ok=True,
+            device=device,
+            batch=args.batch,
+            workers=args.workers,
+            amp=args.amp,
+            plots=False,
+            save=True,
+            save_period=10,
+            val=True,
+            max_det=800,
+        )
+    else:
+        model_file = str(PROJECT_ROOT / "models" / f"yolo11{model_name}-seg.pt")
+        model = YOLO(model_file)
+        model.train(
+            data=data_yaml_path,
+            epochs=args.epochs,
+            imgsz=IMGSZ,
+            batch=args.batch,
+            lr0=args.lr,
+            patience=args.patience,
+            device=device,
+            workers=args.workers,
+            project=str(OUTPUT_DIR),
+            name=run_name,
+            exist_ok=True,
+            pretrained=True,
+            optimizer="AdamW",
+            cos_lr=True,
+            warmup_epochs=3,
+            # 在线数据增强 (ultralytics built-in)
+            mosaic=1.0,
+            close_mosaic=150,
+            scale=0.9,          # 更宽的缩放范围 (默认 0.5)
+            degrees=15,          # 随机旋转 ±15° (默认 0.0)
+            shear=5,            # 随机剪切 ±5° (默认 0.0)
+            perspective=0.0005, # 随机透视变换 (默认 0.0)
+            flipud=0.1,         # 垂直翻转 10% (默认 0.0)
+            mixup=0.1,          # mixup 增强 10% (默认 0.0)
+            copy_paste=0.1,     # copy-paste 增强 10% (默认 0.0)
+            # 保存
+            save=True,
+            save_period=10,
+            val=True,
+            max_det=800,
+            amp=args.amp,
+            plots=False,        # 离线环境跳过字体下载
+        )
 
     print(f"\n训练完成！最佳权重: {OUTPUT_DIR / run_name / 'weights' / 'best.pt'}")
     return OUTPUT_DIR / run_name / "weights" / "best.pt"
@@ -132,6 +175,8 @@ def main():
                         help="DataLoader workers (default: 4, 建议服务器用 16)")
     parser.add_argument("--no-amp", action="store_false", dest="amp", default=True,
                         help="禁用 AMP 混合精度（离线服务器需要，避免下载验证模型）")
+    parser.add_argument("--resume", action="store_true",
+                        help="从 last.pt 续训 (默认: 从头训练)")
     parser.add_argument("--data", type=str, default=str(DEFAULT_DATASET),
                         help="数据集目录路径 (default: dataset/data_v3_augmented)")
     args = parser.parse_args()
