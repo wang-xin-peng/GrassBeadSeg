@@ -67,6 +67,10 @@ def main():
                         help="推理模式 (default: ellipse)")
     parser.add_argument("--conf", type=float, default=0.3,
                         help="置信度阈值 (default: 0.3)")
+    parser.add_argument("--dedup-iou", type=float, default=0.0,
+                        help="去重 IoU 阈值（0 禁用，推荐 0.15-0.2 for best.pt）")
+    parser.add_argument("--dedup-dist", type=float, default=30,
+                        help="去重中心距离阈值，像素 (default: 30)")
     parser.add_argument("--skip-inference", action="store_true",
                         help="跳过推理，仅用已有预测做评估")
     args = parser.parse_args()
@@ -97,9 +101,14 @@ def main():
     print("=" * 70)
     print(f"模型对比：v1 vs v2")
     print(f"模式: {args.mode}  conf={args.conf}")
+    if args.dedup_iou > 0:
+        print(f"去重: IoU>{args.dedup_iou}, Dist<={args.dedup_dist}px")
     print(f"测试集: {TEST4_DIR}")
     print(f"输出目录: {OUTPUT_DIR}")
     print("=" * 70)
+
+    # 构建去重后缀（推理和评估共用）
+    dedup_suffix = f"_dedup{args.dedup_iou}".replace(".", "") if args.dedup_iou > 0 else ""
 
     # ── 推理 ──
     if not args.skip_inference:
@@ -108,7 +117,7 @@ def main():
                 print(f"\n  跳过 {label}: 权重不存在 ({weight_path})")
                 continue
 
-            infer_out = OUTPUT_DIR / f"predictions_{label.replace('-', '_')}_{args.mode}"
+            infer_out = OUTPUT_DIR / f"predictions_{label.replace('-', '_')}_{args.mode}{dedup_suffix}"
             if infer_out.exists():
                 shutil.rmtree(infer_out)
 
@@ -119,6 +128,8 @@ def main():
                 f' --output "{infer_out}"'
                 f' --mode {args.mode}'
                 f' --conf {args.conf}'
+                f' --dedup-iou {args.dedup_iou}'
+                f' --dedup-dist {args.dedup_dist}'
             )
             rc = run_cmd(cmd, f"推理 {label}")
             if rc != 0:
@@ -135,14 +146,14 @@ def main():
         if not weight_path.exists():
             continue
 
-        infer_out = OUTPUT_DIR / f"predictions_{label.replace('-', '_')}_{args.mode}"
+        infer_out = OUTPUT_DIR / f"predictions_{label.replace('-', '_')}_{args.mode}{dedup_suffix}"
         pred_labels = infer_out / "labels"
         if not pred_labels.exists():
             summary.append((label, "-", "-", "-", "-"))
             print(f"  跳过 {label}: predictions/labels 不存在")
             continue
 
-        eval_log = OUTPUT_DIR / f"eval_{label.replace('-', '_')}_{args.mode}.log"
+        eval_log = OUTPUT_DIR / f"eval_{label.replace('-', '_')}_{args.mode}{dedup_suffix}.log"
         cmd = (
             f'"{sys.executable}" src/eval.py'
             f' --gt "{TEST4_DIR / "labels"}"'
@@ -166,8 +177,9 @@ def main():
         ))
 
     # ── 打印对比表 ──
+    dedup_info = f", dedup={args.dedup_iou}/{args.dedup_dist}" if args.dedup_iou > 0 else ""
     print(f"\n{'=' * 70}")
-    print(f"  对比结果摘要 ({args.mode}, IoU@0.5, conf={args.conf})")
+    print(f"  对比结果摘要 ({args.mode}, IoU@0.5, conf={args.conf}{dedup_info})")
     print(f"{'=' * 70}")
 
     header = f"  {'模型':<18} {'F1':>8} {'Recall':>8} {'Precision':>10} {'计数误差':>10}"

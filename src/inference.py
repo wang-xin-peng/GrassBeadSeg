@@ -42,6 +42,8 @@ SAHI_OVERLAP = 0.2
 CLASS_ID = 0
 IMGSZ = 640
 MAX_DET = 800
+DEDUP_IOU = 0.15             # 去重 IoU 阈值（0 表示禁用）
+DEDUP_DIST = 30              # 去重中心距离阈值（像素）
 
 
 # ═══════════════════════════════════════════════════════
@@ -165,6 +167,69 @@ def _soft_nms(masks, confidences, small_masks, iou_threshold):
     return [masks[i] for i in keep], [confidences[i] for i in keep]
 
 
+def dedup_masks(masks, confidences, iou_threshold=0.15, distance_threshold=30):
+    """基于中心距离 + IoU 的去重（二次过滤），处理 NMS 未能去除的碎片化重复。
+    
+    对于任意一对 mask，如果它们的中心距离 < distance_threshold 且
+    mask IoU > iou_threshold，则抑制低置信度的那个。
+
+    Args:
+        iou_threshold: 较低的 IoU 阈值，用于捕获重叠碎片 (default: 0.15)
+        distance_threshold: 中心像素距离阈值 (default: 30px)
+    """
+    if len(masks) <= 1:
+        return masks, confidences
+
+    n = len(masks)
+    suppressed = [False] * n
+
+    # 按置信度降序
+    order = sorted(range(n), key=lambda i: confidences[i], reverse=True)
+
+    # 降采样用于 IoU 计算
+    h, w = masks[0].shape[:2]
+    scale = min(480 / max(h, w), 1.0)
+    small_h = max(1, int(h * scale))
+    small_w = max(1, int(w * scale))
+    small_masks = [cv2.resize(m, (small_w, small_h), interpolation=cv2.INTER_NEAREST) for m in masks]
+
+    # 预计算所有 mask 的中心点（一次性，避免 O(n²) 重复计算）
+    centers = [None] * n
+    for i in range(n):
+        ys, xs = np.where(masks[i] > 0)
+        if len(ys) > 0:
+            centers[i] = (ys.mean(), xs.mean())
+
+    for i_idx, i in enumerate(order):
+        if suppressed[i] or centers[i] is None:
+            continue
+        cy_i, cx_i = centers[i]
+
+        for j in order[i_idx + 1:]:
+            if suppressed[j] or centers[j] is None:
+                continue
+            cy_j, cx_j = centers[j]
+
+            # 中心距离检查
+            center_dist = np.sqrt((cy_i - cy_j) ** 2 + (cx_i - cx_j) ** 2)
+            if center_dist > distance_threshold:
+                continue
+
+            # IoU 检查（降采样加速）
+            intersection = np.bitwise_and(small_masks[i], small_masks[j]).sum()
+            union = np.bitwise_or(small_masks[i], small_masks[j]).sum()
+            iou = intersection / union if union > 0 else 0
+
+            if iou > iou_threshold:
+                suppressed[j] = True
+
+    keep = [i for i in range(n) if not suppressed[i] and confidences[i] >= CONF_THRESHOLD * 0.5]
+    if not keep:
+        keep = [int(np.argmax(confidences))]
+
+    return [masks[i] for i in keep], [confidences[i] for i in keep]
+
+
 # ═══════════════════════════════════════════════════════
 # 推理模式
 # ═══════════════════════════════════════════════════════
@@ -275,21 +340,21 @@ def _tta_consensus(orig_masks, orig_confs, flip_masks, flip_confs, iou_threshold
     return result_masks, result_confs
 
 
-def infer_sahi(model, image, tta=False, nms_method="hard"):
-    """SAHI 分块推理，可选 TTA（水平翻转 + 合并 NMS）。
+def infer_sahi(model, image, tta=False, nms_method="hard", dedup_iou=0, dedup_dist=30):
+    """SAHI 分块推理，可选 TTA（水平翻转 + 合并 NMS）+ 二次去重。
 
     Args:
         tta: 启用水平翻转 TTA
         nms_method: "hard" 或 "soft"
+        dedup_iou: 去重 IoU 阈值（0 表示禁用）
+        dedup_dist: 去重中心距离阈值（像素）
     """
     masks, confs = _sahi_extract_masks(model, image)
 
     if tta:
         flipped = cv2.flip(image, 1)
         f_masks, f_confs = _sahi_extract_masks(model, flipped)
-        # 翻转回原坐标
         f_masks = [cv2.flip(m, 1) for m in f_masks]
-        # 共识过滤：只保留原图和翻转图都检测到的
         masks, confs = _tta_consensus(masks, confs, f_masks, f_confs, iou_threshold=0.3)
         print(f"    TTA consensus: {len(masks)} masks kept", flush=True)
 
@@ -299,6 +364,12 @@ def infer_sahi(model, image, tta=False, nms_method="hard"):
         masks, confs = nms_masks(masks, confs, iou_threshold=IOU_THRESHOLD, method=nms_method)
         print(f"    NMS done: {len(masks)} masks kept", flush=True)
 
+    # 二次去重（中心距离 + IoU），捕获 NMS 未能去除的碎片化重复
+    if dedup_iou > 0 and len(masks) > 1:
+        print(f"    Dedup (iou>{dedup_iou}, dist<={dedup_dist}): {len(masks)} masks...", flush=True)
+        masks, confs = dedup_masks(masks, confs, iou_threshold=dedup_iou, distance_threshold=dedup_dist)
+        print(f"    Dedup done: {len(masks)} masks kept", flush=True)
+
     return masks, confs
 
 
@@ -307,7 +378,7 @@ def infer_sahi(model, image, tta=False, nms_method="hard"):
 # ═══════════════════════════════════════════════════════
 
 def main():
-    global CONF_THRESHOLD, SAHI_TILE_SIZE, SAHI_OVERLAP, MAX_DET, YOLO_IOU_THRESHOLD
+    global CONF_THRESHOLD, SAHI_TILE_SIZE, SAHI_OVERLAP, MAX_DET, YOLO_IOU_THRESHOLD, DEDUP_IOU, DEDUP_DIST
 
     parser = argparse.ArgumentParser(description="YOLOv11-seg 推理")
     parser.add_argument("--model", required=True, help="模型权重路径 (.pt)")
@@ -324,6 +395,10 @@ def main():
     parser.add_argument("--soft-nms", action="store_true", help="使用 Soft-NMS 替代硬 NMS")
     parser.add_argument("--yolo-iou", type=float, default=YOLO_IOU_THRESHOLD,
                         help=f"YOLO 内部 NMS IoU 阈值 (default: {YOLO_IOU_THRESHOLD})")
+    parser.add_argument("--dedup-iou", type=float, default=DEDUP_IOU,
+                        help=f"去重 IoU 阈值（0 禁用，default: {DEDUP_IOU}）")
+    parser.add_argument("--dedup-dist", type=float, default=DEDUP_DIST,
+                        help=f"去重中心距离阈值，像素（default: {DEDUP_DIST}）")
     args = parser.parse_args()
 
     CONF_THRESHOLD = args.conf
@@ -331,6 +406,8 @@ def main():
     SAHI_OVERLAP = args.overlap
     MAX_DET = args.max_det
     YOLO_IOU_THRESHOLD = args.yolo_iou
+    DEDUP_IOU = args.dedup_iou
+    DEDUP_DIST = args.dedup_dist
     nms_method = "soft" if args.soft_nms else "hard"
 
     from ultralytics import YOLO
@@ -375,6 +452,7 @@ def main():
     print(f"YOLO IoU: {YOLO_IOU_THRESHOLD}")
     print(f"TTA: {'启用' if args.tta else '关闭'}")
     print(f"NMS:  {'Soft' if nms_method == 'soft' else 'Hard'}")
+    print(f"去重: {'关闭' if DEDUP_IOU <= 0 else f'IoU>{DEDUP_IOU}, Dist<={DEDUP_DIST}px'}")
     print(f"设备: {device}")
     print(f"图片数: {len(image_files)}")
     print("=" * 60)
@@ -393,7 +471,8 @@ def main():
         if args.mode == "baseline":
             masks, confs = infer_baseline(model, image)
         else:  # sahi / ellipse
-            masks, confs = infer_sahi(model, image, tta=args.tta, nms_method=nms_method)
+            masks, confs = infer_sahi(model, image, tta=args.tta, nms_method=nms_method,
+                                      dedup_iou=DEDUP_IOU, dedup_dist=DEDUP_DIST)
 
         # 椭圆拟合（仅在 ellipse 模式下）
         if args.mode == "ellipse":
