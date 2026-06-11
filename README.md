@@ -2,6 +2,21 @@
 
 玻璃珠高密度粘连图像的实例分割项目。核心任务是对图像中每一颗玻璃珠生成独立的像素级掩膜，实现个体分离、轮廓提取与精确计数。适用于材料科学、工业质检及颗粒分析中的高通量形态学分析。
 
+## 最优模型 — YOLOv11n-seg v2
+
+| 指标 | v1 (baseline) | **v2 (推荐)** |
+|------|:---:|:---:|
+| 权重 | yolo11n-seg-baseline_v1 | **yolo11n-seg-v2 (last.pt)** |
+| Recall@0.5 | 0.554 | **0.662** |
+| Precision@0.5 | 0.566 | **0.633** |
+| F1@0.5 | 0.560 | **0.647** |
+| 计数误差 | 2.5% | **4.5%** |
+
+v2 改进点：
+- 离线增强：20× per image（v1 为 10×），更强的 albumentations pipeline
+- 在线增强：scale=0.9, degrees=15, shear=5, perspective, mixup, copy_paste
+- 训练 200 epochs，AdamW + cosine lr
+
 ## 技术路线（our_method）
 
 ```
@@ -22,17 +37,6 @@
        ▼
   最终椭圆掩膜输出
 ```
-
-| 指标 | 数值 |
-|------|------|
-| 模型 | YOLOv11n-seg (2.6M) |
-| 训练数据 | 20 张人工标注（data_v3），10 倍增强 |
-| 推理模式 | SAHI + ellipse |
-| 置信度阈值 | 0.3 |
-| Recall@0.5 | 0.512 |
-| Precision@0.5 | 0.557 |
-| F1@0.5 | 0.534 |
-| 平均计数误差 | 7.6% |
 
 ## 完整流程
 
@@ -63,30 +67,33 @@ YOLO 输出 polygon mask
 ```
 GrassBeadSeg/
 ├── src/
-│   ├── train.py              # YOLOv11-seg 训练脚本
-│   ├── inference.py          # 推理脚本（baseline / sahi / ellipse）
+│   ├── train.py              # YOLOv11-seg 训练脚本（支持 --resume 续训）
+│   ├── inference.py          # 推理脚本（baseline / sahi / ellipse / TTA / Soft-NMS）
 │   └── eval.py               # Greedy IoU 评估脚本
 ├── scripts/
 │   ├── data_augmentation/
-│   │   └── augment_dataset.py # 几何 + 像素增强（albumentations）
+│   │   └── augment_dataset.py # 几何 + 像素增强（albumentations, 20×）
 │   ├── data_preparation/
 │   │   └── prepare_data_v4.py # data_v4 数据集生成
 │   ├── train/
 │   │   └── train_rfdetr.py    # RF-DETR 训练
-│   └── inference/
-│       └── inference_rfdetr.py # RF-DETR 自动标注推理
+│   ├── inference/
+│   │   └── inference_rfdetr.py # RF-DETR 自动标注推理
+│   └── eval/
+│       └── compare_models.py  # v1/v2 模型自动对比脚本
 ├── dataset/
 │   ├── raw/                   # 40 张原始未标注图片
-│   ├── data_v3/               # 20 张人工标注数据集
-│   │   ├── train/ (16 张), valid/ (2 张), test/ (2 张)
-│   │   └── data.yaml
-│   ├── data_v3_augmented/     # 增强后数据集（~200 张 train）
-│   ├── data_v4/               # 人工 + 自动标注混合数据集
+│   ├── data_v3/               # 20 张人工标注 + 增强数据集
+│   ├── data_v3_augmented/     # v1 增强数据（10×）
+│   ├── data_v3_aug_v2/        # v2 增强数据（20×）
+│   ├── data_v4/               # 人工 + 自动标注混合
 │   └── auto_labeled_v*/       # RF-DETR 自动标注结果
 ├── models/
-│   ├── our_method/            # YOLOv11 训练权重
-│   │   ├── yolo11n-seg-baseline_v1/  # nano 最佳权重
-│   │   └── yolo11s-seg-baseline_v1/  # small 权重
+│   ├── our_method/
+│   │   ├── yolo11n-seg-baseline_v1/  # v1 nano 权重
+│   │   ├── yolo11s-seg-baseline_v1/  # v1 small 权重
+│   │   ├── yolo11n-seg-v2/           # ★ v2 nano 权重（推荐）
+│   │   └── yolo11s-seg-v2/           # v2 small 权重
 │   └── rfdetr_seg_large/      # RF-DETR 权重及预训练模型
 ├── outputs/                   # 推理输出（标签 + 可视化）
 ├── logs/                      # 训练与评估日志
@@ -109,17 +116,9 @@ pip install -r requirements.txt
 
 **方式一：使用已有数据集 data_v3**
 
-直接使用 `dataset/data_v3_augmented/`（20 张人工标注 + 10 倍增强）。
+直接使用 `dataset/data_v3/`（20 张人工标注）。
 
-**方式二：从头生成**
-
-生成 data_v4（40 张混合标注，不推荐用于训练）：
-
-```bash
-python scripts/data_preparation/prepare_data_v4.py
-```
-
-对任意 YOLO 格式数据集做增强：
+**方式二：从头生成增强数据**
 
 ```bash
 python scripts/data_augmentation/augment_dataset.py \
@@ -129,14 +128,15 @@ python scripts/data_augmentation/augment_dataset.py \
 ### 2. 训练
 
 ```bash
-# 默认配置（data_v3_augmented, nano + small）
-python src/train.py
+# 从头训练 nano
+python src/train.py --data dataset/data_v3_aug_v2 --model n
 
-# 指定数据集
-python src/train.py --data dataset/data_v3_augmented --model n
+# 续训（从 last.pt 恢复）
+python src/train.py --data dataset/data_v3_aug_v2 --model n --resume
 
 # 服务器 A800 配置
-python src/train.py --model n --batch 32 --workers 16 --no-amp
+python src/train.py --data dataset/data_v3_aug_v2 --model n \
+  --batch 32 --workers 16 --device 0 --no-amp
 ```
 
 ### 3. 推理
@@ -144,12 +144,15 @@ python src/train.py --model n --batch 32 --workers 16 --no-amp
 ```bash
 # SAHI + ellipse 模式（推荐）
 python src/inference.py \
-  --model models/our_method/yolo11n-seg-baseline_v1/weights/best.pt \
-  --source dataset/data_v3/test/images \
+  --model models/our_method/yolo11n-seg-v2/weights/last.pt \
+  --source dataset/data_v3_augmented/test/images \
   --output outputs/test_result \
   --mode ellipse --conf 0.3
 
-# 支持三种模式: baseline / sahi / ellipse
+# 启用 TTA（水平翻转，提升 recall 2-5%）
+python src/inference.py --mode ellipse --tta ...
+
+# 查看所有选项
 python src/inference.py --help
 ```
 
@@ -158,14 +161,20 @@ python src/inference.py --help
 ```bash
 python src/eval.py \
   --pred outputs/test_result/labels \
-  --gt dataset/data_v3/test/labels \
-  --images dataset/data_v3/test/images
+  --gt dataset/data_v3_augmented/test/labels \
+  --images dataset/data_v3_augmented/test/images
 ```
 
-### 5. RF-DETR 自动标注（可选）
+### 5. v1 vs v2 自动对比
 
 ```bash
-# 用于批量标注新图片
+python scripts/eval/compare_models.py
+# 自动推理 + 评估 + 打印 F1/Recall/Precision 对比表
+```
+
+### 6. RF-DETR 自动标注（可选）
+
+```bash
 python scripts/inference/inference_rfdetr.py
 ```
 
@@ -173,10 +182,11 @@ RF-DETR v3 自动标注 recall ~85%，可用于辅助标注，但注意漏标噪
 
 ## 关键设计决策
 
-- **小模型优于大模型**：20 张训练数据下，nano (2.6M) F1=0.534 > small (9.4M) F1=0.301，小容量更抗过拟合
-- **椭圆拟合优于原始分割**：ConvexHull + fitEllipse 消除阴影凹陷和碎片化，减少重复检测，计数误差降至 7.6%
-- **纯人工标注优于混合标注**：自动标注的 ~15% 漏标率会显著拉低模型 precision（0.557 → 0.390）
-- **降采样 NMS**：全分辨率 mask IoU 计算为 O(n²)，降采样到 ~480px 后速度从数分钟降至秒级，对 NMS 效果无影响
+- **nano > small**：20 张训练数据下，nano (2.6M) F1=0.647 > small (9.4M) F1=0.628，小容量更抗过拟合
+- **椭圆拟合优于原始分割**：ConvexHull + fitEllipse 消除阴影凹陷和碎片化，减少重复检测
+- **纯人工标注优于混合标注**：自动标注的 ~15% 漏标率会显著拉低模型 precision
+- **降采样 NMS**：全分辨率 mask IoU 计算为 O(n²)，降采样到 ~480px 后速度从数分钟降至秒级
+- **last.pt > best.pt**：best.pt 追求最高 mAP 导致过检（30% 计数误差），last.pt 更平衡（4.5% 计数误差）
 
 ## 许可证
 
