@@ -177,6 +177,8 @@ def main():
                         help="禁用 AMP 混合精度（离线服务器需要，避免下载验证模型）")
     parser.add_argument("--resume", action="store_true",
                         help="从 last.pt 续训 (默认: 从头训练)")
+    parser.add_argument("--name", type=str, default="v3",
+                        help="训练 run 名称 (default: v3, 输出到 models/our_method/yolo11{model}-seg-{name}/)")
     parser.add_argument("--data", type=str, default=str(DEFAULT_DATASET),
                         help="数据集目录路径 (default: dataset/data_v3_augmented)")
     args = parser.parse_args()
