@@ -75,10 +75,10 @@ def train_model(model_name, data_yaml_path, args):
     """训练单个模型。"""
     from ultralytics import YOLO
 
-    run_name = f"yolo11{model_name}-seg-v2"
+    run_name = f"yolo11{model_name}-seg-{args.name}"
 
     print(f"\n{'=' * 60}")
-    print(f"训练 YOLOv11{model_name}-seg (v2 - 增强训练)")
+    print(f"训练 YOLOv11{model_name}-seg ({args.name})")
     print(f"{'=' * 60}")
 
     # Device 处理
