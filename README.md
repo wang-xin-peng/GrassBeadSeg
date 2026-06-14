@@ -2,25 +2,27 @@
 
 玻璃珠高密度粘连图像的实例分割项目。核心任务是对图像中每一颗玻璃珠生成独立的像素级掩膜，实现个体分离、轮廓提取与精确计数。适用于材料科学、工业质检及颗粒分析中的高通量形态学分析。
 
-## 最优模型 — YOLOv11n-seg v2
+## 最优模型 — YOLOv11n-seg v3
 
-| 指标 | v1 (baseline) | **v2 last.pt** | **v2 best.pt + 优化** |
-|------|:---:|:---:|:---:|
-| 权重 | yolo11n-seg-baseline_v1 | yolo11n-seg-v2 (last.pt) | yolo11n-seg-v2 (best.pt) |
-| Recall@0.5 | 0.554 | **0.662** | **0.736** |
-| Precision@0.5 | 0.566 | **0.633** | **0.695** |
-| F1@0.5 | 0.560 | **0.647** | **0.715** |
-| 计数误差 | 2.5% | **4.5%** | **5.9%** |
+| 指标 | v2 best.pt | **v3 last.pt + 优化** |
+|------|:---:|:---:|
+| 权重 | yolo11n-seg-v2 (best.pt) | yolo11n-seg-v3 (last.pt) |
+| Recall@0.5 | 0.736 | **0.766** |
+| Precision@0.5 | 0.695 | **0.712** |
+| F1@0.5 | 0.715 | **0.738** |
+| 计数误差 | 5.9% | **3.6%**（平衡） |
 
 **推荐方案**：
 
-- 如需**最高计数精度**（3.3% 误差）→ `last.pt` + dedup + TTA
-- 如需**最高 F1 / 检出率**（0.715）→ `best.pt` + 去重 + TTA + conf=0.34（下详）
+- 如需**最高 F1 / 检出率**（0.738）→ `last.pt` + ov=0.32 + conf=0.38 + TTA
+- 如需**最高计数精度**（1.5% 误差）→ `last.pt` + ov=0.30 + conf=0.41 + TTA
 
-v2 改进点：
-- 离线增强：20× per image（v1 为 10×），更强的 albumentations pipeline
+v3 改进点：
+- 训练数据：30 张人工标注（vs v2 的 20 张），data_v5 数据集
+- 离线增强：20× per image，albumentations pipeline
 - 在线增强：scale=0.9, degrees=15, shear=5, perspective, mixup, copy_paste
 - 训练 200 epochs，AdamW + cosine lr
+- v2 → v3：F1 +0.023，Recall +0.030，计数误差 -2.3pp
 
 ## 技术路线（our_method）
 
@@ -93,31 +95,40 @@ GrassBeadSeg/
 │   ├── data_augmentation/
 │   │   └── augment_dataset.py # 几何 + 像素增强（albumentations, 20×）
 │   ├── data_preparation/
-│   │   └── prepare_data_v4.py # data_v4 数据集生成
+│   │   ├── prepare_data_v4.py   # data_v4 数据集生成
+│   │   └── prepare_data_v5.py   # data_v5 数据集生成
 │   ├── train/
-│   │   └── train_rfdetr.py    # RF-DETR 训练
+│   │   └── train_rfdetr.py      # RF-DETR 训练
 │   ├── inference/
-│   │   └── inference_rfdetr.py # RF-DETR 自动标注推理
+│   │   └── inference_rfdetr.py   # RF-DETR 自动标注推理
 │   └── eval/
-│       ├── compare_models.py  # v1/v2 模型自动对比（支持 --dedup-iou）
-│       ├── sweep_best_pt.py   # best.pt 去重参数网格搜索
-│       └── sweep_best_pt_v2.py # best.pt 第二轮优化搜索
+│       ├── compare_models.py    # v1/v2 模型自动对比
+│       ├── sweep_best_pt.py     # best.pt 去重参数网格搜索
+│       ├── sweep_best_pt_v2.py  # best.pt 第二轮优化搜索
+│       ├── sweep_v3_conf.py     # v3 置信度 + TTA 扫描
+│       ├── sweep_v3_fine.py     # v3 五维精细调参
+│       ├── sweep_v3_ov_conf.py  # v3 overlap × conf 交叉搜索
+│       ├── sweep_v3_r3.py       # v3 大 overlap + soft-nms
+│       └── sweep_v3_best.py     # v3 best.pt overlap 扫描
 ├── dataset/
-│   ├── raw/                   # 40 张原始未标注图片
-│   ├── data_v3/               # 20 张人工标注 + 增强数据集
-│   ├── data_v3_augmented/     # v1 增强数据（10×）
-│   ├── data_v3_aug_v2/        # v2 增强数据（20×）
-│   ├── data_v4/               # 人工 + 自动标注混合
-│   └── auto_labeled_v*/       # RF-DETR 自动标注结果
+│   ├── raw/                     # 40 张原始未标注图片
+│   ├── 21-30/                   # 新增 10 张人工标注
+│   ├── data_v3/                 # 20 张人工标注
+│   ├── data_v3_augmented/       # v1 增强数据（10×）
+│   ├── data_v3_aug_v2/          # v2 增强数据（20×）
+│   ├── data_v4/                 # 人工 + 自动标注混合
+│   ├── data_v5/                 # ★ 30 张人工标注（v3 训练集）
+│   └── auto_labeled_v*/         # RF-DETR 自动标注结果
 ├── models/
 │   ├── our_method/
 │   │   ├── yolo11n-seg-baseline_v1/  # v1 nano 权重
 │   │   ├── yolo11s-seg-baseline_v1/  # v1 small 权重
-│   │   ├── yolo11n-seg-v2/           # ★ v2 nano 权重（推荐）
-│   │   └── yolo11s-seg-v2/           # v2 small 权重
-│   └── rfdetr_seg_large/      # RF-DETR 权重及预训练模型
-├── outputs/                   # 推理输出（标签 + 可视化 + 评估日志）
-├── logs/                      # 训练与评估日志
+│   │   ├── yolo11n-seg-v2/           # v2 nano 权重
+│   │   ├── yolo11s-seg-v2/           # v2 small 权重
+│   │   └── yolo11n-seg-v3/           # ★ v3 nano 权重（推荐）
+│   └── rfdetr_seg_large/        # RF-DETR 权重及预训练模型
+├── outputs/                     # 推理输出（标签 + 可视化 + 评估日志）
+├── logs/                        # 训练与评估日志
 └── requirements.txt
 ```
 
@@ -135,54 +146,49 @@ pip install -r requirements.txt
 
 ### 1. 数据准备
 
-**方式一：使用已有数据集 data_v3**
+**方式一：使用已有数据集 data_v5**
 
-直接使用 `dataset/data_v3/`（20 张人工标注）。
+直接使用 `dataset/data_v5/`（30 张人工标注，train=26/valid=2/test=2）。
 
 **方式二：从头生成增强数据**
 
 ```bash
 python scripts/data_augmentation/augment_dataset.py \
-  --input dataset/data_v3 --output dataset/data_v3_augmented
+  --input dataset/data_v5 --output dataset/data_v5_aug --augments-per-image 20
 ```
 
 ### 2. 训练
 
 ```bash
-# 从头训练 nano
-python src/train.py --data dataset/data_v3_aug_v2 --model n
+# 从头训练 v3 nano
+python src/train.py --data dataset/data_v5_aug --model n --name v3
 
-# 续训（从 last.pt 恢复）
-python src/train.py --data dataset/data_v3_aug_v2 --model n --resume
-
-# 服务器 A800 配置
-python src/train.py --data dataset/data_v3_aug_v2 --model n \
-  --batch 32 --workers 16 --device 0 --no-amp
+# 服务器 A800 配置（离线环境必须加 --no-amp）
+python src/train.py --data dataset/data_v5_aug --model n --name v3 \
+  --batch 16 --workers 16 --device 0 --no-amp
 ```
 
 ### 3. 推理
 
 ```bash
-# ★ 推荐：best.pt + 去重 + TTA（最高 F1=0.715，计数误差 5.9%）
+# ★ 推荐：v3 last.pt + TTA（最高 F1=0.738）
 python src/inference.py \
-  --model models/our_method/yolo11n-seg-v2/weights/best.pt \
+  --model models/our_method/yolo11n-seg-v3/weights/last.pt \
   --source <images> \
   --output outputs/result \
   --mode ellipse \
-  --yolo-iou 0.5 \
-  --dedup-iou 0.10 \
-  --dedup-dist 40 \
-  --overlap 0.15 \
-  --conf 0.34 \
+  --overlap 0.32 \
+  --conf 0.38 \
   --tta
 
-# 最高计数精度（last.pt，计数误差 3.3%）
+# 最高计数精度（计数误差 1.5%）
 python src/inference.py \
-  --model models/our_method/yolo11n-seg-v2/weights/last.pt \
+  --model models/our_method/yolo11n-seg-v3/weights/last.pt \
   --source <images> \
   --output outputs/result \
   --mode ellipse \
-  --dedup-iou 0.15 \
+  --overlap 0.30 \
+  --conf 0.41 \
   --tta
 
 # 查看所有选项
@@ -193,33 +199,39 @@ python src/inference.py --help
 
 | 参数 | 默认值 | 推荐值 | 说明 |
 |------|--------|--------|------|
-| `--yolo-iou` | 0.7 | 0.5 | YOLO 内部 NMS，降低可减少块内重复 |
-| `--dedup-iou` | 0.15 | 0.10 | 去重 IoU 阈值（0=禁用） |
-| `--dedup-dist` | 30 | 40 | 去重中心距离阈值（px） |
-| `--overlap` | 0.2 | 0.15 | SAHI 分块重叠率，降低减少重复 |
-| `--conf` | 0.3 | 0.34 | 置信度阈值 |
-| `--tta` | 关闭 | 启用 | 翻转共识，提升 recall |
+| `--overlap` | 0.2 | 0.32 | SAHI 分块重叠率，v3 需要更大重叠 |
+| `--conf` | 0.3 | 0.38 | 置信度阈值 |
+| `--tta` | 关闭 | 启用 | 翻转共识，提升 F1 +0.015-0.02 |
+| `--yolo-iou` | 0.7 | 0.7 | v3 上已饱和，默认即可 |
+| `--dedup-iou` | 0.15 | 0.15 | v3 上已饱和，默认即可 |
+| `--dedup-dist` | 30 | 30 | v3 上已饱和，默认即可 |
 
 ### 4. 评估
 
 ```bash
 python src/eval.py \
   --pred outputs/result/labels \
-  --gt dataset/data_v3_augmented/test/labels \
-  --images dataset/data_v3_augmented/test/images
+  --gt dataset/data_v5/test/labels \
+  --images dataset/data_v5/test/images
 ```
 
-### 5. 模型自动对比
+### 5. 模型自动对比 / 参数搜索
 
 ```bash
-# 基础对比
-python scripts/eval/compare_models.py
+# v3 置信度 + TTA 扫描
+python scripts/eval/sweep_v3_conf.py
 
-# 带去重 + TTA 的对比
-python scripts/eval/compare_models.py --dedup-iou 0.15
+# v3 五维精细调参
+python scripts/eval/sweep_v3_fine.py
 
-# best.pt 参数网格搜索
-python scripts/eval/sweep_best_pt.py
+# v3 overlap × conf 交叉搜索
+python scripts/eval/sweep_v3_ov_conf.py
+
+# v3 大 overlap + soft-nms
+python scripts/eval/sweep_v3_r3.py
+
+# v3 best.pt overlap 扫描
+python scripts/eval/sweep_v3_best.py
 ```
 
 ### 6. RF-DETR 自动标注（可选）
@@ -232,9 +244,12 @@ RF-DETR v3 自动标注 recall ~85%，可用于辅助标注，但注意漏标噪
 
 ## 关键设计决策
 
-- **中心距离+IoU 去重是关键**：SAHI 分块产生大量碎片化重复，仅靠 mask IoU NMS 不足以去除（碎片间 IoU 只有 0.1-0.4）。引入中心距离约束后，去重叠检测效果显著，F1 +0.03，计数误差从 30.4% 降至 5.9%
-- **TTA 翻转共识**：原图+翻转图共识过滤，天然抑制 SAHI 碎片带来的假阳，同时恢复部分被提高的置信度阈值误杀的真检测
-- **nano > small**：20 张训练数据下，nano (2.6M) F1=0.715 > small (9.4M) F1=0.628，小容量更抗过拟合
+- **数据扩展是最有效的提升**：v2 (20 张) → v3 (30 张)，F1 +0.023，Recall +0.030，计数误差 -2.3pp。瓶颈仍在数据量
+- **v3 需要更大 overlap**：v2 最优 overlap=0.15，v3 最优 overlap=0.32。v3 的冗余检测减少后，需要更大的分块重叠来覆盖边界珠子
+- **dedup/dist/yolo_iou 对 v3 已饱和**：v3 训练质量提升后，SAHI 自身产生的重复检测大幅减少，dedup、NMS 参数在全范围内几乎无差异。Soft-NMS 同样无效果
+- **TTA 仍然刚需**：关闭 TTA 直接掉 0.015-0.019 F1，翻转共识过滤机制仍然有效
+- **last.pt > best.pt**：v3 上 last.pt 在所有维度（F1、Recall、计数精度）均优于 best.pt
+- **nano > small**：30 张训练数据下，nano (2.6M) 比 small (9.4M) 更抗过拟合
 - **椭圆拟合优于原始分割**：ConvexHull + fitEllipse 消除阴影凹陷和碎片化，减少重复检测
 - **纯人工标注优于混合标注**：自动标注的 ~15% 漏标率会显著拉低模型 precision
 - **降采样 NMS**：全分辨率 mask IoU 计算为 O(n²)，降采样到 ~480px 后速度从数分钟降至秒级
