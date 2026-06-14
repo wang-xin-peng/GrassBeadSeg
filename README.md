@@ -97,11 +97,10 @@ GrassBeadSeg/
 │   ├── data_preparation/
 │   │   ├── prepare_data_v4.py   # data_v4 数据集生成
 │   │   └── prepare_data_v5.py   # data_v5 数据集生成
-│   ├── train/
-│   │   └── train_rfdetr.py      # RF-DETR 训练
-│   ├── inference/
+│   ├── auto_label/
+│   │   ├── train_rfdetr.py      # RF-DETR 训练
 │   │   └── inference_rfdetr.py   # RF-DETR 自动标注推理
-│   └── eval/
+│   └── sweep/
 │       ├── compare_models.py    # v1/v2 模型自动对比
 │       ├── sweep_best_pt.py     # best.pt 去重参数网格搜索
 │       ├── sweep_best_pt_v2.py  # best.pt 第二轮优化搜索
@@ -112,17 +111,12 @@ GrassBeadSeg/
 │       └── sweep_v3_best.py     # v3 best.pt overlap 扫描
 ├── dataset/
 │   ├── raw/                     # 40 张原始未标注图片
-│   ├── 21-30/                   # 新增 10 张人工标注
 │   ├── data_v3/                 # 20 张人工标注
-│   ├── data_v3_augmented/       # v1 增强数据（10×）
-│   ├── data_v3_aug_v2/          # v2 增强数据（20×）
-│   ├── data_v4/                 # 人工 + 自动标注混合
+│   ├── data_v3_aug/             # v2 增强数据（20×）
 │   ├── data_v5/                 # ★ 30 张人工标注（v3 训练集）
 │   └── auto_labeled_v*/         # RF-DETR 自动标注结果
 ├── models/
 │   ├── our_method/
-│   │   ├── yolo11n-seg-baseline_v1/  # v1 nano 权重
-│   │   ├── yolo11s-seg-baseline_v1/  # v1 small 权重
 │   │   ├── yolo11n-seg-v2/           # v2 nano 权重
 │   │   ├── yolo11s-seg-v2/           # v2 small 权重
 │   │   └── yolo11n-seg-v3/           # ★ v3 nano 权重（推荐）
@@ -219,25 +213,25 @@ python src/eval.py \
 
 ```bash
 # v3 置信度 + TTA 扫描
-python scripts/eval/sweep_v3_conf.py
+python scripts/sweep/sweep_v3_conf.py
 
 # v3 五维精细调参
-python scripts/eval/sweep_v3_fine.py
+python scripts/sweep/sweep_v3_fine.py
 
 # v3 overlap × conf 交叉搜索
-python scripts/eval/sweep_v3_ov_conf.py
+python scripts/sweep/sweep_v3_ov_conf.py
 
 # v3 大 overlap + soft-nms
-python scripts/eval/sweep_v3_r3.py
+python scripts/sweep/sweep_v3_r3.py
 
 # v3 best.pt overlap 扫描
-python scripts/eval/sweep_v3_best.py
+python scripts/sweep/sweep_v3_best.py
 ```
 
 ### 6. RF-DETR 自动标注（可选）
 
 ```bash
-python scripts/inference/inference_rfdetr.py
+python scripts/auto_label/inference_rfdetr.py
 ```
 
 RF-DETR v3 自动标注 recall ~85%，可用于辅助标注，但注意漏标噪声会影响训练质量，纯人工标注在精确计数任务上效果更优。
