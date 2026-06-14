@@ -240,7 +240,7 @@ dataset/auto_labeled_v1/
 dataset/auto_labeled_v2/
 dataset/auto_labeled_v3/
 dataset/data_v4/
-dataset/data_v5_aug/
+dataset/data_v3_aug/
 dataset/*/data_fixed.yaml
 
 # Output directories

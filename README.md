@@ -4,13 +4,13 @@
 
 ## 最优模型 — YOLOv11n-seg v3
 
-| 指标 | v2 best.pt | **v3 last.pt + 优化** |
-|------|:---:|:---:|
-| 权重 | yolo11n-seg-v2 (best.pt) | yolo11n-seg-v3 (last.pt) |
-| Recall@0.5 | 0.736 | **0.766** |
-| Precision@0.5 | 0.695 | **0.712** |
-| F1@0.5 | 0.715 | **0.738** |
-| 计数误差 | 5.9% | **3.6%**（平衡） |
+| 指标          |        v2 best.pt        | **v3 last.pt + 优化** |
+| ------------- | :----------------------: | :-------------------------: |
+| 权重          | yolo11n-seg-v2 (best.pt) |  yolo11n-seg-v3 (last.pt)  |
+| Recall@0.5    |          0.736          |       **0.766**       |
+| Precision@0.5 |          0.695          |       **0.712**       |
+| F1@0.5        |          0.715          |       **0.738**       |
+| 计数误差      |           5.9%           |   **3.6%**（平衡）   |
 
 **推荐方案**：
 
@@ -18,7 +18,8 @@
 - 如需**最高计数精度**（1.5% 误差）→ `last.pt` + ov=0.30 + conf=0.41 + TTA
 
 v3 改进点：
-- 训练数据：30 张人工标注（vs v2 的 20 张），data_v5 数据集
+
+- 训练数据：30 张人工标注（vs v2 的 20 张），data_v3 数据集
 - 离线增强：20× per image，albumentations pipeline
 - 在线增强：scale=0.9, degrees=15, shear=5, perspective, mixup, copy_paste
 - 训练 200 epochs，AdamW + cosine lr
@@ -94,9 +95,6 @@ GrassBeadSeg/
 ├── scripts/
 │   ├── data_augmentation/
 │   │   └── augment_dataset.py # 几何 + 像素增强（albumentations, 20×）
-│   ├── data_preparation/
-│   │   ├── prepare_data_v4.py   # data_v4 数据集生成
-│   │   └── prepare_data_v5.py   # data_v5 数据集生成
 │   ├── auto_label/
 │   │   ├── train_rfdetr.py      # RF-DETR 训练
 │   │   └── inference_rfdetr.py   # RF-DETR 自动标注推理
@@ -111,9 +109,9 @@ GrassBeadSeg/
 │       └── sweep_v3_best.py     # v3 best.pt overlap 扫描
 ├── dataset/
 │   ├── raw/                     # 40 张原始未标注图片
-│   ├── data_v3/                 # 20 张人工标注
-│   ├── data_v3_aug/             # v2 增强数据（20×）
-│   ├── data_v5/                 # ★ 30 张人工标注（v3 训练集）
+│   ├── data_v2/                 # 20 张人工标注（v2 训练集）
+│   ├── data_v2_aug/             # v2 增强数据（20×）
+│   ├── data_v3/                 # ★ 30 张人工标注（v3 训练集）
 │   └── auto_labeled_v*/         # RF-DETR 自动标注结果
 ├── models/
 │   ├── our_method/
@@ -140,25 +138,25 @@ pip install -r requirements.txt
 
 ### 1. 数据准备
 
-**方式一：使用已有数据集 data_v5**
+**方式一：使用已有数据集 data_v3**
 
-直接使用 `dataset/data_v5/`（30 张人工标注，train=26/valid=2/test=2）。
+直接使用 `dataset/data_v3/`（30 张人工标注，train=26/valid=2/test=2）。
 
 **方式二：从头生成增强数据**
 
 ```bash
 python scripts/data_augmentation/augment_dataset.py \
-  --input dataset/data_v5 --output dataset/data_v5_aug --augments-per-image 20
+  --input dataset/data_v3 --output dataset/data_v3_aug --augments-per-image 20
 ```
 
 ### 2. 训练
 
 ```bash
 # 从头训练 v3 nano
-python src/train.py --data dataset/data_v5_aug --model n --name v3
+python src/train.py --data dataset/data_v3_aug --model n --name v3
 
-# 服务器 A800 配置（离线环境必须加 --no-amp）
-python src/train.py --data dataset/data_v5_aug --model n --name v3 \
+# 离线环境可以加 --no-amp
+python src/train.py --data dataset/data_v3_aug --model n --name v3 \
   --batch 16 --workers 16 --device 0 --no-amp
 ```
 
@@ -191,22 +189,22 @@ python src/inference.py --help
 
 关键参数说明：
 
-| 参数 | 默认值 | 推荐值 | 说明 |
-|------|--------|--------|------|
-| `--overlap` | 0.2 | 0.32 | SAHI 分块重叠率，v3 需要更大重叠 |
-| `--conf` | 0.3 | 0.38 | 置信度阈值 |
-| `--tta` | 关闭 | 启用 | 翻转共识，提升 F1 +0.015-0.02 |
-| `--yolo-iou` | 0.7 | 0.7 | v3 上已饱和，默认即可 |
-| `--dedup-iou` | 0.15 | 0.15 | v3 上已饱和，默认即可 |
-| `--dedup-dist` | 30 | 30 | v3 上已饱和，默认即可 |
+| 参数             | 默认值 | 推荐值 | 说明                             |
+| ---------------- | ------ | ------ | -------------------------------- |
+| `--overlap`    | 0.2    | 0.32   | SAHI 分块重叠率，v3 需要更大重叠 |
+| `--conf`       | 0.3    | 0.38   | 置信度阈值                       |
+| `--tta`        | 关闭   | 启用   | 翻转共识，提升 F1 +0.015-0.02    |
+| `--yolo-iou`   | 0.7    | 0.7    | v3 上已饱和，默认即可            |
+| `--dedup-iou`  | 0.15   | 0.15   | v3 上已饱和，默认即可            |
+| `--dedup-dist` | 30     | 30     | v3 上已饱和，默认即可            |
 
 ### 4. 评估
 
 ```bash
 python src/eval.py \
   --pred outputs/result/labels \
-  --gt dataset/data_v5/test/labels \
-  --images dataset/data_v5/test/images
+  --gt dataset/data_v3/test/labels \
+  --images dataset/data_v3/test/images
 ```
 
 ### 5. 模型自动对比 / 参数搜索

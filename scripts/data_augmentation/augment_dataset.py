@@ -20,7 +20,7 @@ Augmentations (增强版):
 - Sharpen / Posterize
 
 用法:
-    python augment_dataset.py --input dataset/data_v3 --output dataset/data_v3_aug_v2
+    python augment_dataset.py --input dataset/data_v2 --output dataset/data_v2_aug
     python augment_dataset.py --input dataset/data_v4 --output dataset/data_v4_aug_v2 --augments-per-image 30
 """
 

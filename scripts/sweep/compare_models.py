@@ -25,8 +25,8 @@ PROJECT_ROOT = Path(__file__).resolve().parents[2]
 
 # ── 配置 ────────────────────────────────────────────
 TEST_SETS = [
-    PROJECT_ROOT / "dataset" / "data_v3_augmented" / "test",
-    PROJECT_ROOT / "dataset" / "data_v3_augmented" / "valid",
+    PROJECT_ROOT / "dataset" / "data_v2_aug" / "test",
+    PROJECT_ROOT / "dataset" / "data_v2_aug" / "valid",
 ]
 
 MODELS = [

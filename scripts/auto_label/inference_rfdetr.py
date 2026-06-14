@@ -21,7 +21,7 @@ RAW_IMAGES_DIR = PROJECT_ROOT / "dataset" / "raw"
 OUTPUT_LABELS_DIR = PROJECT_ROOT / "dataset" / "auto_labeled" / "labels"
 OUTPUT_IMAGES_DIR = PROJECT_ROOT / "dataset" / "auto_labeled" / "images"
 OUTPUT_DIR = PROJECT_ROOT / "dataset" / "auto_labeled"
-DATA_V2_DIR = PROJECT_ROOT / "dataset" / "data_v3"
+DATA_V2_DIR = PROJECT_ROOT / "dataset" / "data_v2"
 
 DETECTION_THRESHOLD = 0.5
 IOU_THRESHOLD = 0.5

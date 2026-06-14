@@ -4,10 +4,10 @@ import sys
 from pathlib import Path
 
 MODEL = "models/our_method/yolo11n-seg-v3/weights/last.pt"
-SOURCE = "dataset/data_v5/test/images"
+SOURCE = "dataset/data_v3/test/images"
 OUTPUT_BASE = "outputs/v3_sweep_fine"
-GT = "dataset/data_v5/test/labels"
-IMAGES = "dataset/data_v5/test/images"
+GT = "dataset/data_v3/test/labels"
+IMAGES = "dataset/data_v3/test/images"
 
 OV_RANGE = [0.20, 0.22, 0.25, 0.28, 0.30, 0.35]
 CONF_RANGE = [0.38, 0.39, 0.40, 0.41, 0.42]

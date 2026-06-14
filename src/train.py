@@ -9,8 +9,8 @@ v2 改进：
 - 在线增强: scale=0.9, degrees=15, shear=5, perspective, mixup, copy_paste
 
 使用方式：
-    python src/train.py                          # 默认 data_v3_augmented
-    python src/train.py --data dataset/data_v3_aug_v2  # v2 增强数据
+    python src/train.py                          # 默认 data_v2_aug
+    python src/train.py --data dataset/data_v2_aug  # v2 增强数据
     python src/train.py --data dataset/data_v4   # 使用 data_v4
     python src/train.py --model n                # 只训练 nano
     python src/train.py --batch 32 --workers 16  # 服务器 A800 配置
@@ -25,7 +25,7 @@ import argparse
 from pathlib import Path
 
 PROJECT_ROOT = Path(__file__).resolve().parents[1]
-DEFAULT_DATASET = PROJECT_ROOT / "dataset" / "data_v3_augmented"
+DEFAULT_DATASET = PROJECT_ROOT / "dataset" / "data_v2_aug"
 OUTPUT_DIR = PROJECT_ROOT / "models" / "our_method"
 
 # 服务器环境可能无 mlflow 数据库后端，允许文件存储
@@ -38,8 +38,8 @@ IMGSZ = 640
 def fix_data_yaml(data_yaml_path):
     """修复 data.yaml 中的相对路径使其适配 YOLOv11。
 
-    原始 yaml 来自 Roboflow 导出，路径如 '../train/images' 是相对于 data_v3/ 根目录。
-    但 yaml 文件实际在 data_v3_augmented/ 子目录中，所以需要修正。
+    原始 yaml 来自 Roboflow 导出，路径如 '../train/images' 是相对于 data_v2/ 根目录。
+    但 yaml 文件实际在 data_v2_aug/ 子目录中，所以需要修正。
     """
     with open(data_yaml_path, "r") as f:
         config = yaml.safe_load(f)
@@ -180,7 +180,7 @@ def main():
     parser.add_argument("--name", type=str, default="v3",
                         help="训练 run 名称 (default: v3, 输出到 models/our_method/yolo11{model}-seg-{name}/)")
     parser.add_argument("--data", type=str, default=str(DEFAULT_DATASET),
-                        help="数据集目录路径 (default: dataset/data_v3_augmented)")
+                        help="数据集目录路径 (default: dataset/data_v2_aug)")
     args = parser.parse_args()
 
     data_dir = Path(args.data)

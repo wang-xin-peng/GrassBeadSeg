@@ -12,14 +12,14 @@ YOLOv11-seg 推理脚本（our_method）。
     # Phase 1: 纯 YOLO 分割（无 crop，无拟合）
     python src/inference.py \
         --model models/our_method/yolo11s-seg-baseline/weights/best.pt \
-        --source dataset/data_v3_augmented/test/images \
+        --source dataset/data_v2_aug/test/images \
         --output outputs/test_baseline \
         --mode baseline
 
     # Phase 2: SAHI + 椭圆拟合
     python src/inference.py \
         --model models/our_method/yolo11s-seg-baseline/weights/best.pt \
-        --source dataset/data_v3_augmented/test/images \
+        --source dataset/data_v2_aug/test/images \
         --output outputs/test_ellipse \
         --mode ellipse
 """

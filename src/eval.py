@@ -3,9 +3,9 @@
 
 使用方式：
     python src/eval.py \
-        --gt dataset/data_v3_augmented/test/labels \
+        --gt dataset/data_v2_aug/test/labels \
         --pred outputs/test_baseline/labels \
-        --images dataset/data_v3_augmented/test/images
+        --images dataset/data_v2_aug/test/images
 """
 
 import os
