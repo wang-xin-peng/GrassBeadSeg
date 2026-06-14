@@ -23,7 +23,7 @@ for ov, c in [(0.25, 0.38), (0.30, 0.41), (0.35, 0.42)]:
     ov_s = str(ov).replace(".", "p")
     name = "ov{}_c{:02d}_soft_tta".format(ov_s, int(c * 100))
     configs.append((name, ["--conf", str(c), "--overlap", str(ov),
-                          "--tta", "--nms", "soft"]))
+                          "--tta", "--soft-nms"]))
 
 # round3: no-TTA at best combos (看 TTA 贡献多大)
 for ov, c in [(0.25, 0.38), (0.30, 0.41), (0.35, 0.42)]:
