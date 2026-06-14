@@ -1,12 +1,12 @@
 """
-数据增强脚本 - 对YOLO分割格式数据集进行增强（增强版 v2）
+数据增强脚本 - 对YOLO分割格式数据集进行增强
 支持YOLO polygon/segmentation格式（每行: class_id x1 y1 x2 y2 x3 y3 ...）
 
 Preprocessing:
 - Auto-Orient: Applied
 - Resize: Fit within 624x624 (保持宽高比，填充黑色)
 
-Augmentations (增强版):
+Augmentations:
 - Outputs per training example: 30 (vs 10 原版)
 - Flip: Horizontal (p=0.5), Vertical (p=0.2)
 - Affine: scale=0.85-1.15, translate=10%, rotate=±25°, shear=±5° (p=0.7)

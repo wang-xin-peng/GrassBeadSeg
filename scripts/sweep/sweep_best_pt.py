@@ -13,7 +13,7 @@ from pathlib import Path
 
 PROJECT_ROOT = Path(__file__).resolve().parents[2]
 
-MODEL = PROJECT_ROOT / "models" / "our_method" / "yolo11n-seg-v2" / "weights" / "best.pt"
+MODEL = PROJECT_ROOT / "models" / "grass_bead_seg" / "yolo11n-seg-v2" / "weights" / "best.pt"
 TEST_IMAGES = PROJECT_ROOT / "outputs" / "model_comparison" / "test4" / "images"
 TEST_LABELS = PROJECT_ROOT / "outputs" / "model_comparison" / "test4" / "labels"
 OUTPUT_DIR = PROJECT_ROOT / "outputs" / "sweep_best_pt"

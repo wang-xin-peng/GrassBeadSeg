@@ -25,7 +25,7 @@ v3 改进点：
 - 训练 200 epochs，AdamW + cosine lr
 - v2 → v3：F1 +0.023，Recall +0.030，计数误差 -2.3pp
 
-## 技术路线（our_method）
+## 技术路线（grass_bead_seg）
 
 ```
 原始图像 (1920×1080)
@@ -112,14 +112,18 @@ GrassBeadSeg/
 │   ├── data_v2/                 # 20 张人工标注（v2 训练集）
 │   ├── data_v2_aug/             # v2 增强数据（20×）
 │   ├── data_v3/                 # ★ 30 张人工标注（v3 训练集）
-│   └── auto_labeled_v*/         # RF-DETR 自动标注结果
+│   └── auto_labeled/            # RF-DETR 自动标注结果
 ├── models/
-│   ├── our_method/
-│   │   ├── yolo11n-seg-v2/           # v2 nano 权重
-│   │   ├── yolo11s-seg-v2/           # v2 small 权重
-│   │   └── yolo11n-seg-v3/           # ★ v3 nano 权重（推荐）
+│   ├── grass_bead_seg/
+│   │   ├── yolo11n-seg-baseline/    # nano 基线权重
+│   │   ├── yolo11s-seg-baseline/    # small 基线权重
+│   │   ├── yolo11n-seg-v1/          # v1 nano 权重
+│   │   ├── yolo11s-seg-v1/          # v1 small 权重
+│   │   ├── yolo11n-seg-v2/          # v2 nano 权重
+│   │   ├── yolo11s-seg-v2/          # v2 small 权重
+│   │   └── yolo11n-seg-v3/          # v3 nano 权重
 │   └── rfdetr_seg_large/        # RF-DETR 权重及预训练模型
-├── outputs/                     # 推理输出（标签 + 可视化 + 评估日志）
+├── outputs/                     # 推理输出
 ├── logs/                        # 训练与评估日志
 └── requirements.txt
 ```
@@ -131,8 +135,6 @@ conda create -n gbseg python=3.10 -y
 conda activate gbseg
 pip install -r requirements.txt
 ```
-
-服务器部署时使用 `opencv-python-headless` 以避免 libGL 依赖。
 
 ## 使用流程
 
@@ -165,7 +167,7 @@ python src/train.py --data dataset/data_v3_aug --model n --name v3 \
 ```bash
 # ★ 推荐：v3 last.pt + TTA（最高 F1=0.738）
 python src/inference.py \
-  --model models/our_method/yolo11n-seg-v3/weights/last.pt \
+  --model models/grass_bead_seg/yolo11n-seg-v3/weights/last.pt \
   --source <images> \
   --output outputs/result \
   --mode ellipse \
@@ -175,7 +177,7 @@ python src/inference.py \
 
 # 最高计数精度（计数误差 1.5%）
 python src/inference.py \
-  --model models/our_method/yolo11n-seg-v3/weights/last.pt \
+  --model models/grass_bead_seg/yolo11n-seg-v3/weights/last.pt \
   --source <images> \
   --output outputs/result \
   --mode ellipse \
@@ -226,13 +228,13 @@ python scripts/sweep/sweep_v3_r3.py
 python scripts/sweep/sweep_v3_best.py
 ```
 
-### 6. RF-DETR 自动标注（可选）
+### 6. RF-DETR 自动标注
 
 ```bash
 python scripts/auto_label/inference_rfdetr.py
 ```
 
-RF-DETR v3 自动标注 recall ~85%，可用于辅助标注，但注意漏标噪声会影响训练质量，纯人工标注在精确计数任务上效果更优。
+RF-DETR 自动标注，用于辅助标注。
 
 ## 关键设计决策
 
