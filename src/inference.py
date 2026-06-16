@@ -1,5 +1,5 @@
 """
-YOLOv11-seg 推理脚本（grass_bead_seg）。
+YOLOv11-seg 推理脚本（glass_bead_seg）。
 
 支持三种推理模式：
   - baseline: 标准 YOLO 推理（Phase 1）
@@ -11,14 +11,14 @@ YOLOv11-seg 推理脚本（grass_bead_seg）。
 使用方式：
     # Phase 1: 纯 YOLO 分割（无 crop，无拟合）
     python src/inference.py \
-        --model models/grass_bead_seg/yolo11s-seg-baseline/weights/best.pt \
+        --model models/glass_bead_seg/yolo11s-seg-baseline/weights/best.pt \
         --source dataset/data_v2_aug/test/images \
         --output outputs/test_baseline \
         --mode baseline
 
     # Phase 2: SAHI + 椭圆拟合
     python src/inference.py \
-        --model models/grass_bead_seg/yolo11s-seg-baseline/weights/best.pt \
+        --model models/glass_bead_seg/yolo11s-seg-baseline/weights/best.pt \
         --source dataset/data_v2_aug/test/images \
         --output outputs/test_ellipse \
         --mode ellipse

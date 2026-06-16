@@ -3,7 +3,7 @@ val: ../valid/images
 test: ../test/images
 
 nc: 1
-names: ['GrassBeadSeg']
+names: ['GlassBeadSeg']
 
 roboflow:
   workspace: s-workspace-m1g11

@@ -2,7 +2,7 @@
 best.pt 去重参数 + TTA 网格搜索 — 找 F1 高且计数误差低的组合。
 
 使用方式（服务器）：
-    cd /input0/transcoder-st/learn_llm/GrassBeadSeg
+    cd /input0/transcoder-st/learn_llm/GlassBeadSeg
     python scripts/sweep/sweep_best_pt.py
 """
 import re
@@ -13,7 +13,7 @@ from pathlib import Path
 
 PROJECT_ROOT = Path(__file__).resolve().parents[2]
 
-MODEL = PROJECT_ROOT / "models" / "grass_bead_seg" / "yolo11n-seg-v2" / "weights" / "best.pt"
+MODEL = PROJECT_ROOT / "models" / "glass_bead_seg" / "yolo11n-seg-v2" / "weights" / "best.pt"
 TEST_IMAGES = PROJECT_ROOT / "outputs" / "model_comparison" / "test4" / "images"
 TEST_LABELS = PROJECT_ROOT / "outputs" / "model_comparison" / "test4" / "labels"
 OUTPUT_DIR = PROJECT_ROOT / "outputs" / "sweep_best_pt"

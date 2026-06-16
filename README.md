@@ -1,4 +1,4 @@
-# GrassBeadSeg
+# GlassBeadSeg
 
 玻璃珠高密度粘连图像的实例分割项目。核心任务是对图像中每一颗玻璃珠生成独立的像素级掩膜，实现个体分离、轮廓提取与精确计数。适用于材料科学、工业质检及颗粒分析中的高通量形态学分析。
 
@@ -77,7 +77,7 @@ v3 训练配置：
 ## 项目结构
 
 ```
-GrassBeadSeg/
+GlassBeadSeg/
 ├── src/
 │   ├── train.py              # YOLOv11-seg 训练脚本（支持 --resume 续训）
 │   ├── inference.py          # 推理脚本（baseline / sahi / ellipse / TTA / Soft-NMS / dedup）
@@ -100,7 +100,7 @@ GrassBeadSeg/
 │   ├── data_v3_aug/             # v3 增强数据
 │   └── auto_labeled/            # RF-DETR 自动标注结果
 ├── models/
-│   ├── grass_bead_seg/
+│   ├── glass_bead_seg/
 │   │   └── yolo11n-seg-v3/          # ★ v3 最优模型
 │   └── rfdetr_seg_large/        # RF-DETR 权重及预训练模型
 ├── outputs/                     # 推理输出
@@ -147,7 +147,7 @@ python src/train.py --data dataset/data_v3_aug --model n --name v3 \
 ```bash
 # ★ 推荐：v3 last.pt + TTA（最高 F1=0.738）
 python src/inference.py \
-  --model models/grass_bead_seg/yolo11n-seg-v3/weights/last.pt \
+  --model models/glass_bead_seg/yolo11n-seg-v3/weights/last.pt \
   --source <images> \
   --output outputs/result \
   --mode ellipse \
@@ -157,7 +157,7 @@ python src/inference.py \
 
 # 最高计数精度（计数误差 1.5%）
 python src/inference.py \
-  --model models/grass_bead_seg/yolo11n-seg-v3/weights/last.pt \
+  --model models/glass_bead_seg/yolo11n-seg-v3/weights/last.pt \
   --source <images> \
   --output outputs/result \
   --mode ellipse \

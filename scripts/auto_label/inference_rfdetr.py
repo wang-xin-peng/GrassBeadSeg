@@ -192,7 +192,7 @@ val: ../auto_labeled/images
 test: ../auto_labeled/images
 
 nc: 1
-names: ['GrassBeadSeg']
+names: ['GlassBeadSeg']
 """
     yaml_path = OUTPUT_DIR / "data.yaml"
     with open(yaml_path, "w") as f:

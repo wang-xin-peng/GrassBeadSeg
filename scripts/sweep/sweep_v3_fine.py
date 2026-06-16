@@ -3,7 +3,7 @@ import subprocess
 import sys
 from pathlib import Path
 
-MODEL = "models/grass_bead_seg/yolo11n-seg-v3/weights/last.pt"
+MODEL = "models/glass_bead_seg/yolo11n-seg-v3/weights/last.pt"
 SOURCE = "dataset/data_v3/test/images"
 OUTPUT_BASE = "outputs/v3_sweep_fine"
 GT = "dataset/data_v3/test/labels"

@@ -341,7 +341,7 @@ def update_data_yaml(augmented_dir):
         'val': '../valid/images',
         'test': '../test/images',
         'nc': 1,
-        'names': ['GrassBeadSeg']
+        'names': ['GlassBeadSeg']
     }
     
     with open(yaml_path, 'w') as f:

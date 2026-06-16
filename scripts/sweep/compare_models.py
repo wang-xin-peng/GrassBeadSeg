@@ -30,12 +30,12 @@ TEST_SETS = [
 ]
 
 MODELS = [
-    ("v1-nano", PROJECT_ROOT / "models" / "grass_bead_seg" / "yolo11n-seg-v1" / "weights" / "best.pt"),
-    ("v1-small", PROJECT_ROOT / "models" / "grass_bead_seg" / "yolo11s-seg-v1" / "weights" / "best.pt"),
-    ("v2-nano", PROJECT_ROOT / "models" / "grass_bead_seg" / "yolo11n-seg-v2" / "weights" / "best.pt"),
-    ("v2-nano-best", PROJECT_ROOT / "models" / "grass_bead_seg" / "yolo11n-seg-v2" / "weights" / "best.pt"),
-    ("v2-nano-last", PROJECT_ROOT / "models" / "grass_bead_seg" / "yolo11n-seg-v2" / "weights" / "last.pt"),
-    ("v2-small", PROJECT_ROOT / "models" / "grass_bead_seg" / "yolo11s-seg-v2" / "weights" / "best.pt"),
+    ("v1-nano", PROJECT_ROOT / "models" / "glass_bead_seg" / "yolo11n-seg-v1" / "weights" / "best.pt"),
+    ("v1-small", PROJECT_ROOT / "models" / "glass_bead_seg" / "yolo11s-seg-v1" / "weights" / "best.pt"),
+    ("v2-nano", PROJECT_ROOT / "models" / "glass_bead_seg" / "yolo11n-seg-v2" / "weights" / "best.pt"),
+    ("v2-nano-best", PROJECT_ROOT / "models" / "glass_bead_seg" / "yolo11n-seg-v2" / "weights" / "best.pt"),
+    ("v2-nano-last", PROJECT_ROOT / "models" / "glass_bead_seg" / "yolo11n-seg-v2" / "weights" / "last.pt"),
+    ("v2-small", PROJECT_ROOT / "models" / "glass_bead_seg" / "yolo11s-seg-v2" / "weights" / "best.pt"),
 ]
 
 # 去重（v2-nano 和 v2-nano-best 指向同一个文件，只保留一个）

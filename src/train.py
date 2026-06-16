@@ -1,5 +1,5 @@
 """
-YOLOv11-seg 训练脚本（grass_bead_seg Phase 1 baseline + v2 增强版）。
+YOLOv11-seg 训练脚本（glass_bead_seg Phase 1 baseline + v2 增强版）。
 
 训练 YOLOv11n-seg (2.6M) 和 YOLOv11s-seg (9.4M)，
 使用 COCO 预训练权重 fine-tune。
@@ -26,7 +26,7 @@ from pathlib import Path
 
 PROJECT_ROOT = Path(__file__).resolve().parents[1]
 DEFAULT_DATASET = PROJECT_ROOT / "dataset" / "data_v2_aug"
-OUTPUT_DIR = PROJECT_ROOT / "models" / "grass_bead_seg"
+OUTPUT_DIR = PROJECT_ROOT / "models" / "glass_bead_seg"
 
 # 服务器环境可能无 mlflow 数据库后端，允许文件存储
 os.environ.setdefault("MLFLOW_ALLOW_FILE_STORE", "true")
@@ -178,7 +178,7 @@ def main():
     parser.add_argument("--resume", action="store_true",
                         help="从 last.pt 续训 (默认: 从头训练)")
     parser.add_argument("--name", type=str, default="v3",
-                        help="训练 run 名称 (default: v3, 输出到 models/grass_bead_seg/yolo11{model}-seg-{name}/)")
+                        help="训练 run 名称 (default: v3, 输出到 models/glass_bead_seg/yolo11{model}-seg-{name}/)")
     parser.add_argument("--data", type=str, default=str(DEFAULT_DATASET),
                         help="数据集目录路径 (default: dataset/data_v2_aug)")
     args = parser.parse_args()

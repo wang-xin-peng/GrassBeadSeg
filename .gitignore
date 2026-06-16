@@ -228,10 +228,10 @@ __marimo__/
 # Model weight files
 models/rfdetr_seg_large/*.pth
 models/rfdetr_seg_large/trained/
-models/grass_bead_seg/**
+models/glass_bead_seg/**
 !models/rfdetr_seg_large/.gitkeep
-!models/grass_bead_seg/**/
-!models/grass_bead_seg/**/.gitkeep
+!models/glass_bead_seg/**/
+!models/glass_bead_seg/**/.gitkeep
 yolo11n-seg.pt
 yolo11s-seg.pt
 models/yolo11n-seg.pt
@@ -239,6 +239,7 @@ models/yolo11s-seg.pt
 
 # Auto-generated data
 dataset/auto_labeled/
+dataset/new_images/
 dataset/auto_labeled_v1/
 dataset/auto_labeled_v2/
 dataset/auto_labeled_v3/

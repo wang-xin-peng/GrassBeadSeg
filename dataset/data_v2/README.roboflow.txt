@@ -1,5 +1,5 @@
 
-GrassBeadSeg - vdataset s-workspace-m1g11
+GlassBeadSeg - vdataset s-workspace-m1g11
 ==============================
 
 This dataset was exported via roboflow.com on May 31, 2026 at 1:14 PM GMT
@@ -18,6 +18,6 @@ visit https://github.com/roboflow/notebooks
 To find over 100k other datasets and pre-trained models, visit https://universe.roboflow.com
 
 The dataset includes 15 images.
-GrassBeadSeg are annotated in YOLOv11 format.
+GlassBeadSeg are annotated in YOLOv11 format.
 
 No pre-processing or augmentation was applied.
