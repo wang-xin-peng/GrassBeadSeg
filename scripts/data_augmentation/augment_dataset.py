@@ -37,7 +37,7 @@ from pathlib import Path
 PROJECT_ROOT = Path(__file__).resolve().parents[2]
 
 DEFAULT_AUGMENTS_PER_IMAGE = 30
-DEFAULT_MAX_SIZE = 624
+DEFAULT_MAX_SIZE = 640
 RANDOM_SEED = 42
 
 random.seed(RANDOM_SEED)
@@ -217,7 +217,6 @@ def augment_dataset(dataset_root, augmented_dir, augments_per_image=10, max_size
     
     print(f"找到 {len(image_files)} 张训练图片")
     print(f"每张图片生成 {augments_per_image} 个增强版本")
-    print(f"Resize: Fit within {max_size}x{max_size}")
     print(f"总共将生成 {len(image_files) * augments_per_image} 张增强图片")
     
     aug_pipeline = create_augmentation_pipeline()
@@ -239,56 +238,37 @@ def augment_dataset(dataset_root, augmented_dir, augments_per_image=10, max_size
         label_path = train_labels_dir / label_filename
         polygons = load_yolo_polygons(str(label_path), orig_w, orig_h)
         
-        all_kps = []
-        kps_per_poly = []
-        for poly in polygons:
-            start_idx = len(all_kps)
-            for pt in poly['points']:
-                all_kps.append((float(pt[0]), float(pt[1])))
-            kps_per_poly.append((start_idx, len(poly['points'])))
-        
-        resized_img, resized_kps, new_w, new_h = resize_fit_within(image, max_size, all_kps)
-        
-        resized_polygons = []
-        for idx, (start_idx, num_pts) in enumerate(kps_per_poly):
-            pts = []
-            for k in range(start_idx, start_idx + num_pts):
-                pts.append([resized_kps[k][0], resized_kps[k][1]])
-            resized_polygons.append({
-                'class_id': polygons[idx]['class_id'],
-                'points': np.array(pts, dtype=np.float32)
-            })
-        
+        # 直接保存原始图片（不做 resize，SAHI 推理用原图）
         orig_img_path = aug_train_images_dir / img_filename
-        resized_img_bgr = cv2.cvtColor(resized_img, cv2.COLOR_RGB2BGR)
-        cv2.imwrite(str(orig_img_path), resized_img_bgr)
-        
-        resized_label_filename = Path(img_filename).with_suffix('.txt').name
-        save_yolo_polygons(str(aug_train_labels_dir / resized_label_filename), resized_polygons, max_size, max_size)
+        orig_img_bgr = cv2.cvtColor(image, cv2.COLOR_RGB2BGR)
+        cv2.imwrite(str(orig_img_path), orig_img_bgr)
+
+        orig_label_filename = Path(img_filename).with_suffix('.txt').name
+        save_yolo_polygons(str(aug_train_labels_dir / orig_label_filename), polygons, orig_w, orig_h)
         total_augmented += 1
-        total_polygons += len(resized_polygons)
-        
-        print(f"  {img_filename}: {len(polygons)} 个标注多边形 (原图 {orig_w}x{orig_h} -> 填充到 {max_size}x{max_size})")
-        
+        total_polygons += len(polygons)
+
+        print(f"  {img_filename}: {len(polygons)} 个标注多边形 (原图 {orig_w}x{orig_h})")
+
         for i in range(augments_per_image):
             try:
                 kps_for_aug = []
-                for poly in resized_polygons:
+                for poly in polygons:
                     for pt in poly['points']:
                         kps_for_aug.append((float(pt[0]), float(pt[1])))
-                
+
                 aug_result = aug_pipeline(
-                    image=resized_img,
+                    image=image,
                     keypoints=kps_for_aug
                 )
-                
+
                 aug_image = aug_result['image']
                 aug_keypoints = aug_result['keypoints']
                 h, w = aug_image.shape[:2]
-                
+
                 aug_polygons = []
                 keypoint_idx = 0
-                for poly in resized_polygons:
+                for poly in polygons:
                     num_points = len(poly['points'])
                     if keypoint_idx + num_points <= len(aug_keypoints):
                         new_points = []
@@ -296,32 +276,32 @@ def augment_dataset(dataset_root, augmented_dir, augments_per_image=10, max_size
                             kp = aug_keypoints[keypoint_idx + j]
                             new_points.append([kp[0], kp[1]])
                         keypoint_idx += num_points
-                        
+
                         new_points = np.array(new_points, dtype=np.float32)
                         new_points[:, 0] = np.clip(new_points[:, 0], 0, w - 1)
                         new_points[:, 1] = np.clip(new_points[:, 1], 0, h - 1)
-                        
+
                         if len(new_points) >= 3:
                             aug_polygons.append({
                                 'class_id': poly['class_id'],
                                 'points': new_points
                             })
-                
+
                 aug_filename = f"{base_name}_aug{i+1}.png"
                 aug_img_path = aug_train_images_dir / aug_filename
                 aug_label_path = aug_train_labels_dir / Path(aug_filename).with_suffix('.txt').name
-                
+
                 aug_image_bgr = cv2.cvtColor(aug_image, cv2.COLOR_RGB2BGR)
                 cv2.imwrite(str(aug_img_path), aug_image_bgr)
                 save_yolo_polygons(str(aug_label_path), aug_polygons, w, h)
-                
+
                 total_augmented += 1
                 total_polygons += len(aug_polygons)
-                
+
             except Exception as e:
                 print(f"  警告: {img_filename} 的第 {i+1} 个增强失败: {e}")
                 continue
-        
+
         print(f"  处理完成: {img_filename}")
     
     print(f"\n数据增强完成!")

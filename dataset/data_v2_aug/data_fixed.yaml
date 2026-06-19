@@ -1,0 +1,6 @@
+names:
+- GlassBeadSeg
+nc: 1
+test: E:\shixun\GlassBeadSeg\dataset\data_v3_aug_v2\test\images
+train: E:\shixun\GlassBeadSeg\dataset\data_v3_aug_v2\train\images
+val: E:\shixun\GlassBeadSeg\dataset\data_v3_aug_v2\valid\images

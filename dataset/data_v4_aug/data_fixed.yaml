@@ -1,0 +1,6 @@
+names:
+- GlassBeadSeg
+nc: 1
+test: /input0/transcoder-st/learn_llm/GrassBeadSeg/dataset/data_v4_aug/test/images
+train: /input0/transcoder-st/learn_llm/GrassBeadSeg/dataset/data_v4_aug/train/images
+val: /input0/transcoder-st/learn_llm/GrassBeadSeg/dataset/data_v4_aug/valid/images

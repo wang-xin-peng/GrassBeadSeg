@@ -1,0 +1,782 @@
+nohup: ignoring input
+[RUN] c035: /usr/local/envs/gbseg/bin/python src/inference.py --model models/glass_bead_seg/yolo11n-seg-v4/weights/best.pt --source dataset/data_v4_aug/test/images --output outputs/v4_sweep/c035 --mode ellipse --conf 0.35
+模型: best.pt
+模式: ellipse
+置信度: 0.35
+YOLO IoU: 0.7
+TTA: 关闭
+NMS:  Hard
+去重: IoU>0.15, Dist<=30px
+设备: 0
+图片数: 2
+============================================================
+    tile 1/12: 100 detections
+    tile 2/12: 129 detections
+    tile 3/12: 133 detections
+    tile 4/12: 54 detections
+    tile 5/12: 114 detections
+    tile 6/12: 142 detections
+    tile 7/12: 125 detections
+    tile 8/12: 64 detections
+    tile 9/12: 5 detections
+    tile 10/12: 14 detections
+    tile 11/12: 16 detections
+    tile 12/12: 5 detections
+    NMS (hard): 901 masks...
+    NMS done: 623 masks kept
+    Dedup (iou>0.15, dist<=30): 623 masks...
+    Dedup done: 593 masks kept
+  02_png.rf.jZnY4zBIuej95xOExdvd.png: 593 masks
+    tile 1/12: 111 detections
+    tile 2/12: 117 detections
+    tile 3/12: 105 detections
+    tile 4/12: 60 detections
+    tile 5/12: 108 detections
+    tile 6/12: 116 detections
+    tile 7/12: 108 detections
+    tile 8/12: 52 detections
+    tile 9/12: 8 detections
+    tile 10/12: 14 detections
+    tile 11/12: 17 detections
+    tile 12/12: 8 detections
+    NMS (hard): 824 masks...
+    NMS done: 566 masks kept
+    Dedup (iou>0.15, dist<=30): 566 masks...
+    Dedup done: 539 masks kept
+  03_png.rf.bNcoAUfLPBbQDd7dyeak.png: 539 masks
+============================================================
+推理完成！
+总预测数: 1132
+标注文件: outputs/v4_sweep/c035/labels
+可视化: outputs/v4_sweep/c035/visualizations
+[RUN] c040: /usr/local/envs/gbseg/bin/python src/inference.py --model models/glass_bead_seg/yolo11n-seg-v4/weights/best.pt --source dataset/data_v4_aug/test/images --output outputs/v4_sweep/c040 --mode ellipse --conf 0.40
+模型: best.pt
+模式: ellipse
+置信度: 0.4
+YOLO IoU: 0.7
+TTA: 关闭
+NMS:  Hard
+去重: IoU>0.15, Dist<=30px
+设备: 0
+图片数: 2
+============================================================
+    tile 1/12: 86 detections
+    tile 2/12: 118 detections
+    tile 3/12: 132 detections
+    tile 4/12: 47 detections
+    tile 5/12: 106 detections
+    tile 6/12: 137 detections
+    tile 7/12: 121 detections
+    tile 8/12: 58 detections
+    tile 9/12: 5 detections
+    tile 10/12: 14 detections
+    tile 11/12: 16 detections
+    tile 12/12: 5 detections
+    NMS (hard): 845 masks...
+    NMS done: 592 masks kept
+    Dedup (iou>0.15, dist<=30): 592 masks...
+    Dedup done: 567 masks kept
+  02_png.rf.jZnY4zBIuej95xOExdvd.png: 567 masks
+    tile 1/12: 102 detections
+    tile 2/12: 115 detections
+    tile 3/12: 102 detections
+    tile 4/12: 52 detections
+    tile 5/12: 100 detections
+    tile 6/12: 111 detections
+    tile 7/12: 96 detections
+    tile 8/12: 45 detections
+    tile 9/12: 7 detections
+    tile 10/12: 14 detections
+    tile 11/12: 15 detections
+    tile 12/12: 7 detections
+    NMS (hard): 766 masks...
+    NMS done: 538 masks kept
+    Dedup (iou>0.15, dist<=30): 538 masks...
+    Dedup done: 516 masks kept
+  03_png.rf.bNcoAUfLPBbQDd7dyeak.png: 516 masks
+============================================================
+推理完成！
+总预测数: 1083
+标注文件: outputs/v4_sweep/c040/labels
+可视化: outputs/v4_sweep/c040/visualizations
+[RUN] c045: /usr/local/envs/gbseg/bin/python src/inference.py --model models/glass_bead_seg/yolo11n-seg-v4/weights/best.pt --source dataset/data_v4_aug/test/images --output outputs/v4_sweep/c045 --mode ellipse --conf 0.45
+模型: best.pt
+模式: ellipse
+置信度: 0.45
+YOLO IoU: 0.7
+TTA: 关闭
+NMS:  Hard
+去重: IoU>0.15, Dist<=30px
+设备: 0
+图片数: 2
+============================================================
+    tile 1/12: 68 detections
+    tile 2/12: 111 detections
+    tile 3/12: 124 detections
+    tile 4/12: 41 detections
+    tile 5/12: 96 detections
+    tile 6/12: 128 detections
+    tile 7/12: 117 detections
+    tile 8/12: 51 detections
+    tile 9/12: 4 detections
+    tile 10/12: 14 detections
+    tile 11/12: 14 detections
+    tile 12/12: 5 detections
+    NMS (hard): 773 masks...
+    NMS done: 539 masks kept
+    Dedup (iou>0.15, dist<=30): 539 masks...
+    Dedup done: 523 masks kept
+  02_png.rf.jZnY4zBIuej95xOExdvd.png: 523 masks
+    tile 1/12: 94 detections
+    tile 2/12: 110 detections
+    tile 3/12: 97 detections
+    tile 4/12: 45 detections
+    tile 5/12: 98 detections
+    tile 6/12: 102 detections
+    tile 7/12: 90 detections
+    tile 8/12: 39 detections
+    tile 9/12: 6 detections
+    tile 10/12: 13 detections
+    tile 11/12: 14 detections
+    tile 12/12: 7 detections
+    NMS (hard): 715 masks...
+    NMS done: 508 masks kept
+    Dedup (iou>0.15, dist<=30): 508 masks...
+    Dedup done: 488 masks kept
+  03_png.rf.bNcoAUfLPBbQDd7dyeak.png: 488 masks
+============================================================
+推理完成！
+总预测数: 1011
+标注文件: outputs/v4_sweep/c045/labels
+可视化: outputs/v4_sweep/c045/visualizations
+[RUN] c050: /usr/local/envs/gbseg/bin/python src/inference.py --model models/glass_bead_seg/yolo11n-seg-v4/weights/best.pt --source dataset/data_v4_aug/test/images --output outputs/v4_sweep/c050 --mode ellipse --conf 0.50
+模型: best.pt
+模式: ellipse
+置信度: 0.5
+YOLO IoU: 0.7
+TTA: 关闭
+NMS:  Hard
+去重: IoU>0.15, Dist<=30px
+设备: 0
+图片数: 2
+============================================================
+    tile 1/12: 59 detections
+    tile 2/12: 107 detections
+    tile 3/12: 120 detections
+    tile 4/12: 36 detections
+    tile 5/12: 91 detections
+    tile 6/12: 121 detections
+    tile 7/12: 112 detections
+    tile 8/12: 44 detections
+    tile 9/12: 4 detections
+    tile 10/12: 13 detections
+    tile 11/12: 12 detections
+    tile 12/12: 4 detections
+    NMS (hard): 723 masks...
+    NMS done: 507 masks kept
+    Dedup (iou>0.15, dist<=30): 507 masks...
+    Dedup done: 495 masks kept
+  02_png.rf.jZnY4zBIuej95xOExdvd.png: 495 masks
+    tile 1/12: 85 detections
+    tile 2/12: 103 detections
+    tile 3/12: 91 detections
+    tile 4/12: 37 detections
+    tile 5/12: 90 detections
+    tile 6/12: 96 detections
+    tile 7/12: 83 detections
+    tile 8/12: 30 detections
+    tile 9/12: 6 detections
+    tile 10/12: 10 detections
+    tile 11/12: 13 detections
+    tile 12/12: 6 detections
+    NMS (hard): 650 masks...
+    NMS done: 462 masks kept
+    Dedup (iou>0.15, dist<=30): 462 masks...
+    Dedup done: 448 masks kept
+  03_png.rf.bNcoAUfLPBbQDd7dyeak.png: 448 masks
+============================================================
+推理完成！
+总预测数: 943
+标注文件: outputs/v4_sweep/c050/labels
+可视化: outputs/v4_sweep/c050/visualizations
+[RUN] c035_tta: /usr/local/envs/gbseg/bin/python src/inference.py --model models/glass_bead_seg/yolo11n-seg-v4/weights/best.pt --source dataset/data_v4_aug/test/images --output outputs/v4_sweep/c035_tta --mode ellipse --conf 0.35 --tta
+模型: best.pt
+模式: ellipse
+置信度: 0.35
+YOLO IoU: 0.7
+TTA: 启用
+NMS:  Hard
+去重: IoU>0.15, Dist<=30px
+设备: 0
+图片数: 2
+============================================================
+    tile 1/12: 100 detections
+    tile 2/12: 129 detections
+    tile 3/12: 133 detections
+    tile 4/12: 54 detections
+    tile 5/12: 114 detections
+    tile 6/12: 142 detections
+    tile 7/12: 125 detections
+    tile 8/12: 64 detections
+    tile 9/12: 5 detections
+    tile 10/12: 14 detections
+    tile 11/12: 16 detections
+    tile 12/12: 5 detections
+    tile 1/12: 108 detections
+    tile 2/12: 124 detections
+    tile 3/12: 98 detections
+    tile 4/12: 42 detections
+    tile 5/12: 96 detections
+    tile 6/12: 126 detections
+    tile 7/12: 104 detections
+    tile 8/12: 42 detections
+    tile 9/12: 8 detections
+    tile 10/12: 15 detections
+    tile 11/12: 8 detections
+    tile 12/12: 2 detections
+    TTA consensus: 627 masks kept
+    NMS (hard): 627 masks...
+    NMS done: 532 masks kept
+    Dedup (iou>0.15, dist<=30): 532 masks...
+    Dedup done: 525 masks kept
+  02_png.rf.jZnY4zBIuej95xOExdvd.png: 525 masks
+    tile 1/12: 111 detections
+    tile 2/12: 117 detections
+    tile 3/12: 105 detections
+    tile 4/12: 60 detections
+    tile 5/12: 108 detections
+    tile 6/12: 116 detections
+    tile 7/12: 108 detections
+    tile 8/12: 52 detections
+    tile 9/12: 8 detections
+    tile 10/12: 14 detections
+    tile 11/12: 17 detections
+    tile 12/12: 8 detections
+    tile 1/12: 94 detections
+    tile 2/12: 103 detections
+    tile 3/12: 102 detections
+    tile 4/12: 37 detections
+    tile 5/12: 95 detections
+    tile 6/12: 108 detections
+    tile 7/12: 98 detections
+    tile 8/12: 44 detections
+    tile 9/12: 12 detections
+    tile 10/12: 15 detections
+    tile 11/12: 10 detections
+    tile 12/12: 6 detections
+    TTA consensus: 572 masks kept
+    NMS (hard): 572 masks...
+    NMS done: 485 masks kept
+    Dedup (iou>0.15, dist<=30): 485 masks...
+    Dedup done: 481 masks kept
+  03_png.rf.bNcoAUfLPBbQDd7dyeak.png: 481 masks
+============================================================
+推理完成！
+总预测数: 1006
+标注文件: outputs/v4_sweep/c035_tta/labels
+可视化: outputs/v4_sweep/c035_tta/visualizations
+[RUN] c040_tta: /usr/local/envs/gbseg/bin/python src/inference.py --model models/glass_bead_seg/yolo11n-seg-v4/weights/best.pt --source dataset/data_v4_aug/test/images --output outputs/v4_sweep/c040_tta --mode ellipse --conf 0.40 --tta
+模型: best.pt
+模式: ellipse
+置信度: 0.4
+YOLO IoU: 0.7
+TTA: 启用
+NMS:  Hard
+去重: IoU>0.15, Dist<=30px
+设备: 0
+图片数: 2
+============================================================
+    tile 1/12: 86 detections
+    tile 2/12: 118 detections
+    tile 3/12: 132 detections
+    tile 4/12: 47 detections
+    tile 5/12: 106 detections
+    tile 6/12: 137 detections
+    tile 7/12: 121 detections
+    tile 8/12: 58 detections
+    tile 9/12: 5 detections
+    tile 10/12: 14 detections
+    tile 11/12: 16 detections
+    tile 12/12: 5 detections
+    tile 1/12: 101 detections
+    tile 2/12: 118 detections
+    tile 3/12: 92 detections
+    tile 4/12: 31 detections
+    tile 5/12: 89 detections
+    tile 6/12: 117 detections
+    tile 7/12: 101 detections
+    tile 8/12: 40 detections
+    tile 9/12: 6 detections
+    tile 10/12: 14 detections
+    tile 11/12: 8 detections
+    tile 12/12: 1 detections
+    TTA consensus: 586 masks kept
+    NMS (hard): 586 masks...
+    NMS done: 498 masks kept
+    Dedup (iou>0.15, dist<=30): 498 masks...
+    Dedup done: 493 masks kept
+  02_png.rf.jZnY4zBIuej95xOExdvd.png: 493 masks
+    tile 1/12: 102 detections
+    tile 2/12: 115 detections
+    tile 3/12: 102 detections
+    tile 4/12: 52 detections
+    tile 5/12: 100 detections
+    tile 6/12: 111 detections
+    tile 7/12: 96 detections
+    tile 8/12: 45 detections
+    tile 9/12: 7 detections
+    tile 10/12: 14 detections
+    tile 11/12: 15 detections
+    tile 12/12: 7 detections
+    tile 1/12: 91 detections
+    tile 2/12: 97 detections
+    tile 3/12: 95 detections
+    tile 4/12: 32 detections
+    tile 5/12: 84 detections
+    tile 6/12: 93 detections
+    tile 7/12: 89 detections
+    tile 8/12: 39 detections
+    tile 9/12: 10 detections
+    tile 10/12: 13 detections
+    tile 11/12: 8 detections
+    tile 12/12: 5 detections
+    TTA consensus: 519 masks kept
+    NMS (hard): 519 masks...
+    NMS done: 441 masks kept
+    Dedup (iou>0.15, dist<=30): 441 masks...
+    Dedup done: 438 masks kept
+  03_png.rf.bNcoAUfLPBbQDd7dyeak.png: 438 masks
+============================================================
+推理完成！
+总预测数: 931
+标注文件: outputs/v4_sweep/c040_tta/labels
+可视化: outputs/v4_sweep/c040_tta/visualizations
+[RUN] c045_tta: /usr/local/envs/gbseg/bin/python src/inference.py --model models/glass_bead_seg/yolo11n-seg-v4/weights/best.pt --source dataset/data_v4_aug/test/images --output outputs/v4_sweep/c045_tta --mode ellipse --conf 0.45 --tta
+模型: best.pt
+模式: ellipse
+置信度: 0.45
+YOLO IoU: 0.7
+TTA: 启用
+NMS:  Hard
+去重: IoU>0.15, Dist<=30px
+设备: 0
+图片数: 2
+============================================================
+    tile 1/12: 68 detections
+    tile 2/12: 111 detections
+    tile 3/12: 124 detections
+    tile 4/12: 41 detections
+    tile 5/12: 96 detections
+    tile 6/12: 128 detections
+    tile 7/12: 117 detections
+    tile 8/12: 51 detections
+    tile 9/12: 4 detections
+    tile 10/12: 14 detections
+    tile 11/12: 14 detections
+    tile 12/12: 5 detections
+    tile 1/12: 91 detections
+    tile 2/12: 112 detections
+    tile 3/12: 85 detections
+    tile 4/12: 21 detections
+    tile 5/12: 83 detections
+    tile 6/12: 111 detections
+    tile 7/12: 93 detections
+    tile 8/12: 34 detections
+    tile 9/12: 6 detections
+    tile 10/12: 12 detections
+    tile 11/12: 7 detections
+    tile 12/12: 1 detections
+    TTA consensus: 535 masks kept
+    NMS (hard): 535 masks...
+    NMS done: 457 masks kept
+    Dedup (iou>0.15, dist<=30): 457 masks...
+    Dedup done: 453 masks kept
+  02_png.rf.jZnY4zBIuej95xOExdvd.png: 453 masks
+    tile 1/12: 94 detections
+    tile 2/12: 110 detections
+    tile 3/12: 97 detections
+    tile 4/12: 45 detections
+    tile 5/12: 98 detections
+    tile 6/12: 102 detections
+    tile 7/12: 90 detections
+    tile 8/12: 39 detections
+    tile 9/12: 6 detections
+    tile 10/12: 13 detections
+    tile 11/12: 14 detections
+    tile 12/12: 7 detections
+    tile 1/12: 85 detections
+    tile 2/12: 94 detections
+    tile 3/12: 85 detections
+    tile 4/12: 27 detections
+    tile 5/12: 69 detections
+    tile 6/12: 83 detections
+    tile 7/12: 83 detections
+    tile 8/12: 34 detections
+    tile 9/12: 9 detections
+    tile 10/12: 12 detections
+    tile 11/12: 6 detections
+    tile 12/12: 3 detections
+    TTA consensus: 472 masks kept
+    NMS (hard): 472 masks...
+    NMS done: 401 masks kept
+    Dedup (iou>0.15, dist<=30): 401 masks...
+    Dedup done: 400 masks kept
+  03_png.rf.bNcoAUfLPBbQDd7dyeak.png: 400 masks
+============================================================
+推理完成！
+总预测数: 853
+标注文件: outputs/v4_sweep/c045_tta/labels
+可视化: outputs/v4_sweep/c045_tta/visualizations
+[RUN] c050_tta: /usr/local/envs/gbseg/bin/python src/inference.py --model models/glass_bead_seg/yolo11n-seg-v4/weights/best.pt --source dataset/data_v4_aug/test/images --output outputs/v4_sweep/c050_tta --mode ellipse --conf 0.50 --tta
+模型: best.pt
+模式: ellipse
+置信度: 0.5
+YOLO IoU: 0.7
+TTA: 启用
+NMS:  Hard
+去重: IoU>0.15, Dist<=30px
+设备: 0
+图片数: 2
+============================================================
+    tile 1/12: 59 detections
+    tile 2/12: 107 detections
+    tile 3/12: 120 detections
+    tile 4/12: 36 detections
+    tile 5/12: 91 detections
+    tile 6/12: 121 detections
+    tile 7/12: 112 detections
+    tile 8/12: 44 detections
+    tile 9/12: 4 detections
+    tile 10/12: 13 detections
+    tile 11/12: 12 detections
+    tile 12/12: 4 detections
+    tile 1/12: 82 detections
+    tile 2/12: 104 detections
+    tile 3/12: 77 detections
+    tile 4/12: 19 detections
+    tile 5/12: 76 detections
+    tile 6/12: 101 detections
+    tile 7/12: 86 detections
+    tile 8/12: 29 detections
+    tile 9/12: 5 detections
+    tile 10/12: 10 detections
+    tile 11/12: 6 detections
+    tile 12/12: 1 detections
+    TTA consensus: 483 masks kept
+    NMS (hard): 483 masks...
+    NMS done: 420 masks kept
+    Dedup (iou>0.15, dist<=30): 420 masks...
+    Dedup done: 418 masks kept
+  02_png.rf.jZnY4zBIuej95xOExdvd.png: 418 masks
+    tile 1/12: 85 detections
+    tile 2/12: 103 detections
+    tile 3/12: 91 detections
+    tile 4/12: 37 detections
+    tile 5/12: 90 detections
+    tile 6/12: 96 detections
+    tile 7/12: 83 detections
+    tile 8/12: 30 detections
+    tile 9/12: 6 detections
+    tile 10/12: 10 detections
+    tile 11/12: 13 detections
+    tile 12/12: 6 detections
+    tile 1/12: 79 detections
+    tile 2/12: 89 detections
+    tile 3/12: 74 detections
+    tile 4/12: 21 detections
+    tile 5/12: 65 detections
+    tile 6/12: 77 detections
+    tile 7/12: 73 detections
+    tile 8/12: 30 detections
+    tile 9/12: 9 detections
+    tile 10/12: 10 detections
+    tile 11/12: 2 detections
+    tile 12/12: 2 detections
+    TTA consensus: 420 masks kept
+    NMS (hard): 420 masks...
+    NMS done: 355 masks kept
+    Dedup (iou>0.15, dist<=30): 355 masks...
+    Dedup done: 354 masks kept
+  03_png.rf.bNcoAUfLPBbQDd7dyeak.png: 354 masks
+============================================================
+推理完成！
+总预测数: 772
+标注文件: outputs/v4_sweep/c050_tta/labels
+可视化: outputs/v4_sweep/c050_tta/visualizations
+
+================================================================================
+=== c035 ===
+评估配置:
+  GT 目录:     dataset/data_v4_aug/test/labels
+  预测目录:    outputs/v4_sweep/c035/labels
+  IoU 阈值:    0.5
+  GT 文件数:   2
+  预测文件数:  2
+======================================================================
+  02_png.rf.jZnY4zBIuej95xOExdvd: GT=497  Pred=593  TP=383  R=0.771  P=0.646  Err=0.193
+  03_png.rf.bNcoAUfLPBbQDd7dyeak: GT=474  Pred=539  TP=394  R=0.831  P=0.731  Err=0.137
+======================================================================
+
+────────────────────────────────────────
+  汇总统计 (2 张图片)
+────────────────────────────────────────
+  总 GT 数量:      971
+  总预测数量:      1132
+  TP / FP / FN:    777 / 355 / 194
+────────────────────────────────────────
+  Recall@0.5:     0.8002
+  Precision@0.5:  0.6864
+  F1@0.5:          0.7389
+  平均计数误差:     0.1651
+────────────────────────────────────────
+
+  每图计数对比:
+  图片                                GT  Pred       误差
+  02_png.rf.jZnY4zBIuej95xOExdvd   497   593 +     96
+  03_png.rf.bNcoAUfLPBbQDd7dyeak   474   539 +     65
+
+=== c040 ===
+评估配置:
+  GT 目录:     dataset/data_v4_aug/test/labels
+  预测目录:    outputs/v4_sweep/c040/labels
+  IoU 阈值:    0.5
+  GT 文件数:   2
+  预测文件数:  2
+======================================================================
+  02_png.rf.jZnY4zBIuej95xOExdvd: GT=497  Pred=567  TP=372  R=0.748  P=0.656  Err=0.141
+  03_png.rf.bNcoAUfLPBbQDd7dyeak: GT=474  Pred=516  TP=384  R=0.810  P=0.744  Err=0.089
+======================================================================
+
+────────────────────────────────────────
+  汇总统计 (2 张图片)
+────────────────────────────────────────
+  总 GT 数量:      971
+  总预测数量:      1083
+  TP / FP / FN:    756 / 327 / 215
+────────────────────────────────────────
+  Recall@0.5:     0.7786
+  Precision@0.5:  0.6981
+  F1@0.5:          0.7361
+  平均计数误差:     0.1147
+────────────────────────────────────────
+
+  每图计数对比:
+  图片                                GT  Pred       误差
+  02_png.rf.jZnY4zBIuej95xOExdvd   497   567 +     70
+  03_png.rf.bNcoAUfLPBbQDd7dyeak   474   516 +     42
+
+=== c045 ===
+评估配置:
+  GT 目录:     dataset/data_v4_aug/test/labels
+  预测目录:    outputs/v4_sweep/c045/labels
+  IoU 阈值:    0.5
+  GT 文件数:   2
+  预测文件数:  2
+======================================================================
+  02_png.rf.jZnY4zBIuej95xOExdvd: GT=497  Pred=523  TP=355  R=0.714  P=0.679  Err=0.052
+  03_png.rf.bNcoAUfLPBbQDd7dyeak: GT=474  Pred=488  TP=375  R=0.791  P=0.768  Err=0.030
+======================================================================
+
+────────────────────────────────────────
+  汇总统计 (2 张图片)
+────────────────────────────────────────
+  总 GT 数量:      971
+  总预测数量:      1011
+  TP / FP / FN:    730 / 281 / 241
+────────────────────────────────────────
+  Recall@0.5:     0.7518
+  Precision@0.5:  0.7221
+  F1@0.5:          0.7366
+  平均计数误差:     0.0409
+────────────────────────────────────────
+
+  每图计数对比:
+  图片                                GT  Pred       误差
+  02_png.rf.jZnY4zBIuej95xOExdvd   497   523 +     26
+  03_png.rf.bNcoAUfLPBbQDd7dyeak   474   488 +     14
+
+=== c050 ===
+评估配置:
+  GT 目录:     dataset/data_v4_aug/test/labels
+  预测目录:    outputs/v4_sweep/c050/labels
+  IoU 阈值:    0.5
+  GT 文件数:   2
+  预测文件数:  2
+======================================================================
+  02_png.rf.jZnY4zBIuej95xOExdvd: GT=497  Pred=495  TP=340  R=0.684  P=0.687  Err=0.004
+  03_png.rf.bNcoAUfLPBbQDd7dyeak: GT=474  Pred=448  TP=354  R=0.747  P=0.790  Err=0.055
+======================================================================
+
+────────────────────────────────────────
+  汇总统计 (2 张图片)
+────────────────────────────────────────
+  总 GT 数量:      971
+  总预测数量:      943
+  TP / FP / FN:    694 / 249 / 277
+────────────────────────────────────────
+  Recall@0.5:     0.7147
+  Precision@0.5:  0.7359
+  F1@0.5:          0.7252
+  平均计数误差:     0.0294
+────────────────────────────────────────
+
+  每图计数对比:
+  图片                                GT  Pred       误差
+  02_png.rf.jZnY4zBIuej95xOExdvd   497   495      -2
+  03_png.rf.bNcoAUfLPBbQDd7dyeak   474   448     -26
+
+=== c035_tta ===
+评估配置:
+  GT 目录:     dataset/data_v4_aug/test/labels
+  预测目录:    outputs/v4_sweep/c035_tta/labels
+  IoU 阈值:    0.5
+  GT 文件数:   2
+  预测文件数:  2
+======================================================================
+  02_png.rf.jZnY4zBIuej95xOExdvd: GT=497  Pred=525  TP=367  R=0.738  P=0.699  Err=0.056
+  03_png.rf.bNcoAUfLPBbQDd7dyeak: GT=474  Pred=481  TP=371  R=0.783  P=0.771  Err=0.015
+======================================================================
+
+────────────────────────────────────────
+  汇总统计 (2 张图片)
+────────────────────────────────────────
+  总 GT 数量:      971
+  总预测数量:      1006
+  TP / FP / FN:    738 / 268 / 233
+────────────────────────────────────────
+  Recall@0.5:     0.7600
+  Precision@0.5:  0.7336
+  F1@0.5:          0.7466
+  平均计数误差:     0.0356
+────────────────────────────────────────
+
+  每图计数对比:
+  图片                                GT  Pred       误差
+  02_png.rf.jZnY4zBIuej95xOExdvd   497   525 +     28
+  03_png.rf.bNcoAUfLPBbQDd7dyeak   474   481 +      7
+
+=== c040_tta ===
+评估配置:
+  GT 目录:     dataset/data_v4_aug/test/labels
+  预测目录:    outputs/v4_sweep/c040_tta/labels
+  IoU 阈值:    0.5
+  GT 文件数:   2
+  预测文件数:  2
+======================================================================
+  02_png.rf.jZnY4zBIuej95xOExdvd: GT=497  Pred=493  TP=350  R=0.704  P=0.710  Err=0.008
+  03_png.rf.bNcoAUfLPBbQDd7dyeak: GT=474  Pred=438  TP=351  R=0.741  P=0.801  Err=0.076
+======================================================================
+
+────────────────────────────────────────
+  汇总统计 (2 张图片)
+────────────────────────────────────────
+  总 GT 数量:      971
+  总预测数量:      931
+  TP / FP / FN:    701 / 230 / 270
+────────────────────────────────────────
+  Recall@0.5:     0.7219
+  Precision@0.5:  0.7530
+  F1@0.5:          0.7371
+  平均计数误差:     0.0420
+────────────────────────────────────────
+
+  每图计数对比:
+  图片                                GT  Pred       误差
+  02_png.rf.jZnY4zBIuej95xOExdvd   497   493      -4
+  03_png.rf.bNcoAUfLPBbQDd7dyeak   474   438     -36
+
+=== c045_tta ===
+评估配置:
+  GT 目录:     dataset/data_v4_aug/test/labels
+  预测目录:    outputs/v4_sweep/c045_tta/labels
+  IoU 阈值:    0.5
+  GT 文件数:   2
+  预测文件数:  2
+======================================================================
+  02_png.rf.jZnY4zBIuej95xOExdvd: GT=497  Pred=453  TP=332  R=0.668  P=0.733  Err=0.089
+  03_png.rf.bNcoAUfLPBbQDd7dyeak: GT=474  Pred=400  TP=330  R=0.696  P=0.825  Err=0.156
+======================================================================
+
+────────────────────────────────────────
+  汇总统计 (2 张图片)
+────────────────────────────────────────
+  总 GT 数量:      971
+  总预测数量:      853
+  TP / FP / FN:    662 / 191 / 309
+────────────────────────────────────────
+  Recall@0.5:     0.6818
+  Precision@0.5:  0.7761
+  F1@0.5:          0.7259
+  平均计数误差:     0.1223
+────────────────────────────────────────
+
+  每图计数对比:
+  图片                                GT  Pred       误差
+  02_png.rf.jZnY4zBIuej95xOExdvd   497   453     -44
+  03_png.rf.bNcoAUfLPBbQDd7dyeak   474   400     -74
+
+=== c050_tta ===
+评估配置:
+  GT 目录:     dataset/data_v4_aug/test/labels
+  预测目录:    outputs/v4_sweep/c050_tta/labels
+  IoU 阈值:    0.5
+  GT 文件数:   2
+  预测文件数:  2
+======================================================================
+  02_png.rf.jZnY4zBIuej95xOExdvd: GT=497  Pred=418  TP=309  R=0.622  P=0.739  Err=0.159
+  03_png.rf.bNcoAUfLPBbQDd7dyeak: GT=474  Pred=354  TP=305  R=0.643  P=0.862  Err=0.253
+======================================================================
+
+────────────────────────────────────────
+  汇总统计 (2 张图片)
+────────────────────────────────────────
+  总 GT 数量:      971
+  总预测数量:      772
+  TP / FP / FN:    614 / 158 / 357
+────────────────────────────────────────
+  Recall@0.5:     0.6323
+  Precision@0.5:  0.7953
+  F1@0.5:          0.7045
+  平均计数误差:     0.2061
+────────────────────────────────────────
+
+  每图计数对比:
+  图片                                GT  Pred       误差
+  02_png.rf.jZnY4zBIuej95xOExdvd   497   418     -79
+  03_png.rf.bNcoAUfLPBbQDd7dyeak   474   354    -120
+
+
+================================================================================
+汇总:
+c035                 | Recall@0.5:     0.8002
+c035                 | Precision@0.5:  0.6864
+c035                 | F1@0.5:          0.7389
+c035                 | 平均计数误差:     0.1651
+c040                 | Recall@0.5:     0.7786
+c040                 | Precision@0.5:  0.6981
+c040                 | F1@0.5:          0.7361
+c040                 | 平均计数误差:     0.1147
+c045                 | Recall@0.5:     0.7518
+c045                 | Precision@0.5:  0.7221
+c045                 | F1@0.5:          0.7366
+c045                 | 平均计数误差:     0.0409
+c050                 | Recall@0.5:     0.7147
+c050                 | Precision@0.5:  0.7359
+c050                 | F1@0.5:          0.7252
+c050                 | 平均计数误差:     0.0294
+c035_tta             | Recall@0.5:     0.7600
+c035_tta             | Precision@0.5:  0.7336
+c035_tta             | F1@0.5:          0.7466
+c035_tta             | 平均计数误差:     0.0356
+c040_tta             | Recall@0.5:     0.7219
+c040_tta             | Precision@0.5:  0.7530
+c040_tta             | F1@0.5:          0.7371
+c040_tta             | 平均计数误差:     0.0420
+c045_tta             | Recall@0.5:     0.6818
+c045_tta             | Precision@0.5:  0.7761
+c045_tta             | F1@0.5:          0.7259
+c045_tta             | 平均计数误差:     0.1223
+c050_tta             | Recall@0.5:     0.6323
+c050_tta             | Precision@0.5:  0.7953
+c050_tta             | F1@0.5:          0.7045
+c050_tta             | 平均计数误差:     0.2061

@@ -1,0 +1,6 @@
+train: ../auto_labeled/images
+val: ../auto_labeled/images
+test: ../auto_labeled/images
+
+nc: 1
+names: ['GrassBeadSeg']

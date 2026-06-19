@@ -7,7 +7,7 @@ os.environ.setdefault("PYTORCH_CUDA_ALLOC_CONF", "expandable_segments:True")
 
 PROJECT_ROOT = Path(__file__).resolve().parents[2]
 PRETRAINED_PATH = PROJECT_ROOT / "models" / "rfdetr_seg_large" / "pretrained_300.pth"
-DATASET_DIR = PROJECT_ROOT / "dataset" / "data_v2_aug"
+DATASET_DIR = PROJECT_ROOT / "dataset" / "data_v1_aug"
 OUTPUT_DIR = PROJECT_ROOT / "models" / "rfdetr_seg_large" / "trained"
 
 EPOCHS = 200

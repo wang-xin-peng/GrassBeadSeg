@@ -1,11 +1,19 @@
 """
-运行 RF-DETR 推理，对原始图片进行自动标注。
+RF-DETR 自动标注推理脚本，用于辅助人工标注
 
-使用方式：
-  1. 训练完成后 models/rfdetr_seg_large/trained/checkpoint_best_total.pth 将存在
-  2. conda activate gbseg && python scripts/auto_label/inference_rfdetr.py
+将训练好的 RF-DETR 模型对 dataset/raw/ 下的原始未标注图片进行批量推理，
+输出 YOLO 分割格式的 polygon 标注文件到 dataset/auto_labeled/。
 
-输出：在 dataset/auto_labeled/ 下生成 YOLO 分割格式的标注文件。
+工作流程：
+  1. 加载 models/rfdetr_seg_large/trained/checkpoint_best_total.pth
+  2. 遍历 dataset/raw/ 中所有图片
+  3. 跳过已在 data_v1 中人工标注过的图片（避免重复标注）
+  4. 对剩余图片逐张推理，提取 mask → 转 YOLO polygon 格式
+  5. 标注文件写入 dataset/auto_labeled/labels/，图片复制到 images/
+
+前置条件：
+  - 已完成训练：python scripts/auto_label/train_rfdetr.py
+  - 训练后 trained/ 目录下存在检查点文件
 """
 
 import os
@@ -21,7 +29,7 @@ RAW_IMAGES_DIR = PROJECT_ROOT / "dataset" / "raw"
 OUTPUT_LABELS_DIR = PROJECT_ROOT / "dataset" / "auto_labeled" / "labels"
 OUTPUT_IMAGES_DIR = PROJECT_ROOT / "dataset" / "auto_labeled" / "images"
 OUTPUT_DIR = PROJECT_ROOT / "dataset" / "auto_labeled"
-DATA_V2_DIR = PROJECT_ROOT / "dataset" / "data_v2"
+DATA_V1_DIR = PROJECT_ROOT / "dataset" / "data_v1"
 
 DETECTION_THRESHOLD = 0.5
 IOU_THRESHOLD = 0.5
@@ -31,7 +39,7 @@ CLASS_ID = 0
 def get_already_labeled_set():
     labeled = set()
     for split in ["train", "valid", "test"]:
-        label_dir = DATA_V2_DIR / split / "labels"
+        label_dir = DATA_V1_DIR / split / "labels"
         if not label_dir.exists():
             continue
         for f in os.listdir(label_dir):

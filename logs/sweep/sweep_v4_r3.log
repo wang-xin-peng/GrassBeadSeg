@@ -1,0 +1,3287 @@
+nohup: ignoring input
+[1/38] RUN ov0p32_c35_tta
+模型: best.pt
+模式: ellipse
+置信度: 0.35
+YOLO IoU: 0.7
+TTA: 启用
+NMS:  Hard
+去重: IoU>0.15, Dist<=30px
+设备: 0
+图片数: 2
+============================================================
+    tile 1/15: 100 detections
+    tile 2/15: 124 detections
+    tile 3/15: 142 detections
+    tile 4/15: 103 detections
+    tile 5/15: 19 detections
+    tile 6/15: 117 detections
+    tile 7/15: 154 detections
+    tile 8/15: 140 detections
+    tile 9/15: 113 detections
+    tile 10/15: 33 detections
+    tile 11/15: 24 detections
+    tile 12/15: 14 detections
+    tile 13/15: 6 detections
+    tile 14/15: 6 detections
+    tile 15/15: 3 detections
+    tile 1/15: 108 detections
+    tile 2/15: 136 detections
+    tile 3/15: 108 detections
+    tile 4/15: 62 detections
+    tile 5/15: 9 detections
+    tile 6/15: 119 detections
+    tile 7/15: 134 detections
+    tile 8/15: 132 detections
+    tile 9/15: 79 detections
+    tile 10/15: 16 detections
+    tile 11/15: 2 detections
+    tile 12/15: 4 detections
+    tile 13/15: 12 detections
+    tile 14/15: 12 detections
+    tile 15/15: 4 detections
+    TTA consensus: 845 masks kept
+    NMS (hard): 845 masks...
+    NMS done: 541 masks kept
+    Dedup (iou>0.15, dist<=30): 541 masks...
+    Dedup done: 528 masks kept
+  02_png.rf.jZnY4zBIuej95xOExdvd.png: 528 masks
+    tile 1/15: 111 detections
+    tile 2/15: 119 detections
+    tile 3/15: 109 detections
+    tile 4/15: 92 detections
+    tile 5/15: 27 detections
+    tile 6/15: 119 detections
+    tile 7/15: 131 detections
+    tile 8/15: 139 detections
+    tile 9/15: 112 detections
+    tile 10/15: 27 detections
+    tile 11/15: 15 detections
+    tile 12/15: 13 detections
+    tile 13/15: 14 detections
+    tile 14/15: 13 detections
+    tile 15/15: 2 detections
+    tile 1/15: 94 detections
+    tile 2/15: 101 detections
+    tile 3/15: 112 detections
+    tile 4/15: 73 detections
+    tile 5/15: 11 detections
+    tile 6/15: 116 detections
+    tile 7/15: 122 detections
+    tile 8/15: 114 detections
+    tile 9/15: 93 detections
+    tile 10/15: 13 detections
+    tile 11/15: 9 detections
+    tile 12/15: 13 detections
+    tile 13/15: 5 detections
+    tile 14/15: 7 detections
+    tile 15/15: 3 detections
+    TTA consensus: 799 masks kept
+    NMS (hard): 799 masks...
+    NMS done: 488 masks kept
+    Dedup (iou>0.15, dist<=30): 488 masks...
+    Dedup done: 480 masks kept
+  03_png.rf.bNcoAUfLPBbQDd7dyeak.png: 480 masks
+============================================================
+推理完成！
+总预测数: 1008
+标注文件: outputs/v4_sweep_r3/ov0p32_c35_tta/labels
+可视化: outputs/v4_sweep_r3/ov0p32_c35_tta/visualizations
+[2/38] RUN ov0p32_c36_tta
+模型: best.pt
+模式: ellipse
+置信度: 0.36
+YOLO IoU: 0.7
+TTA: 启用
+NMS:  Hard
+去重: IoU>0.15, Dist<=30px
+设备: 0
+图片数: 2
+============================================================
+    tile 1/15: 97 detections
+    tile 2/15: 121 detections
+    tile 3/15: 142 detections
+    tile 4/15: 103 detections
+    tile 5/15: 19 detections
+    tile 6/15: 116 detections
+    tile 7/15: 154 detections
+    tile 8/15: 139 detections
+    tile 9/15: 112 detections
+    tile 10/15: 32 detections
+    tile 11/15: 23 detections
+    tile 12/15: 14 detections
+    tile 13/15: 6 detections
+    tile 14/15: 5 detections
+    tile 15/15: 3 detections
+    tile 1/15: 108 detections
+    tile 2/15: 134 detections
+    tile 3/15: 108 detections
+    tile 4/15: 60 detections
+    tile 5/15: 9 detections
+    tile 6/15: 117 detections
+    tile 7/15: 132 detections
+    tile 8/15: 130 detections
+    tile 9/15: 77 detections
+    tile 10/15: 15 detections
+    tile 11/15: 1 detections
+    tile 12/15: 3 detections
+    tile 13/15: 11 detections
+    tile 14/15: 10 detections
+    tile 15/15: 4 detections
+    TTA consensus: 835 masks kept
+    NMS (hard): 835 masks...
+    NMS done: 537 masks kept
+    Dedup (iou>0.15, dist<=30): 537 masks...
+    Dedup done: 525 masks kept
+  02_png.rf.jZnY4zBIuej95xOExdvd.png: 525 masks
+    tile 1/15: 108 detections
+    tile 2/15: 119 detections
+    tile 3/15: 109 detections
+    tile 4/15: 92 detections
+    tile 5/15: 26 detections
+    tile 6/15: 117 detections
+    tile 7/15: 130 detections
+    tile 8/15: 134 detections
+    tile 9/15: 109 detections
+    tile 10/15: 26 detections
+    tile 11/15: 13 detections
+    tile 12/15: 11 detections
+    tile 13/15: 13 detections
+    tile 14/15: 12 detections
+    tile 15/15: 1 detections
+    tile 1/15: 94 detections
+    tile 2/15: 99 detections
+    tile 3/15: 111 detections
+    tile 4/15: 70 detections
+    tile 5/15: 10 detections
+    tile 6/15: 115 detections
+    tile 7/15: 120 detections
+    tile 8/15: 113 detections
+    tile 9/15: 90 detections
+    tile 10/15: 12 detections
+    tile 11/15: 9 detections
+    tile 12/15: 12 detections
+    tile 13/15: 4 detections
+    tile 14/15: 7 detections
+    tile 15/15: 1 detections
+    TTA consensus: 785 masks kept
+    NMS (hard): 785 masks...
+    NMS done: 481 masks kept
+    Dedup (iou>0.15, dist<=30): 481 masks...
+    Dedup done: 474 masks kept
+  03_png.rf.bNcoAUfLPBbQDd7dyeak.png: 474 masks
+============================================================
+推理完成！
+总预测数: 999
+标注文件: outputs/v4_sweep_r3/ov0p32_c36_tta/labels
+可视化: outputs/v4_sweep_r3/ov0p32_c36_tta/visualizations
+[3/38] RUN ov0p32_c37_tta
+模型: best.pt
+模式: ellipse
+置信度: 0.37
+YOLO IoU: 0.7
+TTA: 启用
+NMS:  Hard
+去重: IoU>0.15, Dist<=30px
+设备: 0
+图片数: 2
+============================================================
+    tile 1/15: 97 detections
+    tile 2/15: 121 detections
+    tile 3/15: 142 detections
+    tile 4/15: 100 detections
+    tile 5/15: 18 detections
+    tile 6/15: 114 detections
+    tile 7/15: 151 detections
+    tile 8/15: 135 detections
+    tile 9/15: 110 detections
+    tile 10/15: 29 detections
+    tile 11/15: 22 detections
+    tile 12/15: 11 detections
+    tile 13/15: 5 detections
+    tile 14/15: 4 detections
+    tile 15/15: 3 detections
+    tile 1/15: 107 detections
+    tile 2/15: 132 detections
+    tile 3/15: 107 detections
+    tile 4/15: 58 detections
+    tile 5/15: 8 detections
+    tile 6/15: 115 detections
+    tile 7/15: 132 detections
+    tile 8/15: 129 detections
+    tile 9/15: 72 detections
+    tile 10/15: 14 detections
+    tile 11/15: 1 detections
+    tile 12/15: 3 detections
+    tile 13/15: 11 detections
+    tile 14/15: 10 detections
+    tile 15/15: 4 detections
+    TTA consensus: 815 masks kept
+    NMS (hard): 815 masks...
+    NMS done: 525 masks kept
+    Dedup (iou>0.15, dist<=30): 525 masks...
+    Dedup done: 514 masks kept
+  02_png.rf.jZnY4zBIuej95xOExdvd.png: 514 masks
+    tile 1/15: 106 detections
+    tile 2/15: 119 detections
+    tile 3/15: 109 detections
+    tile 4/15: 91 detections
+    tile 5/15: 26 detections
+    tile 6/15: 113 detections
+    tile 7/15: 127 detections
+    tile 8/15: 134 detections
+    tile 9/15: 107 detections
+    tile 10/15: 26 detections
+    tile 11/15: 13 detections
+    tile 12/15: 11 detections
+    tile 13/15: 13 detections
+    tile 14/15: 12 detections
+    tile 15/15: 1 detections
+    tile 1/15: 94 detections
+    tile 2/15: 98 detections
+    tile 3/15: 107 detections
+    tile 4/15: 69 detections
+    tile 5/15: 10 detections
+    tile 6/15: 111 detections
+    tile 7/15: 116 detections
+    tile 8/15: 111 detections
+    tile 9/15: 88 detections
+    tile 10/15: 11 detections
+    tile 11/15: 9 detections
+    tile 12/15: 12 detections
+    tile 13/15: 4 detections
+    tile 14/15: 6 detections
+    tile 15/15: 1 detections
+    TTA consensus: 767 masks kept
+    NMS (hard): 767 masks...
+    NMS done: 473 masks kept
+    Dedup (iou>0.15, dist<=30): 473 masks...
+    Dedup done: 467 masks kept
+  03_png.rf.bNcoAUfLPBbQDd7dyeak.png: 467 masks
+============================================================
+推理完成！
+总预测数: 981
+标注文件: outputs/v4_sweep_r3/ov0p32_c37_tta/labels
+可视化: outputs/v4_sweep_r3/ov0p32_c37_tta/visualizations
+[4/38] RUN ov0p32_c38_tta
+模型: best.pt
+模式: ellipse
+置信度: 0.38
+YOLO IoU: 0.7
+TTA: 启用
+NMS:  Hard
+去重: IoU>0.15, Dist<=30px
+设备: 0
+图片数: 2
+============================================================
+    tile 1/15: 94 detections
+    tile 2/15: 118 detections
+    tile 3/15: 142 detections
+    tile 4/15: 98 detections
+    tile 5/15: 18 detections
+    tile 6/15: 109 detections
+    tile 7/15: 151 detections
+    tile 8/15: 135 detections
+    tile 9/15: 110 detections
+    tile 10/15: 26 detections
+    tile 11/15: 21 detections
+    tile 12/15: 10 detections
+    tile 13/15: 4 detections
+    tile 14/15: 3 detections
+    tile 15/15: 3 detections
+    tile 1/15: 104 detections
+    tile 2/15: 130 detections
+    tile 3/15: 107 detections
+    tile 4/15: 58 detections
+    tile 5/15: 8 detections
+    tile 6/15: 111 detections
+    tile 7/15: 132 detections
+    tile 8/15: 127 detections
+    tile 9/15: 71 detections
+    tile 10/15: 12 detections
+    tile 11/15: 1 detections
+    tile 12/15: 2 detections
+    tile 13/15: 11 detections
+    tile 14/15: 9 detections
+    tile 15/15: 3 detections
+    TTA consensus: 803 masks kept
+    NMS (hard): 803 masks...
+    NMS done: 521 masks kept
+    Dedup (iou>0.15, dist<=30): 521 masks...
+    Dedup done: 510 masks kept
+  02_png.rf.jZnY4zBIuej95xOExdvd.png: 510 masks
+    tile 1/15: 105 detections
+    tile 2/15: 118 detections
+    tile 3/15: 108 detections
+    tile 4/15: 90 detections
+    tile 5/15: 25 detections
+    tile 6/15: 113 detections
+    tile 7/15: 127 detections
+    tile 8/15: 133 detections
+    tile 9/15: 105 detections
+    tile 10/15: 26 detections
+    tile 11/15: 12 detections
+    tile 12/15: 9 detections
+    tile 13/15: 12 detections
+    tile 14/15: 10 detections
+    tile 15/15: 1 detections
+    tile 1/15: 93 detections
+    tile 2/15: 98 detections
+    tile 3/15: 107 detections
+    tile 4/15: 69 detections
+    tile 5/15: 8 detections
+    tile 6/15: 110 detections
+    tile 7/15: 115 detections
+    tile 8/15: 109 detections
+    tile 9/15: 86 detections
+    tile 10/15: 11 detections
+    tile 11/15: 8 detections
+    tile 12/15: 10 detections
+    tile 13/15: 3 detections
+    tile 14/15: 6 detections
+    tile 15/15: 1 detections
+    TTA consensus: 756 masks kept
+    NMS (hard): 756 masks...
+    NMS done: 465 masks kept
+    Dedup (iou>0.15, dist<=30): 465 masks...
+    Dedup done: 459 masks kept
+  03_png.rf.bNcoAUfLPBbQDd7dyeak.png: 459 masks
+============================================================
+推理完成！
+总预测数: 969
+标注文件: outputs/v4_sweep_r3/ov0p32_c38_tta/labels
+可视化: outputs/v4_sweep_r3/ov0p32_c38_tta/visualizations
+[5/38] RUN ov0p32_c39_tta
+模型: best.pt
+模式: ellipse
+置信度: 0.39
+YOLO IoU: 0.7
+TTA: 启用
+NMS:  Hard
+去重: IoU>0.15, Dist<=30px
+设备: 0
+图片数: 2
+============================================================
+    tile 1/15: 89 detections
+    tile 2/15: 117 detections
+    tile 3/15: 141 detections
+    tile 4/15: 97 detections
+    tile 5/15: 18 detections
+    tile 6/15: 103 detections
+    tile 7/15: 149 detections
+    tile 8/15: 133 detections
+    tile 9/15: 110 detections
+    tile 10/15: 26 detections
+    tile 11/15: 21 detections
+    tile 12/15: 10 detections
+    tile 13/15: 3 detections
+    tile 14/15: 3 detections
+    tile 15/15: 3 detections
+    tile 1/15: 101 detections
+    tile 2/15: 127 detections
+    tile 3/15: 104 detections
+    tile 4/15: 55 detections
+    tile 5/15: 8 detections
+    tile 6/15: 109 detections
+    tile 7/15: 132 detections
+    tile 8/15: 125 detections
+    tile 9/15: 69 detections
+    tile 10/15: 12 detections
+    tile 11/15: 1 detections
+    tile 12/15: 2 detections
+    tile 13/15: 8 detections
+    tile 14/15: 7 detections
+    tile 15/15: 3 detections
+    TTA consensus: 784 masks kept
+    NMS (hard): 784 masks...
+    NMS done: 512 masks kept
+    Dedup (iou>0.15, dist<=30): 512 masks...
+    Dedup done: 502 masks kept
+  02_png.rf.jZnY4zBIuej95xOExdvd.png: 502 masks
+    tile 1/15: 103 detections
+    tile 2/15: 117 detections
+    tile 3/15: 106 detections
+    tile 4/15: 89 detections
+    tile 5/15: 23 detections
+    tile 6/15: 112 detections
+    tile 7/15: 125 detections
+    tile 8/15: 132 detections
+    tile 9/15: 101 detections
+    tile 10/15: 25 detections
+    tile 11/15: 11 detections
+    tile 12/15: 9 detections
+    tile 13/15: 12 detections
+    tile 14/15: 9 detections
+    tile 15/15: 1 detections
+    tile 1/15: 92 detections
+    tile 2/15: 96 detections
+    tile 3/15: 106 detections
+    tile 4/15: 64 detections
+    tile 5/15: 8 detections
+    tile 6/15: 108 detections
+    tile 7/15: 111 detections
+    tile 8/15: 107 detections
+    tile 9/15: 83 detections
+    tile 10/15: 10 detections
+    tile 11/15: 8 detections
+    tile 12/15: 10 detections
+    tile 13/15: 2 detections
+    tile 14/15: 6 detections
+    tile 15/15: 1 detections
+    TTA consensus: 735 masks kept
+    NMS (hard): 735 masks...
+    NMS done: 453 masks kept
+    Dedup (iou>0.15, dist<=30): 453 masks...
+    Dedup done: 447 masks kept
+  03_png.rf.bNcoAUfLPBbQDd7dyeak.png: 447 masks
+============================================================
+推理完成！
+总预测数: 949
+标注文件: outputs/v4_sweep_r3/ov0p32_c39_tta/labels
+可视化: outputs/v4_sweep_r3/ov0p32_c39_tta/visualizations
+[6/38] RUN ov0p32_c40_tta
+模型: best.pt
+模式: ellipse
+置信度: 0.4
+YOLO IoU: 0.7
+TTA: 启用
+NMS:  Hard
+去重: IoU>0.15, Dist<=30px
+设备: 0
+图片数: 2
+============================================================
+    tile 1/15: 86 detections
+    tile 2/15: 115 detections
+    tile 3/15: 140 detections
+    tile 4/15: 97 detections
+    tile 5/15: 17 detections
+    tile 6/15: 101 detections
+    tile 7/15: 145 detections
+    tile 8/15: 131 detections
+    tile 9/15: 106 detections
+    tile 10/15: 25 detections
+    tile 11/15: 21 detections
+    tile 12/15: 9 detections
+    tile 13/15: 3 detections
+    tile 14/15: 3 detections
+    tile 15/15: 3 detections
+    tile 1/15: 101 detections
+    tile 2/15: 126 detections
+    tile 3/15: 103 detections
+    tile 4/15: 51 detections
+    tile 5/15: 8 detections
+    tile 6/15: 107 detections
+    tile 7/15: 130 detections
+    tile 8/15: 122 detections
+    tile 9/15: 67 detections
+    tile 10/15: 12 detections
+    tile 11/15: 1 detections
+    tile 12/15: 1 detections
+    tile 13/15: 8 detections
+    tile 14/15: 7 detections
+    tile 15/15: 3 detections
+    TTA consensus: 771 masks kept
+    NMS (hard): 771 masks...
+    NMS done: 501 masks kept
+    Dedup (iou>0.15, dist<=30): 501 masks...
+    Dedup done: 492 masks kept
+  02_png.rf.jZnY4zBIuej95xOExdvd.png: 492 masks
+    tile 1/15: 102 detections
+    tile 2/15: 116 detections
+    tile 3/15: 105 detections
+    tile 4/15: 87 detections
+    tile 5/15: 23 detections
+    tile 6/15: 110 detections
+    tile 7/15: 121 detections
+    tile 8/15: 130 detections
+    tile 9/15: 99 detections
+    tile 10/15: 24 detections
+    tile 11/15: 9 detections
+    tile 12/15: 8 detections
+    tile 13/15: 11 detections
+    tile 14/15: 9 detections
+    tile 15/15: 1 detections
+    tile 1/15: 91 detections
+    tile 2/15: 96 detections
+    tile 3/15: 105 detections
+    tile 4/15: 63 detections
+    tile 5/15: 8 detections
+    tile 6/15: 104 detections
+    tile 7/15: 109 detections
+    tile 8/15: 106 detections
+    tile 9/15: 81 detections
+    tile 10/15: 9 detections
+    tile 11/15: 6 detections
+    tile 12/15: 9 detections
+    tile 13/15: 2 detections
+    tile 14/15: 4 detections
+    tile 15/15: 1 detections
+    TTA consensus: 717 masks kept
+    NMS (hard): 717 masks...
+    NMS done: 445 masks kept
+    Dedup (iou>0.15, dist<=30): 445 masks...
+    Dedup done: 441 masks kept
+  03_png.rf.bNcoAUfLPBbQDd7dyeak.png: 441 masks
+============================================================
+推理完成！
+总预测数: 933
+标注文件: outputs/v4_sweep_r3/ov0p32_c40_tta/labels
+可视化: outputs/v4_sweep_r3/ov0p32_c40_tta/visualizations
+[7/38] RUN ov0p32_c41_tta
+模型: best.pt
+模式: ellipse
+置信度: 0.41
+YOLO IoU: 0.7
+TTA: 启用
+NMS:  Hard
+去重: IoU>0.15, Dist<=30px
+设备: 0
+图片数: 2
+============================================================
+    tile 1/15: 80 detections
+    tile 2/15: 110 detections
+    tile 3/15: 138 detections
+    tile 4/15: 94 detections
+    tile 5/15: 17 detections
+    tile 6/15: 101 detections
+    tile 7/15: 142 detections
+    tile 8/15: 127 detections
+    tile 9/15: 104 detections
+    tile 10/15: 24 detections
+    tile 11/15: 18 detections
+    tile 12/15: 9 detections
+    tile 13/15: 3 detections
+    tile 14/15: 3 detections
+    tile 15/15: 2 detections
+    tile 1/15: 101 detections
+    tile 2/15: 123 detections
+    tile 3/15: 101 detections
+    tile 4/15: 49 detections
+    tile 5/15: 8 detections
+    tile 6/15: 104 detections
+    tile 7/15: 129 detections
+    tile 8/15: 121 detections
+    tile 9/15: 65 detections
+    tile 10/15: 12 detections
+    tile 11/15: 1 detections
+    tile 12/15: 1 detections
+    tile 13/15: 7 detections
+    tile 14/15: 7 detections
+    tile 15/15: 3 detections
+    TTA consensus: 747 masks kept
+    NMS (hard): 747 masks...
+    NMS done: 488 masks kept
+    Dedup (iou>0.15, dist<=30): 488 masks...
+    Dedup done: 479 masks kept
+  02_png.rf.jZnY4zBIuej95xOExdvd.png: 479 masks
+    tile 1/15: 99 detections
+    tile 2/15: 115 detections
+    tile 3/15: 104 detections
+    tile 4/15: 85 detections
+    tile 5/15: 22 detections
+    tile 6/15: 110 detections
+    tile 7/15: 119 detections
+    tile 8/15: 129 detections
+    tile 9/15: 97 detections
+    tile 10/15: 21 detections
+    tile 11/15: 9 detections
+    tile 12/15: 8 detections
+    tile 13/15: 9 detections
+    tile 14/15: 9 detections
+    tile 15/15: 1 detections
+    tile 1/15: 91 detections
+    tile 2/15: 94 detections
+    tile 3/15: 103 detections
+    tile 4/15: 61 detections
+    tile 5/15: 7 detections
+    tile 6/15: 102 detections
+    tile 7/15: 108 detections
+    tile 8/15: 104 detections
+    tile 9/15: 80 detections
+    tile 10/15: 7 detections
+    tile 11/15: 6 detections
+    tile 12/15: 7 detections
+    tile 13/15: 2 detections
+    tile 14/15: 3 detections
+    tile 15/15: 1 detections
+    TTA consensus: 705 masks kept
+    NMS (hard): 705 masks...
+    NMS done: 443 masks kept
+    Dedup (iou>0.15, dist<=30): 443 masks...
+    Dedup done: 440 masks kept
+  03_png.rf.bNcoAUfLPBbQDd7dyeak.png: 440 masks
+============================================================
+推理完成！
+总预测数: 919
+标注文件: outputs/v4_sweep_r3/ov0p32_c41_tta/labels
+可视化: outputs/v4_sweep_r3/ov0p32_c41_tta/visualizations
+[8/38] RUN ov0p32_c42_tta
+模型: best.pt
+模式: ellipse
+置信度: 0.42
+YOLO IoU: 0.7
+TTA: 启用
+NMS:  Hard
+去重: IoU>0.15, Dist<=30px
+设备: 0
+图片数: 2
+============================================================
+    tile 1/15: 79 detections
+    tile 2/15: 109 detections
+    tile 3/15: 138 detections
+    tile 4/15: 93 detections
+    tile 5/15: 17 detections
+    tile 6/15: 101 detections
+    tile 7/15: 142 detections
+    tile 8/15: 124 detections
+    tile 9/15: 99 detections
+    tile 10/15: 24 detections
+    tile 11/15: 16 detections
+    tile 12/15: 6 detections
+    tile 13/15: 3 detections
+    tile 14/15: 3 detections
+    tile 15/15: 2 detections
+    tile 1/15: 98 detections
+    tile 2/15: 119 detections
+    tile 3/15: 96 detections
+    tile 4/15: 49 detections
+    tile 5/15: 6 detections
+    tile 6/15: 102 detections
+    tile 7/15: 127 detections
+    tile 8/15: 120 detections
+    tile 9/15: 64 detections
+    tile 10/15: 12 detections
+    tile 11/15: 1 detections
+    tile 12/15: 1 detections
+    tile 13/15: 7 detections
+    tile 14/15: 6 detections
+    tile 15/15: 3 detections
+    TTA consensus: 728 masks kept
+    NMS (hard): 728 masks...
+    NMS done: 478 masks kept
+    Dedup (iou>0.15, dist<=30): 478 masks...
+    Dedup done: 470 masks kept
+  02_png.rf.jZnY4zBIuej95xOExdvd.png: 470 masks
+    tile 1/15: 96 detections
+    tile 2/15: 113 detections
+    tile 3/15: 104 detections
+    tile 4/15: 82 detections
+    tile 5/15: 21 detections
+    tile 6/15: 110 detections
+    tile 7/15: 118 detections
+    tile 8/15: 129 detections
+    tile 9/15: 96 detections
+    tile 10/15: 20 detections
+    tile 11/15: 9 detections
+    tile 12/15: 8 detections
+    tile 13/15: 8 detections
+    tile 14/15: 8 detections
+    tile 15/15: 1 detections
+    tile 1/15: 90 detections
+    tile 2/15: 93 detections
+    tile 3/15: 102 detections
+    tile 4/15: 61 detections
+    tile 5/15: 6 detections
+    tile 6/15: 101 detections
+    tile 7/15: 105 detections
+    tile 8/15: 102 detections
+    tile 9/15: 75 detections
+    tile 10/15: 7 detections
+    tile 11/15: 5 detections
+    tile 12/15: 7 detections
+    tile 13/15: 2 detections
+    tile 14/15: 1 detections
+    tile 15/15: 1 detections
+    TTA consensus: 695 masks kept
+    NMS (hard): 695 masks...
+    NMS done: 439 masks kept
+    Dedup (iou>0.15, dist<=30): 439 masks...
+    Dedup done: 436 masks kept
+  03_png.rf.bNcoAUfLPBbQDd7dyeak.png: 436 masks
+============================================================
+推理完成！
+总预测数: 906
+标注文件: outputs/v4_sweep_r3/ov0p32_c42_tta/labels
+可视化: outputs/v4_sweep_r3/ov0p32_c42_tta/visualizations
+[9/38] RUN ov0p35_c35_tta
+模型: best.pt
+模式: ellipse
+置信度: 0.35
+YOLO IoU: 0.7
+TTA: 启用
+NMS:  Hard
+去重: IoU>0.15, Dist<=30px
+设备: 0
+图片数: 2
+============================================================
+    tile 1/15: 100 detections
+    tile 2/15: 121 detections
+    tile 3/15: 137 detections
+    tile 4/15: 119 detections
+    tile 5/15: 33 detections
+    tile 6/15: 117 detections
+    tile 7/15: 149 detections
+    tile 8/15: 143 detections
+    tile 9/15: 122 detections
+    tile 10/15: 42 detections
+    tile 11/15: 42 detections
+    tile 12/15: 53 detections
+    tile 13/15: 43 detections
+    tile 14/15: 42 detections
+    tile 15/15: 22 detections
+    tile 1/15: 108 detections
+    tile 2/15: 133 detections
+    tile 3/15: 109 detections
+    tile 4/15: 82 detections
+    tile 5/15: 23 detections
+    tile 6/15: 110 detections
+    tile 7/15: 136 detections
+    tile 8/15: 134 detections
+    tile 9/15: 99 detections
+    tile 10/15: 21 detections
+    tile 11/15: 38 detections
+    tile 12/15: 39 detections
+    tile 13/15: 49 detections
+    tile 14/15: 36 detections
+    tile 15/15: 13 detections
+    TTA consensus: 1000 masks kept
+    NMS (hard): 1000 masks...
+    NMS done: 547 masks kept
+    Dedup (iou>0.15, dist<=30): 547 masks...
+    Dedup done: 529 masks kept
+  02_png.rf.jZnY4zBIuej95xOExdvd.png: 529 masks
+    tile 1/15: 111 detections
+    tile 2/15: 115 detections
+    tile 3/15: 106 detections
+    tile 4/15: 107 detections
+    tile 5/15: 39 detections
+    tile 6/15: 119 detections
+    tile 7/15: 133 detections
+    tile 8/15: 134 detections
+    tile 9/15: 139 detections
+    tile 10/15: 37 detections
+    tile 11/15: 39 detections
+    tile 12/15: 55 detections
+    tile 13/15: 53 detections
+    tile 14/15: 49 detections
+    tile 15/15: 14 detections
+    tile 1/15: 94 detections
+    tile 2/15: 100 detections
+    tile 3/15: 112 detections
+    tile 4/15: 94 detections
+    tile 5/15: 23 detections
+    tile 6/15: 116 detections
+    tile 7/15: 117 detections
+    tile 8/15: 113 detections
+    tile 9/15: 112 detections
+    tile 10/15: 25 detections
+    tile 11/15: 38 detections
+    tile 12/15: 44 detections
+    tile 13/15: 37 detections
+    tile 14/15: 41 detections
+    tile 15/15: 8 detections
+    TTA consensus: 936 masks kept
+    NMS (hard): 936 masks...
+    NMS done: 501 masks kept
+    Dedup (iou>0.15, dist<=30): 501 masks...
+    Dedup done: 482 masks kept
+  03_png.rf.bNcoAUfLPBbQDd7dyeak.png: 482 masks
+============================================================
+推理完成！
+总预测数: 1011
+标注文件: outputs/v4_sweep_r3/ov0p35_c35_tta/labels
+可视化: outputs/v4_sweep_r3/ov0p35_c35_tta/visualizations
+[10/38] RUN ov0p35_c36_tta
+模型: best.pt
+模式: ellipse
+置信度: 0.36
+YOLO IoU: 0.7
+TTA: 启用
+NMS:  Hard
+去重: IoU>0.15, Dist<=30px
+设备: 0
+图片数: 2
+============================================================
+    tile 1/15: 97 detections
+    tile 2/15: 116 detections
+    tile 3/15: 136 detections
+    tile 4/15: 119 detections
+    tile 5/15: 30 detections
+    tile 6/15: 116 detections
+    tile 7/15: 149 detections
+    tile 8/15: 140 detections
+    tile 9/15: 120 detections
+    tile 10/15: 41 detections
+    tile 11/15: 42 detections
+    tile 12/15: 53 detections
+    tile 13/15: 43 detections
+    tile 14/15: 41 detections
+    tile 15/15: 20 detections
+    tile 1/15: 108 detections
+    tile 2/15: 132 detections
+    tile 3/15: 107 detections
+    tile 4/15: 81 detections
+    tile 5/15: 23 detections
+    tile 6/15: 108 detections
+    tile 7/15: 133 detections
+    tile 8/15: 134 detections
+    tile 9/15: 97 detections
+    tile 10/15: 20 detections
+    tile 11/15: 37 detections
+    tile 12/15: 38 detections
+    tile 13/15: 48 detections
+    tile 14/15: 36 detections
+    tile 15/15: 13 detections
+    TTA consensus: 984 masks kept
+    NMS (hard): 984 masks...
+    NMS done: 538 masks kept
+    Dedup (iou>0.15, dist<=30): 538 masks...
+    Dedup done: 523 masks kept
+  02_png.rf.jZnY4zBIuej95xOExdvd.png: 523 masks
+    tile 1/15: 108 detections
+    tile 2/15: 115 detections
+    tile 3/15: 105 detections
+    tile 4/15: 107 detections
+    tile 5/15: 37 detections
+    tile 6/15: 117 detections
+    tile 7/15: 130 detections
+    tile 8/15: 131 detections
+    tile 9/15: 137 detections
+    tile 10/15: 36 detections
+    tile 11/15: 38 detections
+    tile 12/15: 55 detections
+    tile 13/15: 52 detections
+    tile 14/15: 48 detections
+    tile 15/15: 14 detections
+    tile 1/15: 94 detections
+    tile 2/15: 100 detections
+    tile 3/15: 111 detections
+    tile 4/15: 93 detections
+    tile 5/15: 22 detections
+    tile 6/15: 115 detections
+    tile 7/15: 114 detections
+    tile 8/15: 112 detections
+    tile 9/15: 110 detections
+    tile 10/15: 24 detections
+    tile 11/15: 37 detections
+    tile 12/15: 42 detections
+    tile 13/15: 35 detections
+    tile 14/15: 41 detections
+    tile 15/15: 8 detections
+    TTA consensus: 921 masks kept
+    NMS (hard): 921 masks...
+    NMS done: 496 masks kept
+    Dedup (iou>0.15, dist<=30): 496 masks...
+    Dedup done: 477 masks kept
+  03_png.rf.bNcoAUfLPBbQDd7dyeak.png: 477 masks
+============================================================
+推理完成！
+总预测数: 1000
+标注文件: outputs/v4_sweep_r3/ov0p35_c36_tta/labels
+可视化: outputs/v4_sweep_r3/ov0p35_c36_tta/visualizations
+[11/38] RUN ov0p35_c37_tta
+模型: best.pt
+模式: ellipse
+置信度: 0.37
+YOLO IoU: 0.7
+TTA: 启用
+NMS:  Hard
+去重: IoU>0.15, Dist<=30px
+设备: 0
+图片数: 2
+============================================================
+    tile 1/15: 97 detections
+    tile 2/15: 115 detections
+    tile 3/15: 136 detections
+    tile 4/15: 118 detections
+    tile 5/15: 29 detections
+    tile 6/15: 114 detections
+    tile 7/15: 147 detections
+    tile 8/15: 139 detections
+    tile 9/15: 120 detections
+    tile 10/15: 40 detections
+    tile 11/15: 40 detections
+    tile 12/15: 53 detections
+    tile 13/15: 43 detections
+    tile 14/15: 40 detections
+    tile 15/15: 20 detections
+    tile 1/15: 107 detections
+    tile 2/15: 131 detections
+    tile 3/15: 106 detections
+    tile 4/15: 78 detections
+    tile 5/15: 21 detections
+    tile 6/15: 107 detections
+    tile 7/15: 133 detections
+    tile 8/15: 132 detections
+    tile 9/15: 96 detections
+    tile 10/15: 19 detections
+    tile 11/15: 34 detections
+    tile 12/15: 37 detections
+    tile 13/15: 47 detections
+    tile 14/15: 35 detections
+    tile 15/15: 13 detections
+    TTA consensus: 975 masks kept
+    NMS (hard): 975 masks...
+    NMS done: 533 masks kept
+    Dedup (iou>0.15, dist<=30): 533 masks...
+    Dedup done: 519 masks kept
+  02_png.rf.jZnY4zBIuej95xOExdvd.png: 519 masks
+    tile 1/15: 106 detections
+    tile 2/15: 113 detections
+    tile 3/15: 105 detections
+    tile 4/15: 103 detections
+    tile 5/15: 37 detections
+    tile 6/15: 115 detections
+    tile 7/15: 126 detections
+    tile 8/15: 130 detections
+    tile 9/15: 134 detections
+    tile 10/15: 35 detections
+    tile 11/15: 38 detections
+    tile 12/15: 54 detections
+    tile 13/15: 48 detections
+    tile 14/15: 48 detections
+    tile 15/15: 14 detections
+    tile 1/15: 94 detections
+    tile 2/15: 98 detections
+    tile 3/15: 107 detections
+    tile 4/15: 92 detections
+    tile 5/15: 22 detections
+    tile 6/15: 113 detections
+    tile 7/15: 113 detections
+    tile 8/15: 111 detections
+    tile 9/15: 107 detections
+    tile 10/15: 23 detections
+    tile 11/15: 36 detections
+    tile 12/15: 41 detections
+    tile 13/15: 33 detections
+    tile 14/15: 40 detections
+    tile 15/15: 7 detections
+    TTA consensus: 905 masks kept
+    NMS (hard): 905 masks...
+    NMS done: 487 masks kept
+    Dedup (iou>0.15, dist<=30): 487 masks...
+    Dedup done: 468 masks kept
+  03_png.rf.bNcoAUfLPBbQDd7dyeak.png: 468 masks
+============================================================
+推理完成！
+总预测数: 987
+标注文件: outputs/v4_sweep_r3/ov0p35_c37_tta/labels
+可视化: outputs/v4_sweep_r3/ov0p35_c37_tta/visualizations
+[12/38] RUN ov0p35_c38_tta
+模型: best.pt
+模式: ellipse
+置信度: 0.38
+YOLO IoU: 0.7
+TTA: 启用
+NMS:  Hard
+去重: IoU>0.15, Dist<=30px
+设备: 0
+图片数: 2
+============================================================
+    tile 1/15: 94 detections
+    tile 2/15: 113 detections
+    tile 3/15: 136 detections
+    tile 4/15: 115 detections
+    tile 5/15: 29 detections
+    tile 6/15: 114 detections
+    tile 7/15: 144 detections
+    tile 8/15: 136 detections
+    tile 9/15: 116 detections
+    tile 10/15: 40 detections
+    tile 11/15: 39 detections
+    tile 12/15: 52 detections
+    tile 13/15: 41 detections
+    tile 14/15: 40 detections
+    tile 15/15: 19 detections
+    tile 1/15: 104 detections
+    tile 2/15: 130 detections
+    tile 3/15: 104 detections
+    tile 4/15: 78 detections
+    tile 5/15: 21 detections
+    tile 6/15: 107 detections
+    tile 7/15: 132 detections
+    tile 8/15: 130 detections
+    tile 9/15: 94 detections
+    tile 10/15: 17 detections
+    tile 11/15: 34 detections
+    tile 12/15: 37 detections
+    tile 13/15: 46 detections
+    tile 14/15: 35 detections
+    tile 15/15: 13 detections
+    TTA consensus: 967 masks kept
+    NMS (hard): 967 masks...
+    NMS done: 529 masks kept
+    Dedup (iou>0.15, dist<=30): 529 masks...
+    Dedup done: 515 masks kept
+  02_png.rf.jZnY4zBIuej95xOExdvd.png: 515 masks
+    tile 1/15: 105 detections
+    tile 2/15: 113 detections
+    tile 3/15: 104 detections
+    tile 4/15: 103 detections
+    tile 5/15: 34 detections
+    tile 6/15: 111 detections
+    tile 7/15: 126 detections
+    tile 8/15: 127 detections
+    tile 9/15: 130 detections
+    tile 10/15: 34 detections
+    tile 11/15: 38 detections
+    tile 12/15: 53 detections
+    tile 13/15: 48 detections
+    tile 14/15: 47 detections
+    tile 15/15: 12 detections
+    tile 1/15: 93 detections
+    tile 2/15: 97 detections
+    tile 3/15: 105 detections
+    tile 4/15: 90 detections
+    tile 5/15: 21 detections
+    tile 6/15: 112 detections
+    tile 7/15: 109 detections
+    tile 8/15: 110 detections
+    tile 9/15: 106 detections
+    tile 10/15: 23 detections
+    tile 11/15: 33 detections
+    tile 12/15: 41 detections
+    tile 13/15: 33 detections
+    tile 14/15: 38 detections
+    tile 15/15: 7 detections
+    TTA consensus: 888 masks kept
+    NMS (hard): 888 masks...
+    NMS done: 479 masks kept
+    Dedup (iou>0.15, dist<=30): 479 masks...
+    Dedup done: 460 masks kept
+  03_png.rf.bNcoAUfLPBbQDd7dyeak.png: 460 masks
+============================================================
+推理完成！
+总预测数: 975
+标注文件: outputs/v4_sweep_r3/ov0p35_c38_tta/labels
+可视化: outputs/v4_sweep_r3/ov0p35_c38_tta/visualizations
+[13/38] RUN ov0p35_c39_tta
+模型: best.pt
+模式: ellipse
+置信度: 0.39
+YOLO IoU: 0.7
+TTA: 启用
+NMS:  Hard
+去重: IoU>0.15, Dist<=30px
+设备: 0
+图片数: 2
+============================================================
+    tile 1/15: 89 detections
+    tile 2/15: 110 detections
+    tile 3/15: 135 detections
+    tile 4/15: 115 detections
+    tile 5/15: 28 detections
+    tile 6/15: 111 detections
+    tile 7/15: 142 detections
+    tile 8/15: 133 detections
+    tile 9/15: 116 detections
+    tile 10/15: 40 detections
+    tile 11/15: 39 detections
+    tile 12/15: 52 detections
+    tile 13/15: 41 detections
+    tile 14/15: 39 detections
+    tile 15/15: 19 detections
+    tile 1/15: 101 detections
+    tile 2/15: 129 detections
+    tile 3/15: 103 detections
+    tile 4/15: 77 detections
+    tile 5/15: 19 detections
+    tile 6/15: 105 detections
+    tile 7/15: 132 detections
+    tile 8/15: 129 detections
+    tile 9/15: 93 detections
+    tile 10/15: 17 detections
+    tile 11/15: 33 detections
+    tile 12/15: 36 detections
+    tile 13/15: 45 detections
+    tile 14/15: 35 detections
+    tile 15/15: 13 detections
+    TTA consensus: 953 masks kept
+    NMS (hard): 953 masks...
+    NMS done: 523 masks kept
+    Dedup (iou>0.15, dist<=30): 523 masks...
+    Dedup done: 509 masks kept
+  02_png.rf.jZnY4zBIuej95xOExdvd.png: 509 masks
+    tile 1/15: 103 detections
+    tile 2/15: 112 detections
+    tile 3/15: 104 detections
+    tile 4/15: 98 detections
+    tile 5/15: 34 detections
+    tile 6/15: 110 detections
+    tile 7/15: 125 detections
+    tile 8/15: 123 detections
+    tile 9/15: 125 detections
+    tile 10/15: 32 detections
+    tile 11/15: 37 detections
+    tile 12/15: 51 detections
+    tile 13/15: 47 detections
+    tile 14/15: 44 detections
+    tile 15/15: 11 detections
+    tile 1/15: 92 detections
+    tile 2/15: 95 detections
+    tile 3/15: 105 detections
+    tile 4/15: 88 detections
+    tile 5/15: 18 detections
+    tile 6/15: 110 detections
+    tile 7/15: 108 detections
+    tile 8/15: 108 detections
+    tile 9/15: 105 detections
+    tile 10/15: 22 detections
+    tile 11/15: 32 detections
+    tile 12/15: 39 detections
+    tile 13/15: 33 detections
+    tile 14/15: 38 detections
+    tile 15/15: 7 detections
+    TTA consensus: 874 masks kept
+    NMS (hard): 874 masks...
+    NMS done: 470 masks kept
+    Dedup (iou>0.15, dist<=30): 470 masks...
+    Dedup done: 452 masks kept
+  03_png.rf.bNcoAUfLPBbQDd7dyeak.png: 452 masks
+============================================================
+推理完成！
+总预测数: 961
+标注文件: outputs/v4_sweep_r3/ov0p35_c39_tta/labels
+可视化: outputs/v4_sweep_r3/ov0p35_c39_tta/visualizations
+[14/38] RUN ov0p35_c40_tta
+模型: best.pt
+模式: ellipse
+置信度: 0.4
+YOLO IoU: 0.7
+TTA: 启用
+NMS:  Hard
+去重: IoU>0.15, Dist<=30px
+设备: 0
+图片数: 2
+============================================================
+    tile 1/15: 86 detections
+    tile 2/15: 108 detections
+    tile 3/15: 132 detections
+    tile 4/15: 113 detections
+    tile 5/15: 27 detections
+    tile 6/15: 109 detections
+    tile 7/15: 140 detections
+    tile 8/15: 133 detections
+    tile 9/15: 113 detections
+    tile 10/15: 39 detections
+    tile 11/15: 39 detections
+    tile 12/15: 52 detections
+    tile 13/15: 41 detections
+    tile 14/15: 38 detections
+    tile 15/15: 18 detections
+    tile 1/15: 101 detections
+    tile 2/15: 126 detections
+    tile 3/15: 102 detections
+    tile 4/15: 75 detections
+    tile 5/15: 17 detections
+    tile 6/15: 105 detections
+    tile 7/15: 132 detections
+    tile 8/15: 126 detections
+    tile 9/15: 92 detections
+    tile 10/15: 17 detections
+    tile 11/15: 31 detections
+    tile 12/15: 36 detections
+    tile 13/15: 44 detections
+    tile 14/15: 34 detections
+    tile 15/15: 12 detections
+    TTA consensus: 940 masks kept
+    NMS (hard): 940 masks...
+    NMS done: 514 masks kept
+    Dedup (iou>0.15, dist<=30): 514 masks...
+    Dedup done: 500 masks kept
+  02_png.rf.jZnY4zBIuej95xOExdvd.png: 500 masks
+    tile 1/15: 102 detections
+    tile 2/15: 110 detections
+    tile 3/15: 102 detections
+    tile 4/15: 98 detections
+    tile 5/15: 33 detections
+    tile 6/15: 110 detections
+    tile 7/15: 124 detections
+    tile 8/15: 120 detections
+    tile 9/15: 124 detections
+    tile 10/15: 32 detections
+    tile 11/15: 36 detections
+    tile 12/15: 50 detections
+    tile 13/15: 45 detections
+    tile 14/15: 44 detections
+    tile 15/15: 11 detections
+    tile 1/15: 91 detections
+    tile 2/15: 94 detections
+    tile 3/15: 105 detections
+    tile 4/15: 85 detections
+    tile 5/15: 17 detections
+    tile 6/15: 109 detections
+    tile 7/15: 106 detections
+    tile 8/15: 106 detections
+    tile 9/15: 103 detections
+    tile 10/15: 22 detections
+    tile 11/15: 31 detections
+    tile 12/15: 37 detections
+    tile 13/15: 33 detections
+    tile 14/15: 38 detections
+    tile 15/15: 7 detections
+    TTA consensus: 862 masks kept
+    NMS (hard): 862 masks...
+    NMS done: 462 masks kept
+    Dedup (iou>0.15, dist<=30): 462 masks...
+    Dedup done: 445 masks kept
+  03_png.rf.bNcoAUfLPBbQDd7dyeak.png: 445 masks
+============================================================
+推理完成！
+总预测数: 945
+标注文件: outputs/v4_sweep_r3/ov0p35_c40_tta/labels
+可视化: outputs/v4_sweep_r3/ov0p35_c40_tta/visualizations
+[15/38] RUN ov0p35_c41_tta
+模型: best.pt
+模式: ellipse
+置信度: 0.41
+YOLO IoU: 0.7
+TTA: 启用
+NMS:  Hard
+去重: IoU>0.15, Dist<=30px
+设备: 0
+图片数: 2
+============================================================
+    tile 1/15: 80 detections
+    tile 2/15: 107 detections
+    tile 3/15: 129 detections
+    tile 4/15: 111 detections
+    tile 5/15: 25 detections
+    tile 6/15: 106 detections
+    tile 7/15: 136 detections
+    tile 8/15: 133 detections
+    tile 9/15: 110 detections
+    tile 10/15: 37 detections
+    tile 11/15: 39 detections
+    tile 12/15: 52 detections
+    tile 13/15: 41 detections
+    tile 14/15: 38 detections
+    tile 15/15: 16 detections
+    tile 1/15: 101 detections
+    tile 2/15: 124 detections
+    tile 3/15: 100 detections
+    tile 4/15: 74 detections
+    tile 5/15: 15 detections
+    tile 6/15: 104 detections
+    tile 7/15: 131 detections
+    tile 8/15: 126 detections
+    tile 9/15: 89 detections
+    tile 10/15: 17 detections
+    tile 11/15: 30 detections
+    tile 12/15: 36 detections
+    tile 13/15: 43 detections
+    tile 14/15: 34 detections
+    tile 15/15: 12 detections
+    TTA consensus: 922 masks kept
+    NMS (hard): 922 masks...
+    NMS done: 502 masks kept
+    Dedup (iou>0.15, dist<=30): 502 masks...
+    Dedup done: 490 masks kept
+  02_png.rf.jZnY4zBIuej95xOExdvd.png: 490 masks
+    tile 1/15: 99 detections
+    tile 2/15: 110 detections
+    tile 3/15: 102 detections
+    tile 4/15: 98 detections
+    tile 5/15: 32 detections
+    tile 6/15: 109 detections
+    tile 7/15: 122 detections
+    tile 8/15: 118 detections
+    tile 9/15: 122 detections
+    tile 10/15: 31 detections
+    tile 11/15: 35 detections
+    tile 12/15: 48 detections
+    tile 13/15: 45 detections
+    tile 14/15: 42 detections
+    tile 15/15: 11 detections
+    tile 1/15: 91 detections
+    tile 2/15: 94 detections
+    tile 3/15: 103 detections
+    tile 4/15: 83 detections
+    tile 5/15: 17 detections
+    tile 6/15: 109 detections
+    tile 7/15: 105 detections
+    tile 8/15: 105 detections
+    tile 9/15: 103 detections
+    tile 10/15: 21 detections
+    tile 11/15: 30 detections
+    tile 12/15: 37 detections
+    tile 13/15: 30 detections
+    tile 14/15: 38 detections
+    tile 15/15: 6 detections
+    TTA consensus: 852 masks kept
+    NMS (hard): 852 masks...
+    NMS done: 459 masks kept
+    Dedup (iou>0.15, dist<=30): 459 masks...
+    Dedup done: 443 masks kept
+  03_png.rf.bNcoAUfLPBbQDd7dyeak.png: 443 masks
+============================================================
+推理完成！
+总预测数: 933
+标注文件: outputs/v4_sweep_r3/ov0p35_c41_tta/labels
+可视化: outputs/v4_sweep_r3/ov0p35_c41_tta/visualizations
+[16/38] RUN ov0p35_c42_tta
+模型: best.pt
+模式: ellipse
+置信度: 0.42
+YOLO IoU: 0.7
+TTA: 启用
+NMS:  Hard
+去重: IoU>0.15, Dist<=30px
+设备: 0
+图片数: 2
+============================================================
+    tile 1/15: 79 detections
+    tile 2/15: 106 detections
+    tile 3/15: 129 detections
+    tile 4/15: 111 detections
+    tile 5/15: 25 detections
+    tile 6/15: 101 detections
+    tile 7/15: 130 detections
+    tile 8/15: 132 detections
+    tile 9/15: 107 detections
+    tile 10/15: 36 detections
+    tile 11/15: 39 detections
+    tile 12/15: 52 detections
+    tile 13/15: 41 detections
+    tile 14/15: 38 detections
+    tile 15/15: 16 detections
+    tile 1/15: 98 detections
+    tile 2/15: 123 detections
+    tile 3/15: 100 detections
+    tile 4/15: 73 detections
+    tile 5/15: 14 detections
+    tile 6/15: 101 detections
+    tile 7/15: 129 detections
+    tile 8/15: 121 detections
+    tile 9/15: 89 detections
+    tile 10/15: 17 detections
+    tile 11/15: 30 detections
+    tile 12/15: 36 detections
+    tile 13/15: 42 detections
+    tile 14/15: 34 detections
+    tile 15/15: 12 detections
+    TTA consensus: 907 masks kept
+    NMS (hard): 907 masks...
+    NMS done: 495 masks kept
+    Dedup (iou>0.15, dist<=30): 495 masks...
+    Dedup done: 484 masks kept
+  02_png.rf.jZnY4zBIuej95xOExdvd.png: 484 masks
+    tile 1/15: 96 detections
+    tile 2/15: 110 detections
+    tile 3/15: 101 detections
+    tile 4/15: 98 detections
+    tile 5/15: 31 detections
+    tile 6/15: 108 detections
+    tile 7/15: 121 detections
+    tile 8/15: 117 detections
+    tile 9/15: 121 detections
+    tile 10/15: 28 detections
+    tile 11/15: 35 detections
+    tile 12/15: 46 detections
+    tile 13/15: 43 detections
+    tile 14/15: 41 detections
+    tile 15/15: 11 detections
+    tile 1/15: 90 detections
+    tile 2/15: 93 detections
+    tile 3/15: 102 detections
+    tile 4/15: 82 detections
+    tile 5/15: 16 detections
+    tile 6/15: 107 detections
+    tile 7/15: 105 detections
+    tile 8/15: 99 detections
+    tile 9/15: 101 detections
+    tile 10/15: 20 detections
+    tile 11/15: 30 detections
+    tile 12/15: 37 detections
+    tile 13/15: 28 detections
+    tile 14/15: 37 detections
+    tile 15/15: 6 detections
+    TTA consensus: 840 masks kept
+    NMS (hard): 840 masks...
+    NMS done: 453 masks kept
+    Dedup (iou>0.15, dist<=30): 453 masks...
+    Dedup done: 438 masks kept
+  03_png.rf.bNcoAUfLPBbQDd7dyeak.png: 438 masks
+============================================================
+推理完成！
+总预测数: 922
+标注文件: outputs/v4_sweep_r3/ov0p35_c42_tta/labels
+可视化: outputs/v4_sweep_r3/ov0p35_c42_tta/visualizations
+[17/38] RUN ov0p38_c35_tta
+模型: best.pt
+模式: ellipse
+置信度: 0.35
+YOLO IoU: 0.7
+TTA: 启用
+NMS:  Hard
+去重: IoU>0.15, Dist<=30px
+设备: 0
+图片数: 2
+============================================================
+    tile 1/15: 100 detections
+    tile 2/15: 122 detections
+    tile 3/15: 137 detections
+    tile 4/15: 122 detections
+    tile 5/15: 45 detections
+    tile 6/15: 121 detections
+    tile 7/15: 135 detections
+    tile 8/15: 145 detections
+    tile 9/15: 127 detections
+    tile 10/15: 59 detections
+    tile 11/15: 52 detections
+    tile 12/15: 57 detections
+    tile 13/15: 54 detections
+    tile 14/15: 31 detections
+    tile 15/15: 30 detections
+    tile 1/15: 108 detections
+    tile 2/15: 133 detections
+    tile 3/15: 113 detections
+    tile 4/15: 82 detections
+    tile 5/15: 36 detections
+    tile 6/15: 121 detections
+    tile 7/15: 134 detections
+    tile 8/15: 137 detections
+    tile 9/15: 98 detections
+    tile 10/15: 36 detections
+    tile 11/15: 34 detections
+    tile 12/15: 40 detections
+    tile 13/15: 51 detections
+    tile 14/15: 43 detections
+    tile 15/15: 17 detections
+    TTA consensus: 957 masks kept
+    NMS (hard): 957 masks...
+    NMS done: 552 masks kept
+    Dedup (iou>0.15, dist<=30): 552 masks...
+    Dedup done: 529 masks kept
+  02_png.rf.jZnY4zBIuej95xOExdvd.png: 529 masks
+    tile 1/15: 111 detections
+    tile 2/15: 118 detections
+    tile 3/15: 114 detections
+    tile 4/15: 112 detections
+    tile 5/15: 49 detections
+    tile 6/15: 119 detections
+    tile 7/15: 124 detections
+    tile 8/15: 138 detections
+    tile 9/15: 115 detections
+    tile 10/15: 49 detections
+    tile 11/15: 48 detections
+    tile 12/15: 53 detections
+    tile 13/15: 56 detections
+    tile 14/15: 44 detections
+    tile 15/15: 19 detections
+    tile 1/15: 94 detections
+    tile 2/15: 104 detections
+    tile 3/15: 108 detections
+    tile 4/15: 94 detections
+    tile 5/15: 30 detections
+    tile 6/15: 112 detections
+    tile 7/15: 125 detections
+    tile 8/15: 115 detections
+    tile 9/15: 110 detections
+    tile 10/15: 32 detections
+    tile 11/15: 42 detections
+    tile 12/15: 43 detections
+    tile 13/15: 39 detections
+    tile 14/15: 45 detections
+    tile 15/15: 20 detections
+    TTA consensus: 909 masks kept
+    NMS (hard): 909 masks...
+    NMS done: 494 masks kept
+    Dedup (iou>0.15, dist<=30): 494 masks...
+    Dedup done: 488 masks kept
+  03_png.rf.bNcoAUfLPBbQDd7dyeak.png: 488 masks
+============================================================
+推理完成！
+总预测数: 1017
+标注文件: outputs/v4_sweep_r3/ov0p38_c35_tta/labels
+可视化: outputs/v4_sweep_r3/ov0p38_c35_tta/visualizations
+[18/38] RUN ov0p38_c36_tta
+模型: best.pt
+模式: ellipse
+置信度: 0.36
+YOLO IoU: 0.7
+TTA: 启用
+NMS:  Hard
+去重: IoU>0.15, Dist<=30px
+设备: 0
+图片数: 2
+============================================================
+    tile 1/15: 97 detections
+    tile 2/15: 120 detections
+    tile 3/15: 136 detections
+    tile 4/15: 122 detections
+    tile 5/15: 42 detections
+    tile 6/15: 118 detections
+    tile 7/15: 133 detections
+    tile 8/15: 145 detections
+    tile 9/15: 126 detections
+    tile 10/15: 57 detections
+    tile 11/15: 51 detections
+    tile 12/15: 57 detections
+    tile 13/15: 54 detections
+    tile 14/15: 30 detections
+    tile 15/15: 29 detections
+    tile 1/15: 108 detections
+    tile 2/15: 132 detections
+    tile 3/15: 112 detections
+    tile 4/15: 81 detections
+    tile 5/15: 35 detections
+    tile 6/15: 121 detections
+    tile 7/15: 133 detections
+    tile 8/15: 137 detections
+    tile 9/15: 98 detections
+    tile 10/15: 35 detections
+    tile 11/15: 32 detections
+    tile 12/15: 38 detections
+    tile 13/15: 51 detections
+    tile 14/15: 42 detections
+    tile 15/15: 17 detections
+    TTA consensus: 946 masks kept
+    NMS (hard): 946 masks...
+    NMS done: 548 masks kept
+    Dedup (iou>0.15, dist<=30): 548 masks...
+    Dedup done: 526 masks kept
+  02_png.rf.jZnY4zBIuej95xOExdvd.png: 526 masks
+    tile 1/15: 108 detections
+    tile 2/15: 118 detections
+    tile 3/15: 114 detections
+    tile 4/15: 110 detections
+    tile 5/15: 48 detections
+    tile 6/15: 118 detections
+    tile 7/15: 123 detections
+    tile 8/15: 137 detections
+    tile 9/15: 112 detections
+    tile 10/15: 47 detections
+    tile 11/15: 48 detections
+    tile 12/15: 53 detections
+    tile 13/15: 56 detections
+    tile 14/15: 44 detections
+    tile 15/15: 19 detections
+    tile 1/15: 94 detections
+    tile 2/15: 101 detections
+    tile 3/15: 106 detections
+    tile 4/15: 94 detections
+    tile 5/15: 27 detections
+    tile 6/15: 111 detections
+    tile 7/15: 121 detections
+    tile 8/15: 110 detections
+    tile 9/15: 109 detections
+    tile 10/15: 32 detections
+    tile 11/15: 41 detections
+    tile 12/15: 42 detections
+    tile 13/15: 39 detections
+    tile 14/15: 44 detections
+    tile 15/15: 20 detections
+    TTA consensus: 892 masks kept
+    NMS (hard): 892 masks...
+    NMS done: 487 masks kept
+    Dedup (iou>0.15, dist<=30): 487 masks...
+    Dedup done: 481 masks kept
+  03_png.rf.bNcoAUfLPBbQDd7dyeak.png: 481 masks
+============================================================
+推理完成！
+总预测数: 1007
+标注文件: outputs/v4_sweep_r3/ov0p38_c36_tta/labels
+可视化: outputs/v4_sweep_r3/ov0p38_c36_tta/visualizations
+[19/38] RUN ov0p38_c37_tta
+模型: best.pt
+模式: ellipse
+置信度: 0.37
+YOLO IoU: 0.7
+TTA: 启用
+NMS:  Hard
+去重: IoU>0.15, Dist<=30px
+设备: 0
+图片数: 2
+============================================================
+    tile 1/15: 97 detections
+    tile 2/15: 116 detections
+    tile 3/15: 134 detections
+    tile 4/15: 120 detections
+    tile 5/15: 40 detections
+    tile 6/15: 114 detections
+    tile 7/15: 131 detections
+    tile 8/15: 145 detections
+    tile 9/15: 124 detections
+    tile 10/15: 56 detections
+    tile 11/15: 50 detections
+    tile 12/15: 56 detections
+    tile 13/15: 53 detections
+    tile 14/15: 28 detections
+    tile 15/15: 29 detections
+    tile 1/15: 107 detections
+    tile 2/15: 130 detections
+    tile 3/15: 109 detections
+    tile 4/15: 81 detections
+    tile 5/15: 34 detections
+    tile 6/15: 117 detections
+    tile 7/15: 131 detections
+    tile 8/15: 136 detections
+    tile 9/15: 96 detections
+    tile 10/15: 35 detections
+    tile 11/15: 32 detections
+    tile 12/15: 37 detections
+    tile 13/15: 50 detections
+    tile 14/15: 42 detections
+    tile 15/15: 16 detections
+    TTA consensus: 926 masks kept
+    NMS (hard): 926 masks...
+    NMS done: 537 masks kept
+    Dedup (iou>0.15, dist<=30): 537 masks...
+    Dedup done: 517 masks kept
+  02_png.rf.jZnY4zBIuej95xOExdvd.png: 517 masks
+    tile 1/15: 106 detections
+    tile 2/15: 117 detections
+    tile 3/15: 113 detections
+    tile 4/15: 108 detections
+    tile 5/15: 46 detections
+    tile 6/15: 116 detections
+    tile 7/15: 121 detections
+    tile 8/15: 133 detections
+    tile 9/15: 110 detections
+    tile 10/15: 46 detections
+    tile 11/15: 47 detections
+    tile 12/15: 52 detections
+    tile 13/15: 52 detections
+    tile 14/15: 44 detections
+    tile 15/15: 18 detections
+    tile 1/15: 94 detections
+    tile 2/15: 101 detections
+    tile 3/15: 103 detections
+    tile 4/15: 89 detections
+    tile 5/15: 27 detections
+    tile 6/15: 107 detections
+    tile 7/15: 121 detections
+    tile 8/15: 108 detections
+    tile 9/15: 107 detections
+    tile 10/15: 32 detections
+    tile 11/15: 38 detections
+    tile 12/15: 40 detections
+    tile 13/15: 39 detections
+    tile 14/15: 44 detections
+    tile 15/15: 20 detections
+    TTA consensus: 874 masks kept
+    NMS (hard): 874 masks...
+    NMS done: 478 masks kept
+    Dedup (iou>0.15, dist<=30): 478 masks...
+    Dedup done: 471 masks kept
+  03_png.rf.bNcoAUfLPBbQDd7dyeak.png: 471 masks
+============================================================
+推理完成！
+总预测数: 988
+标注文件: outputs/v4_sweep_r3/ov0p38_c37_tta/labels
+可视化: outputs/v4_sweep_r3/ov0p38_c37_tta/visualizations
+[20/38] RUN ov0p38_c38_tta
+模型: best.pt
+模式: ellipse
+置信度: 0.38
+YOLO IoU: 0.7
+TTA: 启用
+NMS:  Hard
+去重: IoU>0.15, Dist<=30px
+设备: 0
+图片数: 2
+============================================================
+    tile 1/15: 94 detections
+    tile 2/15: 115 detections
+    tile 3/15: 132 detections
+    tile 4/15: 120 detections
+    tile 5/15: 40 detections
+    tile 6/15: 112 detections
+    tile 7/15: 129 detections
+    tile 8/15: 142 detections
+    tile 9/15: 122 detections
+    tile 10/15: 56 detections
+    tile 11/15: 50 detections
+    tile 12/15: 56 detections
+    tile 13/15: 53 detections
+    tile 14/15: 28 detections
+    tile 15/15: 29 detections
+    tile 1/15: 104 detections
+    tile 2/15: 129 detections
+    tile 3/15: 109 detections
+    tile 4/15: 80 detections
+    tile 5/15: 32 detections
+    tile 6/15: 116 detections
+    tile 7/15: 129 detections
+    tile 8/15: 136 detections
+    tile 9/15: 96 detections
+    tile 10/15: 35 detections
+    tile 11/15: 32 detections
+    tile 12/15: 36 detections
+    tile 13/15: 50 detections
+    tile 14/15: 41 detections
+    tile 15/15: 16 detections
+    TTA consensus: 918 masks kept
+    NMS (hard): 918 masks...
+    NMS done: 532 masks kept
+    Dedup (iou>0.15, dist<=30): 532 masks...
+    Dedup done: 513 masks kept
+  02_png.rf.jZnY4zBIuej95xOExdvd.png: 513 masks
+    tile 1/15: 105 detections
+    tile 2/15: 113 detections
+    tile 3/15: 112 detections
+    tile 4/15: 107 detections
+    tile 5/15: 44 detections
+    tile 6/15: 116 detections
+    tile 7/15: 119 detections
+    tile 8/15: 128 detections
+    tile 9/15: 109 detections
+    tile 10/15: 43 detections
+    tile 11/15: 46 detections
+    tile 12/15: 52 detections
+    tile 13/15: 50 detections
+    tile 14/15: 44 detections
+    tile 15/15: 17 detections
+    tile 1/15: 93 detections
+    tile 2/15: 98 detections
+    tile 3/15: 99 detections
+    tile 4/15: 88 detections
+    tile 5/15: 27 detections
+    tile 6/15: 106 detections
+    tile 7/15: 117 detections
+    tile 8/15: 107 detections
+    tile 9/15: 105 detections
+    tile 10/15: 31 detections
+    tile 11/15: 37 detections
+    tile 12/15: 38 detections
+    tile 13/15: 35 detections
+    tile 14/15: 44 detections
+    tile 15/15: 16 detections
+    TTA consensus: 860 masks kept
+    NMS (hard): 860 masks...
+    NMS done: 469 masks kept
+    Dedup (iou>0.15, dist<=30): 469 masks...
+    Dedup done: 464 masks kept
+  03_png.rf.bNcoAUfLPBbQDd7dyeak.png: 464 masks
+============================================================
+推理完成！
+总预测数: 977
+标注文件: outputs/v4_sweep_r3/ov0p38_c38_tta/labels
+可视化: outputs/v4_sweep_r3/ov0p38_c38_tta/visualizations
+[21/38] RUN ov0p38_c39_tta
+模型: best.pt
+模式: ellipse
+置信度: 0.39
+YOLO IoU: 0.7
+TTA: 启用
+NMS:  Hard
+去重: IoU>0.15, Dist<=30px
+设备: 0
+图片数: 2
+============================================================
+    tile 1/15: 89 detections
+    tile 2/15: 113 detections
+    tile 3/15: 131 detections
+    tile 4/15: 120 detections
+    tile 5/15: 38 detections
+    tile 6/15: 108 detections
+    tile 7/15: 127 detections
+    tile 8/15: 142 detections
+    tile 9/15: 120 detections
+    tile 10/15: 54 detections
+    tile 11/15: 49 detections
+    tile 12/15: 55 detections
+    tile 13/15: 52 detections
+    tile 14/15: 26 detections
+    tile 15/15: 28 detections
+    tile 1/15: 101 detections
+    tile 2/15: 128 detections
+    tile 3/15: 108 detections
+    tile 4/15: 78 detections
+    tile 5/15: 30 detections
+    tile 6/15: 115 detections
+    tile 7/15: 126 detections
+    tile 8/15: 134 detections
+    tile 9/15: 95 detections
+    tile 10/15: 34 detections
+    tile 11/15: 30 detections
+    tile 12/15: 36 detections
+    tile 13/15: 50 detections
+    tile 14/15: 41 detections
+    tile 15/15: 16 detections
+    TTA consensus: 903 masks kept
+    NMS (hard): 903 masks...
+    NMS done: 524 masks kept
+    Dedup (iou>0.15, dist<=30): 524 masks...
+    Dedup done: 506 masks kept
+  02_png.rf.jZnY4zBIuej95xOExdvd.png: 506 masks
+    tile 1/15: 103 detections
+    tile 2/15: 113 detections
+    tile 3/15: 111 detections
+    tile 4/15: 107 detections
+    tile 5/15: 42 detections
+    tile 6/15: 116 detections
+    tile 7/15: 117 detections
+    tile 8/15: 127 detections
+    tile 9/15: 107 detections
+    tile 10/15: 40 detections
+    tile 11/15: 45 detections
+    tile 12/15: 52 detections
+    tile 13/15: 48 detections
+    tile 14/15: 42 detections
+    tile 15/15: 16 detections
+    tile 1/15: 92 detections
+    tile 2/15: 95 detections
+    tile 3/15: 99 detections
+    tile 4/15: 85 detections
+    tile 5/15: 27 detections
+    tile 6/15: 104 detections
+    tile 7/15: 113 detections
+    tile 8/15: 104 detections
+    tile 9/15: 103 detections
+    tile 10/15: 30 detections
+    tile 11/15: 36 detections
+    tile 12/15: 36 detections
+    tile 13/15: 32 detections
+    tile 14/15: 43 detections
+    tile 15/15: 16 detections
+    TTA consensus: 840 masks kept
+    NMS (hard): 840 masks...
+    NMS done: 461 masks kept
+    Dedup (iou>0.15, dist<=30): 461 masks...
+    Dedup done: 457 masks kept
+  03_png.rf.bNcoAUfLPBbQDd7dyeak.png: 457 masks
+============================================================
+推理完成！
+总预测数: 963
+标注文件: outputs/v4_sweep_r3/ov0p38_c39_tta/labels
+可视化: outputs/v4_sweep_r3/ov0p38_c39_tta/visualizations
+[22/38] RUN ov0p38_c40_tta
+模型: best.pt
+模式: ellipse
+置信度: 0.4
+YOLO IoU: 0.7
+TTA: 启用
+NMS:  Hard
+去重: IoU>0.15, Dist<=30px
+设备: 0
+图片数: 2
+============================================================
+    tile 1/15: 86 detections
+    tile 2/15: 112 detections
+    tile 3/15: 131 detections
+    tile 4/15: 119 detections
+    tile 5/15: 36 detections
+    tile 6/15: 105 detections
+    tile 7/15: 127 detections
+    tile 8/15: 140 detections
+    tile 9/15: 120 detections
+    tile 10/15: 51 detections
+    tile 11/15: 47 detections
+    tile 12/15: 54 detections
+    tile 13/15: 50 detections
+    tile 14/15: 26 detections
+    tile 15/15: 27 detections
+    tile 1/15: 101 detections
+    tile 2/15: 127 detections
+    tile 3/15: 107 detections
+    tile 4/15: 78 detections
+    tile 5/15: 29 detections
+    tile 6/15: 114 detections
+    tile 7/15: 124 detections
+    tile 8/15: 134 detections
+    tile 9/15: 93 detections
+    tile 10/15: 33 detections
+    tile 11/15: 30 detections
+    tile 12/15: 34 detections
+    tile 13/15: 48 detections
+    tile 14/15: 40 detections
+    tile 15/15: 16 detections
+    TTA consensus: 890 masks kept
+    NMS (hard): 890 masks...
+    NMS done: 519 masks kept
+    Dedup (iou>0.15, dist<=30): 519 masks...
+    Dedup done: 501 masks kept
+  02_png.rf.jZnY4zBIuej95xOExdvd.png: 501 masks
+    tile 1/15: 102 detections
+    tile 2/15: 112 detections
+    tile 3/15: 109 detections
+    tile 4/15: 106 detections
+    tile 5/15: 41 detections
+    tile 6/15: 115 detections
+    tile 7/15: 116 detections
+    tile 8/15: 127 detections
+    tile 9/15: 107 detections
+    tile 10/15: 38 detections
+    tile 11/15: 44 detections
+    tile 12/15: 51 detections
+    tile 13/15: 47 detections
+    tile 14/15: 42 detections
+    tile 15/15: 15 detections
+    tile 1/15: 91 detections
+    tile 2/15: 95 detections
+    tile 3/15: 97 detections
+    tile 4/15: 84 detections
+    tile 5/15: 25 detections
+    tile 6/15: 103 detections
+    tile 7/15: 110 detections
+    tile 8/15: 102 detections
+    tile 9/15: 102 detections
+    tile 10/15: 30 detections
+    tile 11/15: 35 detections
+    tile 12/15: 35 detections
+    tile 13/15: 32 detections
+    tile 14/15: 42 detections
+    tile 15/15: 15 detections
+    TTA consensus: 828 masks kept
+    NMS (hard): 828 masks...
+    NMS done: 455 masks kept
+    Dedup (iou>0.15, dist<=30): 455 masks...
+    Dedup done: 451 masks kept
+  03_png.rf.bNcoAUfLPBbQDd7dyeak.png: 451 masks
+============================================================
+推理完成！
+总预测数: 952
+标注文件: outputs/v4_sweep_r3/ov0p38_c40_tta/labels
+可视化: outputs/v4_sweep_r3/ov0p38_c40_tta/visualizations
+[23/38] RUN ov0p38_c41_tta
+模型: best.pt
+模式: ellipse
+置信度: 0.41
+YOLO IoU: 0.7
+TTA: 启用
+NMS:  Hard
+去重: IoU>0.15, Dist<=30px
+设备: 0
+图片数: 2
+============================================================
+    tile 1/15: 80 detections
+    tile 2/15: 110 detections
+    tile 3/15: 131 detections
+    tile 4/15: 118 detections
+    tile 5/15: 34 detections
+    tile 6/15: 102 detections
+    tile 7/15: 124 detections
+    tile 8/15: 139 detections
+    tile 9/15: 119 detections
+    tile 10/15: 50 detections
+    tile 11/15: 46 detections
+    tile 12/15: 54 detections
+    tile 13/15: 48 detections
+    tile 14/15: 24 detections
+    tile 15/15: 25 detections
+    tile 1/15: 101 detections
+    tile 2/15: 123 detections
+    tile 3/15: 107 detections
+    tile 4/15: 76 detections
+    tile 5/15: 26 detections
+    tile 6/15: 112 detections
+    tile 7/15: 122 detections
+    tile 8/15: 133 detections
+    tile 9/15: 93 detections
+    tile 10/15: 31 detections
+    tile 11/15: 30 detections
+    tile 12/15: 34 detections
+    tile 13/15: 48 detections
+    tile 14/15: 40 detections
+    tile 15/15: 15 detections
+    TTA consensus: 875 masks kept
+    NMS (hard): 875 masks...
+    NMS done: 510 masks kept
+    Dedup (iou>0.15, dist<=30): 510 masks...
+    Dedup done: 494 masks kept
+  02_png.rf.jZnY4zBIuej95xOExdvd.png: 494 masks
+    tile 1/15: 99 detections
+    tile 2/15: 109 detections
+    tile 3/15: 109 detections
+    tile 4/15: 106 detections
+    tile 5/15: 41 detections
+    tile 6/15: 111 detections
+    tile 7/15: 112 detections
+    tile 8/15: 122 detections
+    tile 9/15: 107 detections
+    tile 10/15: 36 detections
+    tile 11/15: 43 detections
+    tile 12/15: 51 detections
+    tile 13/15: 45 detections
+    tile 14/15: 41 detections
+    tile 15/15: 14 detections
+    tile 1/15: 91 detections
+    tile 2/15: 95 detections
+    tile 3/15: 97 detections
+    tile 4/15: 84 detections
+    tile 5/15: 24 detections
+    tile 6/15: 102 detections
+    tile 7/15: 108 detections
+    tile 8/15: 101 detections
+    tile 9/15: 101 detections
+    tile 10/15: 29 detections
+    tile 11/15: 35 detections
+    tile 12/15: 34 detections
+    tile 13/15: 29 detections
+    tile 14/15: 41 detections
+    tile 15/15: 15 detections
+    TTA consensus: 814 masks kept
+    NMS (hard): 814 masks...
+    NMS done: 447 masks kept
+    Dedup (iou>0.15, dist<=30): 447 masks...
+    Dedup done: 442 masks kept
+  03_png.rf.bNcoAUfLPBbQDd7dyeak.png: 442 masks
+============================================================
+推理完成！
+总预测数: 936
+标注文件: outputs/v4_sweep_r3/ov0p38_c41_tta/labels
+可视化: outputs/v4_sweep_r3/ov0p38_c41_tta/visualizations
+[24/38] RUN ov0p38_c42_tta
+模型: best.pt
+模式: ellipse
+置信度: 0.42
+YOLO IoU: 0.7
+TTA: 启用
+NMS:  Hard
+去重: IoU>0.15, Dist<=30px
+设备: 0
+图片数: 2
+============================================================
+    tile 1/15: 79 detections
+    tile 2/15: 107 detections
+    tile 3/15: 130 detections
+    tile 4/15: 118 detections
+    tile 5/15: 33 detections
+    tile 6/15: 101 detections
+    tile 7/15: 123 detections
+    tile 8/15: 137 detections
+    tile 9/15: 117 detections
+    tile 10/15: 48 detections
+    tile 11/15: 45 detections
+    tile 12/15: 54 detections
+    tile 13/15: 48 detections
+    tile 14/15: 22 detections
+    tile 15/15: 21 detections
+    tile 1/15: 98 detections
+    tile 2/15: 119 detections
+    tile 3/15: 103 detections
+    tile 4/15: 74 detections
+    tile 5/15: 24 detections
+    tile 6/15: 110 detections
+    tile 7/15: 122 detections
+    tile 8/15: 130 detections
+    tile 9/15: 91 detections
+    tile 10/15: 31 detections
+    tile 11/15: 30 detections
+    tile 12/15: 34 detections
+    tile 13/15: 46 detections
+    tile 14/15: 39 detections
+    tile 15/15: 15 detections
+    TTA consensus: 853 masks kept
+    NMS (hard): 853 masks...
+    NMS done: 497 masks kept
+    Dedup (iou>0.15, dist<=30): 497 masks...
+    Dedup done: 481 masks kept
+  02_png.rf.jZnY4zBIuej95xOExdvd.png: 481 masks
+    tile 1/15: 96 detections
+    tile 2/15: 108 detections
+    tile 3/15: 109 detections
+    tile 4/15: 106 detections
+    tile 5/15: 41 detections
+    tile 6/15: 110 detections
+    tile 7/15: 110 detections
+    tile 8/15: 122 detections
+    tile 9/15: 102 detections
+    tile 10/15: 36 detections
+    tile 11/15: 42 detections
+    tile 12/15: 50 detections
+    tile 13/15: 44 detections
+    tile 14/15: 40 detections
+    tile 15/15: 14 detections
+    tile 1/15: 90 detections
+    tile 2/15: 94 detections
+    tile 3/15: 97 detections
+    tile 4/15: 79 detections
+    tile 5/15: 23 detections
+    tile 6/15: 99 detections
+    tile 7/15: 107 detections
+    tile 8/15: 99 detections
+    tile 9/15: 98 detections
+    tile 10/15: 28 detections
+    tile 11/15: 34 detections
+    tile 12/15: 33 detections
+    tile 13/15: 28 detections
+    tile 14/15: 39 detections
+    tile 15/15: 15 detections
+    TTA consensus: 799 masks kept
+    NMS (hard): 799 masks...
+    NMS done: 439 masks kept
+    Dedup (iou>0.15, dist<=30): 439 masks...
+    Dedup done: 434 masks kept
+  03_png.rf.bNcoAUfLPBbQDd7dyeak.png: 434 masks
+============================================================
+推理完成！
+总预测数: 915
+标注文件: outputs/v4_sweep_r3/ov0p38_c42_tta/labels
+可视化: outputs/v4_sweep_r3/ov0p38_c42_tta/visualizations
+[25/38] RUN ov0p4_c35_tta
+模型: best.pt
+模式: ellipse
+置信度: 0.35
+YOLO IoU: 0.7
+TTA: 启用
+NMS:  Hard
+去重: IoU>0.15, Dist<=30px
+设备: 0
+图片数: 2
+============================================================
+    tile 1/15: 100 detections
+    tile 2/15: 120 detections
+    tile 3/15: 134 detections
+    tile 4/15: 124 detections
+    tile 5/15: 54 detections
+    tile 6/15: 119 detections
+    tile 7/15: 136 detections
+    tile 8/15: 148 detections
+    tile 9/15: 126 detections
+    tile 10/15: 65 detections
+    tile 11/15: 55 detections
+    tile 12/15: 65 detections
+    tile 13/15: 57 detections
+    tile 14/15: 54 detections
+    tile 15/15: 38 detections
+    tile 1/15: 108 detections
+    tile 2/15: 129 detections
+    tile 3/15: 115 detections
+    tile 4/15: 87 detections
+    tile 5/15: 42 detections
+    tile 6/15: 116 detections
+    tile 7/15: 135 detections
+    tile 8/15: 138 detections
+    tile 9/15: 104 detections
+    tile 10/15: 47 detections
+    tile 11/15: 41 detections
+    tile 12/15: 49 detections
+    tile 13/15: 65 detections
+    tile 14/15: 50 detections
+    tile 15/15: 22 detections
+    TTA consensus: 939 masks kept
+    NMS (hard): 939 masks...
+    NMS done: 537 masks kept
+    Dedup (iou>0.15, dist<=30): 537 masks...
+    Dedup done: 522 masks kept
+  02_png.rf.jZnY4zBIuej95xOExdvd.png: 522 masks
+    tile 1/15: 111 detections
+    tile 2/15: 116 detections
+    tile 3/15: 113 detections
+    tile 4/15: 102 detections
+    tile 5/15: 60 detections
+    tile 6/15: 116 detections
+    tile 7/15: 124 detections
+    tile 8/15: 145 detections
+    tile 9/15: 125 detections
+    tile 10/15: 55 detections
+    tile 11/15: 57 detections
+    tile 12/15: 65 detections
+    tile 13/15: 66 detections
+    tile 14/15: 60 detections
+    tile 15/15: 28 detections
+    tile 1/15: 94 detections
+    tile 2/15: 101 detections
+    tile 3/15: 109 detections
+    tile 4/15: 95 detections
+    tile 5/15: 37 detections
+    tile 6/15: 115 detections
+    tile 7/15: 121 detections
+    tile 8/15: 115 detections
+    tile 9/15: 109 detections
+    tile 10/15: 39 detections
+    tile 11/15: 47 detections
+    tile 12/15: 49 detections
+    tile 13/15: 50 detections
+    tile 14/15: 52 detections
+    tile 15/15: 22 detections
+    TTA consensus: 902 masks kept
+    NMS (hard): 902 masks...
+    NMS done: 487 masks kept
+    Dedup (iou>0.15, dist<=30): 487 masks...
+    Dedup done: 477 masks kept
+  03_png.rf.bNcoAUfLPBbQDd7dyeak.png: 477 masks
+============================================================
+推理完成！
+总预测数: 999
+标注文件: outputs/v4_sweep_r3/ov0p4_c35_tta/labels
+可视化: outputs/v4_sweep_r3/ov0p4_c35_tta/visualizations
+[26/38] RUN ov0p4_c36_tta
+模型: best.pt
+模式: ellipse
+置信度: 0.36
+YOLO IoU: 0.7
+TTA: 启用
+NMS:  Hard
+去重: IoU>0.15, Dist<=30px
+设备: 0
+图片数: 2
+============================================================
+    tile 1/15: 97 detections
+    tile 2/15: 117 detections
+    tile 3/15: 134 detections
+    tile 4/15: 124 detections
+    tile 5/15: 54 detections
+    tile 6/15: 117 detections
+    tile 7/15: 131 detections
+    tile 8/15: 148 detections
+    tile 9/15: 124 detections
+    tile 10/15: 65 detections
+    tile 11/15: 55 detections
+    tile 12/15: 65 detections
+    tile 13/15: 57 detections
+    tile 14/15: 53 detections
+    tile 15/15: 37 detections
+    tile 1/15: 108 detections
+    tile 2/15: 128 detections
+    tile 3/15: 113 detections
+    tile 4/15: 85 detections
+    tile 5/15: 38 detections
+    tile 6/15: 112 detections
+    tile 7/15: 135 detections
+    tile 8/15: 134 detections
+    tile 9/15: 103 detections
+    tile 10/15: 46 detections
+    tile 11/15: 41 detections
+    tile 12/15: 48 detections
+    tile 13/15: 63 detections
+    tile 14/15: 49 detections
+    tile 15/15: 21 detections
+    TTA consensus: 923 masks kept
+    NMS (hard): 923 masks...
+    NMS done: 532 masks kept
+    Dedup (iou>0.15, dist<=30): 532 masks...
+    Dedup done: 518 masks kept
+  02_png.rf.jZnY4zBIuej95xOExdvd.png: 518 masks
+    tile 1/15: 108 detections
+    tile 2/15: 116 detections
+    tile 3/15: 112 detections
+    tile 4/15: 101 detections
+    tile 5/15: 58 detections
+    tile 6/15: 115 detections
+    tile 7/15: 122 detections
+    tile 8/15: 143 detections
+    tile 9/15: 124 detections
+    tile 10/15: 54 detections
+    tile 11/15: 56 detections
+    tile 12/15: 64 detections
+    tile 13/15: 65 detections
+    tile 14/15: 59 detections
+    tile 15/15: 28 detections
+    tile 1/15: 94 detections
+    tile 2/15: 100 detections
+    tile 3/15: 107 detections
+    tile 4/15: 95 detections
+    tile 5/15: 37 detections
+    tile 6/15: 113 detections
+    tile 7/15: 120 detections
+    tile 8/15: 114 detections
+    tile 9/15: 109 detections
+    tile 10/15: 38 detections
+    tile 11/15: 45 detections
+    tile 12/15: 49 detections
+    tile 13/15: 48 detections
+    tile 14/15: 50 detections
+    tile 15/15: 22 detections
+    TTA consensus: 892 masks kept
+    NMS (hard): 892 masks...
+    NMS done: 484 masks kept
+    Dedup (iou>0.15, dist<=30): 484 masks...
+    Dedup done: 475 masks kept
+  03_png.rf.bNcoAUfLPBbQDd7dyeak.png: 475 masks
+============================================================
+推理完成！
+总预测数: 993
+标注文件: outputs/v4_sweep_r3/ov0p4_c36_tta/labels
+可视化: outputs/v4_sweep_r3/ov0p4_c36_tta/visualizations
+[27/38] RUN ov0p4_c37_tta
+模型: best.pt
+模式: ellipse
+置信度: 0.37
+YOLO IoU: 0.7
+TTA: 启用
+NMS:  Hard
+去重: IoU>0.15, Dist<=30px
+设备: 0
+图片数: 2
+============================================================
+    tile 1/15: 97 detections
+    tile 2/15: 116 detections
+    tile 3/15: 132 detections
+    tile 4/15: 124 detections
+    tile 5/15: 53 detections
+    tile 6/15: 117 detections
+    tile 7/15: 131 detections
+    tile 8/15: 146 detections
+    tile 9/15: 124 detections
+    tile 10/15: 65 detections
+    tile 11/15: 55 detections
+    tile 12/15: 65 detections
+    tile 13/15: 56 detections
+    tile 14/15: 51 detections
+    tile 15/15: 36 detections
+    tile 1/15: 107 detections
+    tile 2/15: 128 detections
+    tile 3/15: 113 detections
+    tile 4/15: 83 detections
+    tile 5/15: 38 detections
+    tile 6/15: 110 detections
+    tile 7/15: 134 detections
+    tile 8/15: 132 detections
+    tile 9/15: 100 detections
+    tile 10/15: 45 detections
+    tile 11/15: 41 detections
+    tile 12/15: 48 detections
+    tile 13/15: 61 detections
+    tile 14/15: 48 detections
+    tile 15/15: 21 detections
+    TTA consensus: 913 masks kept
+    NMS (hard): 913 masks...
+    NMS done: 524 masks kept
+    Dedup (iou>0.15, dist<=30): 524 masks...
+    Dedup done: 511 masks kept
+  02_png.rf.jZnY4zBIuej95xOExdvd.png: 511 masks
+    tile 1/15: 106 detections
+    tile 2/15: 115 detections
+    tile 3/15: 112 detections
+    tile 4/15: 100 detections
+    tile 5/15: 57 detections
+    tile 6/15: 111 detections
+    tile 7/15: 121 detections
+    tile 8/15: 141 detections
+    tile 9/15: 121 detections
+    tile 10/15: 50 detections
+    tile 11/15: 55 detections
+    tile 12/15: 61 detections
+    tile 13/15: 65 detections
+    tile 14/15: 58 detections
+    tile 15/15: 28 detections
+    tile 1/15: 94 detections
+    tile 2/15: 100 detections
+    tile 3/15: 106 detections
+    tile 4/15: 95 detections
+    tile 5/15: 36 detections
+    tile 6/15: 111 detections
+    tile 7/15: 119 detections
+    tile 8/15: 112 detections
+    tile 9/15: 108 detections
+    tile 10/15: 38 detections
+    tile 11/15: 43 detections
+    tile 12/15: 49 detections
+    tile 13/15: 45 detections
+    tile 14/15: 50 detections
+    tile 15/15: 22 detections
+    TTA consensus: 875 masks kept
+    NMS (hard): 875 masks...
+    NMS done: 478 masks kept
+    Dedup (iou>0.15, dist<=30): 478 masks...
+    Dedup done: 469 masks kept
+  03_png.rf.bNcoAUfLPBbQDd7dyeak.png: 469 masks
+============================================================
+推理完成！
+总预测数: 980
+标注文件: outputs/v4_sweep_r3/ov0p4_c37_tta/labels
+可视化: outputs/v4_sweep_r3/ov0p4_c37_tta/visualizations
+[28/38] RUN ov0p4_c38_tta
+模型: best.pt
+模式: ellipse
+置信度: 0.38
+YOLO IoU: 0.7
+TTA: 启用
+NMS:  Hard
+去重: IoU>0.15, Dist<=30px
+设备: 0
+图片数: 2
+============================================================
+    tile 1/15: 94 detections
+    tile 2/15: 115 detections
+    tile 3/15: 132 detections
+    tile 4/15: 124 detections
+    tile 5/15: 52 detections
+    tile 6/15: 115 detections
+    tile 7/15: 131 detections
+    tile 8/15: 143 detections
+    tile 9/15: 124 detections
+    tile 10/15: 64 detections
+    tile 11/15: 54 detections
+    tile 12/15: 64 detections
+    tile 13/15: 56 detections
+    tile 14/15: 51 detections
+    tile 15/15: 36 detections
+    tile 1/15: 104 detections
+    tile 2/15: 128 detections
+    tile 3/15: 111 detections
+    tile 4/15: 82 detections
+    tile 5/15: 37 detections
+    tile 6/15: 109 detections
+    tile 7/15: 134 detections
+    tile 8/15: 130 detections
+    tile 9/15: 99 detections
+    tile 10/15: 44 detections
+    tile 11/15: 40 detections
+    tile 12/15: 48 detections
+    tile 13/15: 59 detections
+    tile 14/15: 47 detections
+    tile 15/15: 21 detections
+    TTA consensus: 905 masks kept
+    NMS (hard): 905 masks...
+    NMS done: 520 masks kept
+    Dedup (iou>0.15, dist<=30): 520 masks...
+    Dedup done: 507 masks kept
+  02_png.rf.jZnY4zBIuej95xOExdvd.png: 507 masks
+    tile 1/15: 105 detections
+    tile 2/15: 114 detections
+    tile 3/15: 111 detections
+    tile 4/15: 99 detections
+    tile 5/15: 56 detections
+    tile 6/15: 109 detections
+    tile 7/15: 120 detections
+    tile 8/15: 139 detections
+    tile 9/15: 117 detections
+    tile 10/15: 48 detections
+    tile 11/15: 55 detections
+    tile 12/15: 59 detections
+    tile 13/15: 64 detections
+    tile 14/15: 56 detections
+    tile 15/15: 26 detections
+    tile 1/15: 93 detections
+    tile 2/15: 98 detections
+    tile 3/15: 105 detections
+    tile 4/15: 91 detections
+    tile 5/15: 32 detections
+    tile 6/15: 110 detections
+    tile 7/15: 119 detections
+    tile 8/15: 111 detections
+    tile 9/15: 105 detections
+    tile 10/15: 37 detections
+    tile 11/15: 40 detections
+    tile 12/15: 49 detections
+    tile 13/15: 45 detections
+    tile 14/15: 49 detections
+    tile 15/15: 21 detections
+    TTA consensus: 858 masks kept
+    NMS (hard): 858 masks...
+    NMS done: 470 masks kept
+    Dedup (iou>0.15, dist<=30): 470 masks...
+    Dedup done: 461 masks kept
+  03_png.rf.bNcoAUfLPBbQDd7dyeak.png: 461 masks
+============================================================
+推理完成！
+总预测数: 968
+标注文件: outputs/v4_sweep_r3/ov0p4_c38_tta/labels
+可视化: outputs/v4_sweep_r3/ov0p4_c38_tta/visualizations
+[29/38] RUN ov0p4_c39_tta
+模型: best.pt
+模式: ellipse
+置信度: 0.39
+YOLO IoU: 0.7
+TTA: 启用
+NMS:  Hard
+去重: IoU>0.15, Dist<=30px
+设备: 0
+图片数: 2
+============================================================
+    tile 1/15: 89 detections
+    tile 2/15: 112 detections
+    tile 3/15: 128 detections
+    tile 4/15: 122 detections
+    tile 5/15: 49 detections
+    tile 6/15: 113 detections
+    tile 7/15: 129 detections
+    tile 8/15: 142 detections
+    tile 9/15: 124 detections
+    tile 10/15: 62 detections
+    tile 11/15: 49 detections
+    tile 12/15: 64 detections
+    tile 13/15: 55 detections
+    tile 14/15: 51 detections
+    tile 15/15: 35 detections
+    tile 1/15: 101 detections
+    tile 2/15: 127 detections
+    tile 3/15: 109 detections
+    tile 4/15: 81 detections
+    tile 5/15: 33 detections
+    tile 6/15: 109 detections
+    tile 7/15: 134 detections
+    tile 8/15: 128 detections
+    tile 9/15: 98 detections
+    tile 10/15: 43 detections
+    tile 11/15: 38 detections
+    tile 12/15: 46 detections
+    tile 13/15: 58 detections
+    tile 14/15: 47 detections
+    tile 15/15: 20 detections
+    TTA consensus: 891 masks kept
+    NMS (hard): 891 masks...
+    NMS done: 511 masks kept
+    Dedup (iou>0.15, dist<=30): 511 masks...
+    Dedup done: 500 masks kept
+  02_png.rf.jZnY4zBIuej95xOExdvd.png: 500 masks
+    tile 1/15: 103 detections
+    tile 2/15: 114 detections
+    tile 3/15: 110 detections
+    tile 4/15: 99 detections
+    tile 5/15: 55 detections
+    tile 6/15: 108 detections
+    tile 7/15: 119 detections
+    tile 8/15: 135 detections
+    tile 9/15: 114 detections
+    tile 10/15: 46 detections
+    tile 11/15: 54 detections
+    tile 12/15: 58 detections
+    tile 13/15: 64 detections
+    tile 14/15: 56 detections
+    tile 15/15: 24 detections
+    tile 1/15: 92 detections
+    tile 2/15: 97 detections
+    tile 3/15: 104 detections
+    tile 4/15: 91 detections
+    tile 5/15: 32 detections
+    tile 6/15: 107 detections
+    tile 7/15: 115 detections
+    tile 8/15: 110 detections
+    tile 9/15: 104 detections
+    tile 10/15: 37 detections
+    tile 11/15: 40 detections
+    tile 12/15: 48 detections
+    tile 13/15: 44 detections
+    tile 14/15: 48 detections
+    tile 15/15: 21 detections
+    TTA consensus: 848 masks kept
+    NMS (hard): 848 masks...
+    NMS done: 465 masks kept
+    Dedup (iou>0.15, dist<=30): 465 masks...
+    Dedup done: 457 masks kept
+  03_png.rf.bNcoAUfLPBbQDd7dyeak.png: 457 masks
+============================================================
+推理完成！
+总预测数: 957
+标注文件: outputs/v4_sweep_r3/ov0p4_c39_tta/labels
+可视化: outputs/v4_sweep_r3/ov0p4_c39_tta/visualizations
+[30/38] RUN ov0p4_c40_tta
+模型: best.pt
+模式: ellipse
+置信度: 0.4
+YOLO IoU: 0.7
+TTA: 启用
+NMS:  Hard
+去重: IoU>0.15, Dist<=30px
+设备: 0
+图片数: 2
+============================================================
+    tile 1/15: 86 detections
+    tile 2/15: 108 detections
+    tile 3/15: 127 detections
+    tile 4/15: 121 detections
+    tile 5/15: 47 detections
+    tile 6/15: 108 detections
+    tile 7/15: 124 detections
+    tile 8/15: 140 detections
+    tile 9/15: 123 detections
+    tile 10/15: 60 detections
+    tile 11/15: 49 detections
+    tile 12/15: 64 detections
+    tile 13/15: 53 detections
+    tile 14/15: 50 detections
+    tile 15/15: 35 detections
+    tile 1/15: 101 detections
+    tile 2/15: 126 detections
+    tile 3/15: 106 detections
+    tile 4/15: 81 detections
+    tile 5/15: 31 detections
+    tile 6/15: 107 detections
+    tile 7/15: 134 detections
+    tile 8/15: 125 detections
+    tile 9/15: 97 detections
+    tile 10/15: 39 detections
+    tile 11/15: 38 detections
+    tile 12/15: 46 detections
+    tile 13/15: 58 detections
+    tile 14/15: 47 detections
+    tile 15/15: 19 detections
+    TTA consensus: 881 masks kept
+    NMS (hard): 881 masks...
+    NMS done: 505 masks kept
+    Dedup (iou>0.15, dist<=30): 505 masks...
+    Dedup done: 494 masks kept
+  02_png.rf.jZnY4zBIuej95xOExdvd.png: 494 masks
+    tile 1/15: 102 detections
+    tile 2/15: 114 detections
+    tile 3/15: 110 detections
+    tile 4/15: 99 detections
+    tile 5/15: 52 detections
+    tile 6/15: 108 detections
+    tile 7/15: 118 detections
+    tile 8/15: 133 detections
+    tile 9/15: 114 detections
+    tile 10/15: 44 detections
+    tile 11/15: 53 detections
+    tile 12/15: 57 detections
+    tile 13/15: 63 detections
+    tile 14/15: 55 detections
+    tile 15/15: 23 detections
+    tile 1/15: 91 detections
+    tile 2/15: 95 detections
+    tile 3/15: 104 detections
+    tile 4/15: 89 detections
+    tile 5/15: 32 detections
+    tile 6/15: 103 detections
+    tile 7/15: 111 detections
+    tile 8/15: 107 detections
+    tile 9/15: 102 detections
+    tile 10/15: 35 detections
+    tile 11/15: 40 detections
+    tile 12/15: 47 detections
+    tile 13/15: 41 detections
+    tile 14/15: 48 detections
+    tile 15/15: 21 detections
+    TTA consensus: 834 masks kept
+    NMS (hard): 834 masks...
+    NMS done: 454 masks kept
+    Dedup (iou>0.15, dist<=30): 454 masks...
+    Dedup done: 447 masks kept
+  03_png.rf.bNcoAUfLPBbQDd7dyeak.png: 447 masks
+============================================================
+推理完成！
+总预测数: 941
+标注文件: outputs/v4_sweep_r3/ov0p4_c40_tta/labels
+可视化: outputs/v4_sweep_r3/ov0p4_c40_tta/visualizations
+[31/38] RUN ov0p4_c41_tta
+模型: best.pt
+模式: ellipse
+置信度: 0.41
+YOLO IoU: 0.7
+TTA: 启用
+NMS:  Hard
+去重: IoU>0.15, Dist<=30px
+设备: 0
+图片数: 2
+============================================================
+    tile 1/15: 80 detections
+    tile 2/15: 107 detections
+    tile 3/15: 126 detections
+    tile 4/15: 120 detections
+    tile 5/15: 47 detections
+    tile 6/15: 105 detections
+    tile 7/15: 122 detections
+    tile 8/15: 137 detections
+    tile 9/15: 122 detections
+    tile 10/15: 59 detections
+    tile 11/15: 49 detections
+    tile 12/15: 61 detections
+    tile 13/15: 52 detections
+    tile 14/15: 50 detections
+    tile 15/15: 34 detections
+    tile 1/15: 101 detections
+    tile 2/15: 122 detections
+    tile 3/15: 106 detections
+    tile 4/15: 79 detections
+    tile 5/15: 28 detections
+    tile 6/15: 105 detections
+    tile 7/15: 132 detections
+    tile 8/15: 122 detections
+    tile 9/15: 96 detections
+    tile 10/15: 39 detections
+    tile 11/15: 37 detections
+    tile 12/15: 46 detections
+    tile 13/15: 57 detections
+    tile 14/15: 47 detections
+    tile 15/15: 18 detections
+    TTA consensus: 865 masks kept
+    NMS (hard): 865 masks...
+    NMS done: 494 masks kept
+    Dedup (iou>0.15, dist<=30): 494 masks...
+    Dedup done: 483 masks kept
+  02_png.rf.jZnY4zBIuej95xOExdvd.png: 483 masks
+    tile 1/15: 99 detections
+    tile 2/15: 112 detections
+    tile 3/15: 108 detections
+    tile 4/15: 99 detections
+    tile 5/15: 51 detections
+    tile 6/15: 108 detections
+    tile 7/15: 117 detections
+    tile 8/15: 130 detections
+    tile 9/15: 113 detections
+    tile 10/15: 44 detections
+    tile 11/15: 52 detections
+    tile 12/15: 57 detections
+    tile 13/15: 60 detections
+    tile 14/15: 55 detections
+    tile 15/15: 22 detections
+    tile 1/15: 91 detections
+    tile 2/15: 94 detections
+    tile 3/15: 102 detections
+    tile 4/15: 87 detections
+    tile 5/15: 31 detections
+    tile 6/15: 100 detections
+    tile 7/15: 109 detections
+    tile 8/15: 104 detections
+    tile 9/15: 101 detections
+    tile 10/15: 35 detections
+    tile 11/15: 38 detections
+    tile 12/15: 46 detections
+    tile 13/15: 41 detections
+    tile 14/15: 46 detections
+    tile 15/15: 20 detections
+    TTA consensus: 816 masks kept
+    NMS (hard): 816 masks...
+    NMS done: 443 masks kept
+    Dedup (iou>0.15, dist<=30): 443 masks...
+    Dedup done: 436 masks kept
+  03_png.rf.bNcoAUfLPBbQDd7dyeak.png: 436 masks
+============================================================
+推理完成！
+总预测数: 919
+标注文件: outputs/v4_sweep_r3/ov0p4_c41_tta/labels
+可视化: outputs/v4_sweep_r3/ov0p4_c41_tta/visualizations
+[32/38] RUN ov0p4_c42_tta
+模型: best.pt
+模式: ellipse
+置信度: 0.42
+YOLO IoU: 0.7
+TTA: 启用
+NMS:  Hard
+去重: IoU>0.15, Dist<=30px
+设备: 0
+图片数: 2
+============================================================
+    tile 1/15: 79 detections
+    tile 2/15: 106 detections
+    tile 3/15: 124 detections
+    tile 4/15: 119 detections
+    tile 5/15: 46 detections
+    tile 6/15: 104 detections
+    tile 7/15: 121 detections
+    tile 8/15: 136 detections
+    tile 9/15: 120 detections
+    tile 10/15: 58 detections
+    tile 11/15: 47 detections
+    tile 12/15: 60 detections
+    tile 13/15: 51 detections
+    tile 14/15: 49 detections
+    tile 15/15: 32 detections
+    tile 1/15: 98 detections
+    tile 2/15: 119 detections
+    tile 3/15: 103 detections
+    tile 4/15: 78 detections
+    tile 5/15: 27 detections
+    tile 6/15: 101 detections
+    tile 7/15: 131 detections
+    tile 8/15: 121 detections
+    tile 9/15: 94 detections
+    tile 10/15: 35 detections
+    tile 11/15: 36 detections
+    tile 12/15: 46 detections
+    tile 13/15: 57 detections
+    tile 14/15: 46 detections
+    tile 15/15: 18 detections
+    TTA consensus: 849 masks kept
+    NMS (hard): 849 masks...
+    NMS done: 488 masks kept
+    Dedup (iou>0.15, dist<=30): 488 masks...
+    Dedup done: 477 masks kept
+  02_png.rf.jZnY4zBIuej95xOExdvd.png: 477 masks
+    tile 1/15: 96 detections
+    tile 2/15: 112 detections
+    tile 3/15: 107 detections
+    tile 4/15: 96 detections
+    tile 5/15: 49 detections
+    tile 6/15: 106 detections
+    tile 7/15: 117 detections
+    tile 8/15: 129 detections
+    tile 9/15: 106 detections
+    tile 10/15: 40 detections
+    tile 11/15: 52 detections
+    tile 12/15: 55 detections
+    tile 13/15: 59 detections
+    tile 14/15: 53 detections
+    tile 15/15: 21 detections
+    tile 1/15: 90 detections
+    tile 2/15: 93 detections
+    tile 3/15: 101 detections
+    tile 4/15: 85 detections
+    tile 5/15: 31 detections
+    tile 6/15: 99 detections
+    tile 7/15: 109 detections
+    tile 8/15: 99 detections
+    tile 9/15: 100 detections
+    tile 10/15: 32 detections
+    tile 11/15: 36 detections
+    tile 12/15: 45 detections
+    tile 13/15: 39 detections
+    tile 14/15: 46 detections
+    tile 15/15: 20 detections
+    TTA consensus: 801 masks kept
+    NMS (hard): 801 masks...
+    NMS done: 435 masks kept
+    Dedup (iou>0.15, dist<=30): 435 masks...
+    Dedup done: 428 masks kept
+  03_png.rf.bNcoAUfLPBbQDd7dyeak.png: 428 masks
+============================================================
+推理完成！
+总预测数: 905
+标注文件: outputs/v4_sweep_r3/ov0p4_c42_tta/labels
+可视化: outputs/v4_sweep_r3/ov0p4_c42_tta/visualizations
+[33/38] RUN ov0p25_c38_soft_tta
+模型: best.pt
+模式: ellipse
+置信度: 0.38
+YOLO IoU: 0.7
+TTA: 启用
+NMS:  Soft
+去重: IoU>0.15, Dist<=30px
+设备: 0
+图片数: 2
+============================================================
+    tile 1/12: 94 detections
+    tile 2/12: 121 detections
+    tile 3/12: 135 detections
+    tile 4/12: 73 detections
+    tile 5/12: 112 detections
+    tile 6/12: 149 detections
+    tile 7/12: 131 detections
+    tile 8/12: 86 detections
+    tile 9/12: 19 detections
+    tile 10/12: 28 detections
+    tile 11/12: 25 detections
+    tile 12/12: 19 detections
+    tile 1/12: 104 detections
+    tile 2/12: 123 detections
+    tile 3/12: 97 detections
+    tile 4/12: 42 detections
+    tile 5/12: 99 detections
+    tile 6/12: 125 detections
+    tile 7/12: 103 detections
+    tile 8/12: 55 detections
+    tile 9/12: 19 detections
+    tile 10/12: 25 detections
+    tile 11/12: 21 detections
+    tile 12/12: 12 detections
+    TTA consensus: 654 masks kept
+    NMS (soft): 654 masks...
+    NMS done: 524 masks kept
+    Dedup (iou>0.15, dist<=30): 524 masks...
+    Dedup done: 504 masks kept
+  02_png.rf.jZnY4zBIuej95xOExdvd.png: 504 masks
+    tile 1/12: 105 detections
+    tile 2/12: 114 detections
+    tile 3/12: 107 detections
+    tile 4/12: 68 detections
+    tile 5/12: 109 detections
+    tile 6/12: 119 detections
+    tile 7/12: 126 detections
+    tile 8/12: 70 detections
+    tile 9/12: 17 detections
+    tile 10/12: 27 detections
+    tile 11/12: 26 detections
+    tile 12/12: 18 detections
+    tile 1/12: 93 detections
+    tile 2/12: 98 detections
+    tile 3/12: 97 detections
+    tile 4/12: 50 detections
+    tile 5/12: 99 detections
+    tile 6/12: 109 detections
+    tile 7/12: 99 detections
+    tile 8/12: 58 detections
+    tile 9/12: 20 detections
+    tile 10/12: 21 detections
+    tile 11/12: 15 detections
+    tile 12/12: 10 detections
+    TTA consensus: 592 masks kept
+    NMS (soft): 592 masks...
+    NMS done: 472 masks kept
+    Dedup (iou>0.15, dist<=30): 472 masks...
+    Dedup done: 462 masks kept
+  03_png.rf.bNcoAUfLPBbQDd7dyeak.png: 462 masks
+============================================================
+推理完成！
+总预测数: 966
+标注文件: outputs/v4_sweep_r3/ov0p25_c38_soft_tta/labels
+可视化: outputs/v4_sweep_r3/ov0p25_c38_soft_tta/visualizations
+[34/38] RUN ov0p3_c41_soft_tta
+模型: best.pt
+模式: ellipse
+置信度: 0.41
+YOLO IoU: 0.7
+TTA: 启用
+NMS:  Soft
+去重: IoU>0.15, Dist<=30px
+设备: 0
+图片数: 2
+============================================================
+    tile 1/15: 80 detections
+    tile 2/15: 107 detections
+    tile 3/15: 126 detections
+    tile 4/15: 93 detections
+    tile 5/15: 11 detections
+    tile 6/15: 97 detections
+    tile 7/15: 125 detections
+    tile 8/15: 92 detections
+    tile 9/15: 79 detections
+    tile 10/15: 16 detections
+    tile 11/15: 31 detections
+    tile 12/15: 36 detections
+    tile 13/15: 30 detections
+    tile 14/15: 31 detections
+    tile 15/15: 5 detections
+    tile 1/15: 101 detections
+    tile 2/15: 125 detections
+    tile 3/15: 92 detections
+    tile 4/15: 47 detections
+    tile 5/15: 4 detections
+    tile 6/15: 75 detections
+    tile 7/15: 93 detections
+    tile 8/15: 98 detections
+    tile 9/15: 61 detections
+    tile 10/15: 6 detections
+    tile 11/15: 24 detections
+    tile 12/15: 27 detections
+    tile 13/15: 30 detections
+    tile 14/15: 21 detections
+    tile 15/15: 2 detections
+    TTA consensus: 691 masks kept
+    NMS (soft): 691 masks...
+    NMS done: 461 masks kept
+    Dedup (iou>0.15, dist<=30): 461 masks...
+    Dedup done: 443 masks kept
+  02_png.rf.jZnY4zBIuej95xOExdvd.png: 443 masks
+    tile 1/15: 99 detections
+    tile 2/15: 115 detections
+    tile 3/15: 99 detections
+    tile 4/15: 77 detections
+    tile 5/15: 14 detections
+    tile 6/15: 94 detections
+    tile 7/15: 99 detections
+    tile 8/15: 114 detections
+    tile 9/15: 80 detections
+    tile 10/15: 15 detections
+    tile 11/15: 24 detections
+    tile 12/15: 35 detections
+    tile 13/15: 34 detections
+    tile 14/15: 31 detections
+    tile 15/15: 2 detections
+    tile 1/15: 91 detections
+    tile 2/15: 95 detections
+    tile 3/15: 100 detections
+    tile 4/15: 58 detections
+    tile 5/15: 5 detections
+    tile 6/15: 89 detections
+    tile 7/15: 87 detections
+    tile 8/15: 76 detections
+    tile 9/15: 55 detections
+    tile 10/15: 4 detections
+    tile 11/15: 25 detections
+    tile 12/15: 23 detections
+    tile 13/15: 20 detections
+    tile 14/15: 17 detections
+    tile 15/15: 1 detections
+    TTA consensus: 649 masks kept
+    NMS (soft): 649 masks...
+    NMS done: 421 masks kept
+    Dedup (iou>0.15, dist<=30): 421 masks...
+    Dedup done: 403 masks kept
+  03_png.rf.bNcoAUfLPBbQDd7dyeak.png: 403 masks
+============================================================
+推理完成！
+总预测数: 846
+标注文件: outputs/v4_sweep_r3/ov0p3_c41_soft_tta/labels
+可视化: outputs/v4_sweep_r3/ov0p3_c41_soft_tta/visualizations
+[35/38] RUN ov0p35_c42_soft_tta
+模型: best.pt
+模式: ellipse
+置信度: 0.42
+YOLO IoU: 0.7
+TTA: 启用
+NMS:  Soft
+去重: IoU>0.15, Dist<=30px
+设备: 0
+图片数: 2
+============================================================
+    tile 1/15: 79 detections
+    tile 2/15: 106 detections
+    tile 3/15: 129 detections
+    tile 4/15: 111 detections
+    tile 5/15: 25 detections
+    tile 6/15: 101 detections
+    tile 7/15: 130 detections
+    tile 8/15: 132 detections
+    tile 9/15: 107 detections
+    tile 10/15: 36 detections
+    tile 11/15: 39 detections
+    tile 12/15: 52 detections
+    tile 13/15: 41 detections
+    tile 14/15: 38 detections
+    tile 15/15: 16 detections
+    tile 1/15: 98 detections
+    tile 2/15: 123 detections
+    tile 3/15: 100 detections
+    tile 4/15: 73 detections
+    tile 5/15: 14 detections
+    tile 6/15: 101 detections
+    tile 7/15: 129 detections
+    tile 8/15: 121 detections
+    tile 9/15: 89 detections
+    tile 10/15: 17 detections
+    tile 11/15: 30 detections
+    tile 12/15: 36 detections
+    tile 13/15: 42 detections
+    tile 14/15: 34 detections
+    tile 15/15: 12 detections
+    TTA consensus: 907 masks kept
+    NMS (soft): 907 masks...
+    NMS done: 512 masks kept
+    Dedup (iou>0.15, dist<=30): 512 masks...
+    Dedup done: 484 masks kept
+  02_png.rf.jZnY4zBIuej95xOExdvd.png: 484 masks
+    tile 1/15: 96 detections
+    tile 2/15: 110 detections
+    tile 3/15: 101 detections
+    tile 4/15: 98 detections
+    tile 5/15: 31 detections
+    tile 6/15: 108 detections
+    tile 7/15: 121 detections
+    tile 8/15: 117 detections
+    tile 9/15: 121 detections
+    tile 10/15: 28 detections
+    tile 11/15: 35 detections
+    tile 12/15: 46 detections
+    tile 13/15: 43 detections
+    tile 14/15: 41 detections
+    tile 15/15: 11 detections
+    tile 1/15: 90 detections
+    tile 2/15: 93 detections
+    tile 3/15: 102 detections
+    tile 4/15: 82 detections
+    tile 5/15: 16 detections
+    tile 6/15: 107 detections
+    tile 7/15: 105 detections
+    tile 8/15: 99 detections
+    tile 9/15: 101 detections
+    tile 10/15: 20 detections
+    tile 11/15: 30 detections
+    tile 12/15: 37 detections
+    tile 13/15: 28 detections
+    tile 14/15: 37 detections
+    tile 15/15: 6 detections
+    TTA consensus: 840 masks kept
+    NMS (soft): 840 masks...
+    NMS done: 469 masks kept
+    Dedup (iou>0.15, dist<=30): 469 masks...
+    Dedup done: 438 masks kept
+  03_png.rf.bNcoAUfLPBbQDd7dyeak.png: 438 masks
+============================================================
+推理完成！
+总预测数: 922
+标注文件: outputs/v4_sweep_r3/ov0p35_c42_soft_tta/labels
+可视化: outputs/v4_sweep_r3/ov0p35_c42_soft_tta/visualizations
+[36/38] RUN ov0p25_c38_notta
+模型: best.pt
+模式: ellipse
+置信度: 0.38
+YOLO IoU: 0.7
+TTA: 关闭
+NMS:  Hard
+去重: IoU>0.15, Dist<=30px
+设备: 0
+图片数: 2
+============================================================
+    tile 1/12: 94 detections
+    tile 2/12: 121 detections
+    tile 3/12: 135 detections
+    tile 4/12: 73 detections
+    tile 5/12: 112 detections
+    tile 6/12: 149 detections
+    tile 7/12: 131 detections
+    tile 8/12: 86 detections
+    tile 9/12: 19 detections
+    tile 10/12: 28 detections
+    tile 11/12: 25 detections
+    tile 12/12: 19 detections
+    NMS (hard): 992 masks...
+    NMS done: 605 masks kept
+    Dedup (iou>0.15, dist<=30): 605 masks...
+    Dedup done: 578 masks kept
+  02_png.rf.jZnY4zBIuej95xOExdvd.png: 578 masks
+    tile 1/12: 105 detections
+    tile 2/12: 114 detections
+    tile 3/12: 107 detections
+    tile 4/12: 68 detections
+    tile 5/12: 109 detections
+    tile 6/12: 119 detections
+    tile 7/12: 126 detections
+    tile 8/12: 70 detections
+    tile 9/12: 17 detections
+    tile 10/12: 27 detections
+    tile 11/12: 26 detections
+    tile 12/12: 18 detections
+    NMS (hard): 906 masks...
+    NMS done: 561 masks kept
+    Dedup (iou>0.15, dist<=30): 561 masks...
+    Dedup done: 534 masks kept
+  03_png.rf.bNcoAUfLPBbQDd7dyeak.png: 534 masks
+============================================================
+推理完成！
+总预测数: 1112
+标注文件: outputs/v4_sweep_r3/ov0p25_c38_notta/labels
+可视化: outputs/v4_sweep_r3/ov0p25_c38_notta/visualizations
+[37/38] RUN ov0p3_c41_notta
+模型: best.pt
+模式: ellipse
+置信度: 0.41
+YOLO IoU: 0.7
+TTA: 关闭
+NMS:  Hard
+去重: IoU>0.15, Dist<=30px
+设备: 0
+图片数: 2
+============================================================
+    tile 1/15: 80 detections
+    tile 2/15: 107 detections
+    tile 3/15: 126 detections
+    tile 4/15: 93 detections
+    tile 5/15: 11 detections
+    tile 6/15: 97 detections
+    tile 7/15: 125 detections
+    tile 8/15: 92 detections
+    tile 9/15: 79 detections
+    tile 10/15: 16 detections
+    tile 11/15: 31 detections
+    tile 12/15: 36 detections
+    tile 13/15: 30 detections
+    tile 14/15: 31 detections
+    tile 15/15: 5 detections
+    NMS (hard): 959 masks...
+    NMS done: 556 masks kept
+    Dedup (iou>0.15, dist<=30): 556 masks...
+    Dedup done: 533 masks kept
+  02_png.rf.jZnY4zBIuej95xOExdvd.png: 533 masks
+    tile 1/15: 99 detections
+    tile 2/15: 115 detections
+    tile 3/15: 99 detections
+    tile 4/15: 77 detections
+    tile 5/15: 14 detections
+    tile 6/15: 94 detections
+    tile 7/15: 99 detections
+    tile 8/15: 114 detections
+    tile 9/15: 80 detections
+    tile 10/15: 15 detections
+    tile 11/15: 24 detections
+    tile 12/15: 35 detections
+    tile 13/15: 34 detections
+    tile 14/15: 31 detections
+    tile 15/15: 2 detections
+    NMS (hard): 932 masks...
+    NMS done: 521 masks kept
+    Dedup (iou>0.15, dist<=30): 521 masks...
+    Dedup done: 498 masks kept
+  03_png.rf.bNcoAUfLPBbQDd7dyeak.png: 498 masks
+============================================================
+推理完成！
+总预测数: 1031
+标注文件: outputs/v4_sweep_r3/ov0p3_c41_notta/labels
+可视化: outputs/v4_sweep_r3/ov0p3_c41_notta/visualizations
+[38/38] RUN ov0p35_c42_notta
+模型: best.pt
+模式: ellipse
+置信度: 0.42
+YOLO IoU: 0.7
+TTA: 关闭
+NMS:  Hard
+去重: IoU>0.15, Dist<=30px
+设备: 0
+图片数: 2
+============================================================
+    tile 1/15: 79 detections
+    tile 2/15: 106 detections
+    tile 3/15: 129 detections
+    tile 4/15: 111 detections
+    tile 5/15: 25 detections
+    tile 6/15: 101 detections
+    tile 7/15: 130 detections
+    tile 8/15: 132 detections
+    tile 9/15: 107 detections
+    tile 10/15: 36 detections
+    tile 11/15: 39 detections
+    tile 12/15: 52 detections
+    tile 13/15: 41 detections
+    tile 14/15: 38 detections
+    tile 15/15: 16 detections
+    NMS (hard): 1142 masks...
+    NMS done: 571 masks kept
+    Dedup (iou>0.15, dist<=30): 571 masks...
+    Dedup done: 546 masks kept
+  02_png.rf.jZnY4zBIuej95xOExdvd.png: 546 masks
+    tile 1/15: 96 detections
+    tile 2/15: 110 detections
+    tile 3/15: 101 detections
+    tile 4/15: 98 detections
+    tile 5/15: 31 detections
+    tile 6/15: 108 detections
+    tile 7/15: 121 detections
+    tile 8/15: 117 detections
+    tile 9/15: 121 detections
+    tile 10/15: 28 detections
+    tile 11/15: 35 detections
+    tile 12/15: 46 detections
+    tile 13/15: 43 detections
+    tile 14/15: 41 detections
+    tile 15/15: 11 detections
+    NMS (hard): 1107 masks...
+    NMS done: 536 masks kept
+    Dedup (iou>0.15, dist<=30): 536 masks...
+    Dedup done: 506 masks kept
+  03_png.rf.bNcoAUfLPBbQDd7dyeak.png: 506 masks
+============================================================
+推理完成！
+总预测数: 1052
+标注文件: outputs/v4_sweep_r3/ov0p35_c42_notta/labels
+可视化: outputs/v4_sweep_r3/ov0p35_c42_notta/visualizations
+
+=====================================================================================
+Config                               F1 Recall   Prec  CntErr
+-------------------------------------------------------------------------------------
+ov0p32_c35_tta                   0.7509 0.7652 0.7371   3.8%
+ov0p32_c36_tta                   0.7513 0.7621 0.7407   2.8%
+ov0p32_c37_tta                   0.7510 0.7549 0.7472   2.5%
+ov0p32_c38_tta                   0.7474 0.7467 0.7482   2.9%
+ov0p32_c39_tta                   0.7469 0.7384 0.7555   3.4%
+ov0p32_c40_tta                   0.7447 0.7302 0.7599   4.0%
+ov0p32_c41_tta                   0.7471 0.7271 0.7682   5.4%
+ov0p32_c42_tta                   0.7437 0.7188 0.7704   6.7%
+ov0p35_c35_tta                   0.7518 0.7673 0.7369   4.1%
+ov0p35_c36_tta                   0.7478 0.7590 0.7370   2.9%
+ov0p35_c37_tta                   0.7457 0.7518 0.7396   2.9%
+ov0p35_c38_tta                   0.7451 0.7467 0.7436   3.3%
+ov0p35_c39_tta                   0.7433 0.7394 0.7471   3.5%
+ov0p35_c40_tta                   0.7401 0.7302 0.7503   3.4%
+ov0p35_c41_tta                   0.7405 0.7261 0.7556   4.0%
+ov0p35_c42_tta                   0.7375 0.7188 0.7570   5.1%
+ov0p38_c35_tta                   0.7445 0.7621 0.7276   4.7%
+ov0p38_c36_tta                   0.7432 0.7570 0.7299   3.7%
+ov0p38_c37_tta                   0.7412 0.7477 0.7348   2.3%
+ov0p38_c38_tta                   0.7413 0.7436 0.7390   2.7%
+ov0p38_c39_tta                   0.7394 0.7364 0.7425   2.7%
+ov0p38_c40_tta                   0.7395 0.7322 0.7468   2.8%
+ov0p38_c41_tta                   0.7383 0.7250 0.7521   3.7%
+ov0p38_c42_tta                   0.7338 0.7127 0.7563   5.8%
+ov0p4_c35_tta                    0.7462 0.7570 0.7357   2.8%
+ov0p4_c36_tta                    0.7475 0.7559 0.7392   2.2%
+ov0p4_c37_tta                    0.7442 0.7477 0.7408   1.9%
+ov0p4_c38_tta                    0.7427 0.7415 0.7438   2.4%
+ov0p4_c39_tta                    0.7396 0.7343 0.7450   2.1%
+ov0p4_c40_tta                    0.7364 0.7250 0.7481   3.1%
+ov0p4_c41_tta                    0.7333 0.7137 0.7541   5.4%
+ov0p4_c42_tta                    0.7303 0.7055 0.7569   6.9%
+ov0p25_c38_soft_tta              0.7372 0.7353 0.7391   2.0%
+ov0p3_c41_soft_tta               0.7232 0.6766 0.7766  12.9%
+ov0p35_c42_soft_tta              0.7375 0.7188 0.7570   5.1%
+ov0p25_c38_notta                 0.7393 0.7930 0.6924  14.5%
+ov0p3_c41_notta                  0.7353 0.7580 0.7139   6.2%
+ov0p35_c42_notta                 0.7405 0.7714 0.7120   8.3%
+
+Top 5 (F1):
+1. ov0p35_c35_tta               F1=0.7518 R=0.7673 P=0.7369 Err=4.1%
+2. ov0p32_c36_tta               F1=0.7513 R=0.7621 P=0.7407 Err=2.8%
+3. ov0p32_c37_tta               F1=0.7510 R=0.7549 P=0.7472 Err=2.5%
+4. ov0p32_c35_tta               F1=0.7509 R=0.7652 P=0.7371 Err=3.8%
+5. ov0p35_c36_tta               F1=0.7478 R=0.7590 P=0.7370 Err=2.9%
+
+Top 5 (计数误差):
+1. ov0p4_c37_tta                F1=0.7442 R=0.7477 P=0.7408 Err=1.9%
+2. ov0p25_c38_soft_tta          F1=0.7372 R=0.7353 P=0.7391 Err=2.0%
+3. ov0p4_c39_tta                F1=0.7396 R=0.7343 P=0.7450 Err=2.1%
+4. ov0p4_c36_tta                F1=0.7475 R=0.7559 P=0.7392 Err=2.2%
+5. ov0p38_c37_tta               F1=0.7412 R=0.7477 P=0.7348 Err=2.3%

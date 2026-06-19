@@ -1,5 +1,5 @@
 """
-模型对比脚本 — v1 vs v2，nano vs small，4 张测试图。
+模型对比脚本 — v1 vs v3，nano vs small，4 张测试图。
 
 自动：
   1. 准备统一测试集（test + valid → outputs/test4/）
@@ -10,7 +10,7 @@
 使用方式：
     python scripts/sweep/compare_models.py
     python scripts/sweep/compare_models.py --mode baseline
-    v2 模型训练完成后运行此脚本得到最终对比结果。
+    v3 模型训练完成后运行此脚本得到最终对比结果。
 """
 
 import os
@@ -25,20 +25,20 @@ PROJECT_ROOT = Path(__file__).resolve().parents[2]
 
 # ── 配置 ────────────────────────────────────────────
 TEST_SETS = [
-    PROJECT_ROOT / "dataset" / "data_v2_aug" / "test",
-    PROJECT_ROOT / "dataset" / "data_v2_aug" / "valid",
+    PROJECT_ROOT / "dataset" / "data_v3_aug" / "test",
+    PROJECT_ROOT / "dataset" / "data_v3_aug" / "valid",
 ]
 
 MODELS = [
     ("v1-nano", PROJECT_ROOT / "models" / "glass_bead_seg" / "yolo11n-seg-v1" / "weights" / "best.pt"),
     ("v1-small", PROJECT_ROOT / "models" / "glass_bead_seg" / "yolo11s-seg-v1" / "weights" / "best.pt"),
-    ("v2-nano", PROJECT_ROOT / "models" / "glass_bead_seg" / "yolo11n-seg-v2" / "weights" / "best.pt"),
-    ("v2-nano-best", PROJECT_ROOT / "models" / "glass_bead_seg" / "yolo11n-seg-v2" / "weights" / "best.pt"),
-    ("v2-nano-last", PROJECT_ROOT / "models" / "glass_bead_seg" / "yolo11n-seg-v2" / "weights" / "last.pt"),
-    ("v2-small", PROJECT_ROOT / "models" / "glass_bead_seg" / "yolo11s-seg-v2" / "weights" / "best.pt"),
+    ("v3-nano", PROJECT_ROOT / "models" / "glass_bead_seg" / "yolo11n-seg-v3" / "weights" / "best.pt"),
+    ("v3-nano-best", PROJECT_ROOT / "models" / "glass_bead_seg" / "yolo11n-seg-v3" / "weights" / "best.pt"),
+    ("v3-nano-last", PROJECT_ROOT / "models" / "glass_bead_seg" / "yolo11n-seg-v3" / "weights" / "last.pt"),
+    ("v3-small", PROJECT_ROOT / "models" / "glass_bead_seg" / "yolo11s-seg-v3" / "weights" / "best.pt"),
 ]
 
-# 去重（v2-nano 和 v2-nano-best 指向同一个文件，只保留一个）
+# 去重（v3-nano 和 v3-nano-best 指向同一个文件，只保留一个）
 _seen = set()
 MODELS_DEDUP = []
 for label, path in MODELS:
@@ -62,7 +62,7 @@ def _extract(log_text, pattern):
 
 
 def main():
-    parser = argparse.ArgumentParser(description="v1 vs v2 模型对比")
+    parser = argparse.ArgumentParser(description="v1 vs v3 模型对比")
     parser.add_argument("--mode", choices=["baseline", "ellipse"], default="ellipse",
                         help="推理模式 (default: ellipse)")
     parser.add_argument("--conf", type=float, default=0.3,
@@ -99,7 +99,7 @@ def main():
         print(f"测试集准备好: {n_img} 张图, {n_lbl} 个标注")
 
     print("=" * 70)
-    print(f"模型对比：v1 vs v2")
+    print(f"模型对比：v1 vs v3")
     print(f"模式: {args.mode}  conf={args.conf}")
     if args.dedup_iou > 0:
         print(f"去重: IoU>{args.dedup_iou}, Dist<={args.dedup_dist}px")

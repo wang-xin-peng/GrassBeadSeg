@@ -1,0 +1,9 @@
+dataset/auto_labeled/images/*.png filter=lfs diff=lfs merge=lfs -text
+*.cache filter=lfs diff=lfs merge=lfs -text
+*.zip filter=lfs diff=lfs merge=lfs -text
+*.pth filter=lfs diff=lfs merge=lfs -text
+*.pt filter=lfs diff=lfs merge=lfs -text
+dataset/**/*_aug*/**/*.png filter=lfs diff=lfs merge=lfs -text
+dataset/**/*augmented*/**/*.png filter=lfs diff=lfs merge=lfs -text
+dataset/new_images/*.png filter=lfs diff=lfs merge=lfs -text
+outputs/**/*.png filter=lfs diff=lfs merge=lfs -text
