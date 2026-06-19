@@ -3,4 +3,4 @@ val: ../auto_labeled/images
 test: ../auto_labeled/images
 
 nc: 1
-names: ['GrassBeadSeg']
+names: ['GlassBeadSeg']

@@ -15,6 +15,16 @@
 
 > **逐版提升**: v1→v2 +15.5% | v2→v3 +14.1% | v3→v4 +1.9% | 总计 v1→v4 **+34.3%**（0.560→0.752）
 
+### 预训练模型选择
+
+四个版本均使用 **YOLOv11n-seg**（2.6M 参数）作为基础模型，加载 **COCO 预训练权重**（`yolo11n-seg.pt`）。v1/v2 同时对比了 YOLOv11s-seg（9.4M 参数）：
+
+- **v1-small**：F1=0.628，略高于 nano (0.560)，但推理速度和显存占用明显更大
+- **v2-small**：计数误差高达 50.1%（nano 仅 4.5%），说明小数据集上 large model 过拟合严重
+- v2 之后确定 nano 为最优选择，弃用 small
+
+结论：在 10~40 张小样本场景下，**2.6M 的 nano 比 9.4M 的 small 更抗过拟合**，且推理更快、显存更省。预训练权重均来自 COCO 实例分割任务，提供了良好的底层特征提取能力。
+
 ### v1: Baseline
 
 - **数据集**：`data_v1` — 10 张人工标注（train=6, valid=2, test=2）
@@ -303,7 +313,8 @@ python scripts/sweep/sweep_v3_r3.py       # 大 overlap + soft-nms
 python scripts/auto_label/inference_rfdetr.py
 ```
 
-RF-DETR 用于辅助标注，需人工修复和标注，不能直接用预训练，自动标注的 ~15% 漏标率影响模型 precision。
+项目中使用 RF-DETR 对原始图片进行自动标注以加速数据扩展的路径。RF-DETR 在 data_aug_v1上完成训练后，对 30 张新图片生成了自动标注结果。由于存在
+~15% 的漏标率，直接混入训练集会拉低模型 precision，只能用于辅助人工标注。
 
 ---
 
